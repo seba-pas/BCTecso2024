@@ -1,21 +1,20 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
+  email: Yup.string("Debe ingresar su usuario")
     .email("Debe ingresar un email")
-    .required("Email is required"),
+    .required("Usuario es requerido"),
   password: Yup.string()
-    .matches(/\d.*\d/, "El password debe contener dos numeros")
-    .required("Password is required"),
+    .matches(/^\d+$/, "El password debe ser numérico")
+    .required("Password es requerido"),
 });
 
 function Login() {
-  // const navigate = useNavigate();
-
+  const navigate = useNavigate();
   const handleSubmit = (values) => {
     console.log("Email:", values.email);
     console.log("Password:", values.password);
@@ -25,13 +24,12 @@ function Login() {
         password: values.password,
       })
       .then((response) => {
-        console.log("Response:", response.data);
+        console.log("Response:", response.data?.token);
+        navigate("/home");
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    // navigate("/home");
   };
 
   return (
@@ -59,26 +57,24 @@ function Login() {
             touched,
             handleChange,
             handleBlur,
-            handleSubmit,
+            handleSubmit: formikHandleSubmit,
             isSubmitting,
           }) => (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={formikHandleSubmit}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
-                  type="email"
+                  type="emial"
                   name="email"
-                  placeholder="Enter email"
+                  placeholder="Ingrese su usuario"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isInvalid={!!errors.email && touched.email}
                 />
-                {errors.email && touched.email && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.email}
-                  </Form.Control.Feedback>
-                )}
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword" className="mt-3">
@@ -86,17 +82,15 @@ function Login() {
                 <Form.Control
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Ingrese su password"
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isInvalid={!!errors.password && touched.password}
                 />
-                {errors.password && touched.password && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                )}
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <div className="justify-content-center w-100">
