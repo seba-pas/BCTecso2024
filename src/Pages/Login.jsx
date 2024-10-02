@@ -1,8 +1,8 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PostGeneral } from "../api/api.js";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string("Debe ingresar su usuario")
@@ -18,13 +18,12 @@ function Login() {
   const handleSubmit = (values) => {
     console.log("Email:", values.email);
     console.log("Password:", values.password);
-    axios
-      .post("http://localhost:8080/api/Authentication/token", {
-        user: values.email,
-        password: values.password,
-      })
+    PostGeneral("Authentication/token", {
+      user: values.email,
+      password: values.password,
+    })
       .then((response) => {
-        console.log("Response:", response.data?.token);
+        console.log("Response:", response.token);
         navigate("/home");
       })
       .catch((error) => {
