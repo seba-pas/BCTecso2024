@@ -1,3 +1,35 @@
 .pointer {
   cursor: pointer;
 }
+
+.background-button-muma {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.background-button-muma:hover {
+  background-color: #f08318;
+  border: 1px solid #f08318;
+}
+
+.background-button-muma:active {
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.title-muma {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 24px;
+  color: #5f5b5b;
+}
+
+.p-muma {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5f5b5b;
+}
