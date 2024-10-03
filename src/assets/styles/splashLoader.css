@@ -1,0 +1,84 @@
+.splash-container {
+    background-color: #f5ebf1; 
+  }
+  
+.logo {
+  max-width: 217px;
+  margin-bottom: 20rem;
+}
+/* Le doy tamaño a las huellas ycargo la imagen de las huellas  */
+.footprint {
+  width: 50px;
+  height: 350px;
+  background-image: url('../images/pawprint.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  opacity: 1%;
+}
+
+/* Ajuste de posiciones de las huellas */
+.footprint-9 {
+  top: -390px;
+  left: 160px;
+  animation: fadeIn 0.1s forwards 0.9s;
+}
+
+.footprint-8 {
+  top: -355px;
+  left: 130px;
+  animation: fadeIn 0.1s forwards 0.8s;
+}
+
+.footprint-7 {
+  top: -24px;
+  left: 252px;
+  animation: fadeIn 0.1s forwards 0.7s;
+}
+
+.footprint-6 {
+  top: 20px;
+  left: 195px;
+  animation: fadeIn 0.1s forwards 0.6s;
+}
+
+.footprint-5 {
+  top: 60px;
+  left: 160px;
+  animation: fadeIn 0.1s forwards 0.5s;
+}
+
+.footprint-4 {
+  top: 100px;
+  left: 110px;
+  animation: fadeIn 0.1s forwards 0.4s;
+}
+.footprint-3 {
+  top: 130px;
+  left: 70px;
+  animation: fadeIn 0.1s forwards 0.3s;
+}
+.footprint-2 {
+  top: 167px;
+  left: 19px;
+  animation: fadeIn 0.1s forwards 0.2s;
+}
+.footprint-1 {
+  top: 209px;
+  left: -20px;
+  animation: fadeIn 0.1s forwards 0.1s;
+}
+
+
+/*Animacion para hacer que las huellas simulen caminar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
