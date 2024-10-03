@@ -23,3 +23,23 @@ export const PostGeneral = async (path, body) => {
     throw error;
   }
 };
+
+
+
+//Configuracion axios login. 
+export const login = async(values) =>{
+  try {
+    const response = await instance.post(`Authentication/token`,{
+        user : values.email,
+        password: values.password
+    });
+    if(response.data && response.data.token){
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+    }else{
+      throw new Error('No se recibio el token')
+    }
+  } catch (error) {
+    throw(error);
+  }
+}
