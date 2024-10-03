@@ -1,0 +1,23 @@
+.background-button-muma {
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.background-button-muma:hover {
+  background-color: #f08318;
+  border: 1px solid #f08318;
+}
+
+.background-button-muma:active {
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.color-orange-muma {
+  color: #f08318;
+}
+
+.input-muma {
+  background: #f6f6f6 !important;
+  border: 1px solid #f6f6f6 !important;
+}

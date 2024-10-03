@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import PetRegistration from "./Pages/PetOwner/PetRegistration";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "./assets/styles/general.css";
 
 function App() {
   return (
