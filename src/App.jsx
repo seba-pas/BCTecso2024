@@ -8,7 +8,6 @@ import SuccesScreen from "./Pages/SuccesScreen";
 import UserSelect from "./Pages/UserSelect";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
-
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 
 function App() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png'
@@ -10,10 +10,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const isAthenticated = true;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    if(isAthenticated) {
+      navigate('/home')
+    }
+  },[isAthenticated,navigate]);
+
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
