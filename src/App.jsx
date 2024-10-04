@@ -5,8 +5,10 @@ import PetRegistration from "./Pages/PetRegistration";
 import ValidationAccount from "./Pages/ValidationAccount";
 import EmailRegistered from "./Pages/EmailRegistered";
 import SuccesScreen from "./Pages/SuccesScreen";
+import UserSelect from "./Pages/UserSelect";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
+
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginMuma />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/user_select" element={<UserSelect />} />
         <Route path="/register_pet_owner" element={<PetRegistration />} />
         <Route path="/validation_email" element={<ValidationAccount />} />
         <Route path="/email_registered" element={<EmailRegistered />} />
