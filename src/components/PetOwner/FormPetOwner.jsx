@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
+import { SendEmail } from "../../api/api";
 import { useState } from "react";
 import { Formik } from "formik";
 const FormPetOwner = () => {
@@ -40,11 +41,10 @@ const FormPetOwner = () => {
   const submitForm = (values, setSubmitting) => {
     setSubmitting(true);
     try {
+      let HTML = "<p>ASDFG</p>";
       //subimos el formulario
-      setTimeout(() => {
-        console.log("ACA");
-        setSubmitting(false);
-      }, 2000);
+      SendEmail(values.email, HTML);
+      setSubmitting(false);
     } catch (error) {
       setSubmitting(false);
       throw new Error(error);
