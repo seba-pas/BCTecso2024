@@ -1,8 +1,5 @@
 import axios from "axios";
-import { Resend } from "resend";
-import emailjs from "@emailjs/browser";
-import sgMail from "@sendgrid/mail";
-const { VITE_API_URL_GENERAL, VITE_API_API_KEY_RESEND, VITE_API_EMAIL_MUMA } = import.meta.env;
+const { VITE_API_URL_GENERAL } = import.meta.env;
 const instance = axios.create({
   baseURL: VITE_API_URL_GENERAL,
   timeout: 3000,
@@ -35,16 +32,7 @@ export const RegisterPet = async (path, body) => {
     throw error.response.data.errors[0];
   }
 };
-//emailjs
-/* export const SendEmail = async (form) => {
-  try {
-    let response = await emailjs.sendForm("service_mtwmyww", "template_3h5r5hq", form, "0ezY2pVr11nIQIT_8");
-    return response;
-  } catch (error) {
-    throw error;
-  }
-}; */
-//resend
+
 export const SendEmail = async (emailto, form) => {
   try {
     const response = await fetch("/netlify/functions/sendEmail.js", {
