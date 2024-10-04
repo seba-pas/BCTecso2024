@@ -119,7 +119,7 @@ function Login() {
               <button
                 type="button"
                 className="btn btn-outline-warning w-100"
-                onClick={() => navigate('/create-account')}
+                onClick={() => navigate('/user_select')}
               >
                 Crear cuenta
               </button>
