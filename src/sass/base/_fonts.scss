@@ -1,6 +1,8 @@
-//font usage example.
-
-// @font-face {
-//     font-family: 'Circular-STD';
-//     src: url('/fonts/circular-std-medium-500.ttf');
-// }
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('../fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
