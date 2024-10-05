@@ -19,3 +19,27 @@
 .fs-12 {
   font-size: 12px;
 }
+
+.pet-owner-width {
+  width: 100% !important;
+}
+
+@media (min-width: 576px) {
+  .pet-owner-width {
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .pet-owner-width {
+    width: 25% !important;
+  }
+}
+
+div:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 1px solid transparent !important;
+  box-shadow: none !important;
+}
