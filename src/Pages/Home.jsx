@@ -8,6 +8,11 @@ const Home = () => {
     navigate("/");
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <Container fluid className="d-flex vh-100 vw-100 bg-dark text-white align-items-center justify-content-center">
       <Card bg="dark" text="white" className="p-4" style={{ width: "22rem" }}>
@@ -17,6 +22,9 @@ const Home = () => {
           <div className="d-flex justify-content-center">
             <Button onClick={goToLogin} variant="primary">
               Login
+            </Button>
+            <Button size="sm" variant="danger" onClick={logOut}>
+              Cerrar sesion
             </Button>
           </div>
         </Card.Body>
