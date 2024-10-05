@@ -1,93 +1,102 @@
 import * as Yup from "yup";
 
-export const inputs = [
+export const inputs1 = [
   {
-    name: "shelderName",
+    name: "nombreProtectora",
     placeholder: "Nombre de Protectora*",
   },
   {
-    name: "shelderDescription",
+    name: "descripcion",
     placeholder: "Descripción*",
   },
   {
-    name: "shelderEmail",
+    name: "email",
     placeholder: "Email*",
     type: "email",
   },
   {
-    name: "shelderPassword1",
+    name: "password1",
     placeholder: "Contraseña*",
     type: "password",
   },
   {
-    name: "shelderPassword2",
+    name: "password2",
     placeholder: "Confirmar Contraseña*",
     type: "password",
   },
+];
+
+export const inputs2 = [
+  // {
+  // ! Creo que esto tiene que ser un select.
+  //   name: "idCiudad",
+  //   placeholder: "ID de la Ciudad*",
+  //   type: "number",
+  // },
   {
-    name: "shelderCity",
-    placeholder: "Ciudad*",
-  },
-  {
-    name: "shelderStreet",
+    name: "calle",
     placeholder: "Calle",
   },
   {
-    name: "shelderNumber",
+    name: "numero",
     placeholder: "Número",
   },
   {
-    name: "shelderFloor",
+    name: "piso",
     placeholder: "Piso",
   },
   {
-    name: "shelderDepartment",
+    name: "departamento",
     placeholder: "Departamento",
   },
   {
-    name: "shelderWebSite",
+    name: "sitioWeb",
     placeholder: "Sitio Web",
   },
   {
-    name: "shelderInstagram",
+    name: "instagram",
     placeholder: "Instagram",
   },
   {
-    name: "shelderFacebook",
+    name: "facebook",
     placeholder: "Facebook",
   },
 ];
 
 export const validationSchema = Yup.object({
-  shelderName: Yup.string().required("El campo nombre de protectora es requerido"),
-  shelderDescription: Yup.string().required("El campo descripción es requerido"),
-  shelderEmail: Yup.string().email("El email no tiene un formato válido").required("El campo email es requerido"),
-  shelderPassword1: Yup.string().min(6, "La contraseña debe tener al menos 6 caracteres").required("El campo contraseña es requerido"),
-  shelderPassword2: Yup.string()
-    .oneOf([Yup.ref("shelderPassword1"), null], "Las contraseñas deben coincidir")
+  nombreProtectora: Yup.string().required("El campo nombre de protectora es requerido"),
+  idProvincia: Yup.object().required("El campo provincia es requerido"),
+  idCiudad: Yup.object().required("El campo ciudad es requerido"),
+  descripcion: Yup.string().required("El campo descripción es requerido"),
+  email: Yup.string().email("El email no tiene un formato válido").required("El campo email es requerido"),
+  password1: Yup.string().min(6, "La contraseña debe tener al menos 6 caracteres").required("El campo contraseña es requerido"),
+  password2: Yup.string()
+    .oneOf([Yup.ref("password1"), null], "Las contraseñas deben coincidir")
     .required("El campo confirmar contraseña es requerido"),
-  shelderCity: Yup.string().required("El campo ciudad es requerido"),
-  shelderStreet: Yup.string(),
-  shelderNumber: Yup.string(),
-  shelderFloor: Yup.string(),
-  shelderDepartment: Yup.string(),
-  shelderWebSite: Yup.string().url("Formato de URL inválido"),
-  shelderInstagram: Yup.string(),
-  shelderFacebook: Yup.string(),
+  calle: Yup.string().required("El campo calle es requerido"),
+  numero: Yup.string().required("El campo número es requerido"),
+  piso: Yup.string(),
+  departamento: Yup.string(),
+  sitioWeb: Yup.string().url("Formato de URL inválido"),
+  instagram: Yup.string(),
+  facebook: Yup.string(),
 });
 
 export const initialValues = {
-  shelderName: "",
-  shelderDescription: "",
-  shelderEmail: "",
-  shelderPassword1: "",
-  shelderPassword2: "",
-  shelderCity: "",
-  shelderStreet: "",
-  shelderNumber: "",
-  shelderFloor: "",
-  shelderDepartment: "",
-  shelderWebSite: "",
-  shelderInstagram: "",
-  shelderFacebook: "",
+  nombreUsuario: "",
+  apellidoUsuario: "",
+  nombreProtectora: "",
+  descripcion: "",
+  email: "",
+  password1: "",
+  password2: "",
+  idProvincia: null,
+  idCiudad: null,
+  calle: "",
+  numero: "",
+  piso: "",
+  departamento: "",
+  sitioWeb: "",
+  instagram: "",
+  facebook: "",
 };
