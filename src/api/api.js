@@ -1,5 +1,6 @@
 import axios from "axios";
-const { VITE_API_URL_GENERAL } = import.meta.env;
+import emailjs from "@emailjs/browser";
+const { VITE_API_URL_GENERAL, VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, VITE_API_PUBLIC_KEY } = import.meta.env;
 const instance = axios.create({
   baseURL: VITE_API_URL_GENERAL,
   timeout: 3000,
@@ -29,25 +30,15 @@ export const RegisterPet = async (path, body) => {
     const response = await instance.post(path, body);
     return response.data;
   } catch (error) {
-    throw error.response.data.errors[0];
+    throw error.response.data.errors;
   }
 };
 
-export const SendEmail = async (emailto, form) => {
+export const SendEmail = async (form) => {
   try {
-    const response = await fetch("/netlify/functions/sendEmail.js", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ emailto, form }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to send email");
-    }
-
-    const result = await response.json();
-    console.log(result.message);
+    let response = await emailjs.sendForm(VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, form, VITE_API_PUBLIC_KEY);
+    return response;
   } catch (error) {
-    console.error("Error:", JSON.stringify(error));
+    throw error;
   }
 };
