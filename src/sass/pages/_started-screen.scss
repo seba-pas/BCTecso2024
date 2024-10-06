@@ -1,0 +1,36 @@
+.img-size {
+    width: 250px;
+    height: auto;
+}
+
+.slick-dots {
+    bottom: -10px !important;
+    li {
+       margin: 0 !important;
+    }
+}
+
+.custom-dots li img {
+    content: url('../assets/started-screen/dots/dot02.png');
+}
+  
+.custom-dots li.slick-active img {
+    content: url('../assets/started-screen/dots/dot01.png');
+}
+
+.slide {
+    font-family: 'Montserrat-Regular';
+    .slide-image {
+
+    }
+    .slide-title {
+        font-size: 22px;
+        line-height: 24px;
+        color: $neutral-01;
+        font-weight: bold;
+    }
+    .slide-text {
+        color: $text-slider;
+        font-size: 14px;
+    }
+}
