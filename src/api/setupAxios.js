@@ -69,6 +69,7 @@ export const registerNewShelter = async (values) => {
     return response.data;
   } catch (error) {
     console.error("Error al registrar protectora:", error);
+    throw error;
   }
 };
 
