@@ -7,6 +7,20 @@ const instance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+//Con este interceptor si el token expiro automaticamente redirige al login
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const GetGeneral = async (path) => {
   try {
     const respuesta = await instance.get(path);
