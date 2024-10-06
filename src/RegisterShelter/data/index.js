@@ -80,14 +80,12 @@ export const validationSchema = Yup.object({
       value: Yup.string().required("Selecciona una provincia").notOneOf([""], "Selecciona una provincia"),
       label: Yup.string().required("Selecciona una provincia"),
     })
-    .nullable()
     .required("El campo provincia es requerido"),
   idCiudad: Yup.object()
     .shape({
       value: Yup.string().required("Selecciona una ciudad").notOneOf([""], "Selecciona una ciudad"),
       label: Yup.string().required("Selecciona una ciudad"),
     })
-    .nullable()
     .required("El campo ciudad es requerido"),
   descripcion: Yup.string().required("El campo descripción es requerido"),
   email: Yup.string().email("El email no tiene un formato válido").required("El campo email es requerido"),

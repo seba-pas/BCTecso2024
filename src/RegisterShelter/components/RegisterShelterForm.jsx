@@ -20,9 +20,10 @@ export const RegisterShelterForm = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         try {
           await registerNewShelter(values);
+          resetForm();
           navigate("/validation_email");
         } catch (error) {
           navigate("/email_registered");
@@ -37,7 +38,6 @@ export const RegisterShelterForm = () => {
               {inputs1.map((props) => (
                 <RegisterShelterInput key={props.name} {...props} />
               ))}
-
               <RegisterShelterSelect
                 name="idProvincia"
                 placeholder="Provincia*"
@@ -66,7 +66,6 @@ export const RegisterShelterForm = () => {
                   }
                 }}
               />
-
               {inputs2.map((props) => (
                 <RegisterShelterInput key={props.name} {...props} />
               ))}

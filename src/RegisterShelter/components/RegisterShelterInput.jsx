@@ -18,6 +18,7 @@ export const RegisterShelterInput = (props) => {
           style={{
             height: "50px",
           }}
+          value={field.value || ""}
           {...field}
           {...props}
           type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
@@ -36,6 +37,7 @@ export const RegisterShelterInput = (props) => {
           style={{
             height: "70px",
           }}
+          value={field.value || ""}
           {...field}
           {...props}
           type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
@@ -46,6 +48,7 @@ export const RegisterShelterInput = (props) => {
           style={{
             height: "50px",
           }}
+          value={field.value || ""}
           {...field}
           {...props}
           type={props.type}
