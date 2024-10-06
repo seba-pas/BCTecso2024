@@ -1,0 +1,31 @@
+.button-bar-search{
+    background-color: #0199A3 !important;
+    height: 44.27px;
+    width:45px;
+}
+
+.input-bar-search{
+    background-color: #D8D8D8;
+}
+.home-categorias{
+    color: #5F5B5B;
+    font-family: 'Poppins', sans-serif;
+    padding-left: 20px;
+}
+.home-button-categoria{
+    font-size:13px !important;
+    font-family: 'Poppins',sans-serif;
+    background-color:#FFFFFF ;
+    border: none;
+    border-radius: 15px;
+    padding: 3px 10px;
+    box-shadow: -12px 11px 5px -7px rgba(0,0,0,0.06);
+    -webkit-box-shadow: -12px 11px 5px -7px rgba(0,0,0,0.06);
+    -moz-box-shadow: -12px 11px 5px -7px rgba(0,0,0,0.06);
+}
+.home-group-button{
+    display: flex;
+    justify-content: center;
+    padding-left: 20px;
+    gap: 8px;
+}
