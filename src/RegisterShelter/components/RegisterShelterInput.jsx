@@ -30,15 +30,27 @@ export const RegisterShelterInput = (props) => {
     </div>
   ) : (
     <div className={`position-relative ${errorClassname}`}>
-      <input
-        className={`px-3 w-100 ${style.registerShelterInput}`}
-        style={{
-          height: "50px",
-        }}
-        {...field}
-        {...props}
-        type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
-      />
+      {props.type === "textarea" ? (
+        <textarea
+          className={`px-3 w-100 ${style.registerShelterTextarea}`}
+          style={{
+            height: "70px",
+          }}
+          {...field}
+          {...props}
+          type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
+        />
+      ) : (
+        <input
+          className={`px-3 w-100 ${style.registerShelterInput}`}
+          style={{
+            height: "50px",
+          }}
+          {...field}
+          {...props}
+          type={props.type}
+        />
+      )}
       {props.type === "password" && (
         <button type="button" onClick={() => setShowPassword((prev) => !prev)} className={style.registerShelterEyeButton}>
           <EyeIcon show={showPassword} className={style.registerShelterSvg} error={!!errorClassname} />

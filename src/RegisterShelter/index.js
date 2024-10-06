@@ -1,2 +1,2 @@
-export { RegisterShelterInput, EyeIcon ,RegisterShelterForm} from "./components";
+export { RegisterShelterInput, EyeIcon ,RegisterShelterForm,RegisterShelterSelect} from "./components";
 export * from './data'

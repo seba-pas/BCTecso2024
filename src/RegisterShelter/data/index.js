@@ -2,12 +2,26 @@ import * as Yup from "yup";
 
 export const inputs1 = [
   {
+    name: "nombreUsuario",
+    placeholder: "Nombre de Usuario*",
+  },
+  {
+    name: "apellidoUsuario",
+    placeholder: "Apellido de Usuario*",
+  },
+  {
     name: "nombreProtectora",
     placeholder: "Nombre de Protectora*",
   },
   {
     name: "descripcion",
     placeholder: "Descripción*",
+    type: "textarea",
+  },
+  {
+    name: "cantidadDeMascotas",
+    placeholder: "Cantidad de Mascotas*",
+    type: "number",
   },
   {
     name: "email",
@@ -27,19 +41,13 @@ export const inputs1 = [
 ];
 
 export const inputs2 = [
-  // {
-  // ! Creo que esto tiene que ser un select.
-  //   name: "idCiudad",
-  //   placeholder: "ID de la Ciudad*",
-  //   type: "number",
-  // },
   {
     name: "calle",
-    placeholder: "Calle",
+    placeholder: "Calle*",
   },
   {
     name: "numero",
-    placeholder: "Número",
+    placeholder: "Número*",
   },
   {
     name: "piso",
@@ -64,15 +72,30 @@ export const inputs2 = [
 ];
 
 export const validationSchema = Yup.object({
+  nombreUsuario: Yup.string().required("El campo nombre de usuario es requerido"),
+  apellidoUsuario: Yup.string().required("El campo apellido de usuario es requerido"),
   nombreProtectora: Yup.string().required("El campo nombre de protectora es requerido"),
-  idProvincia: Yup.object().required("El campo provincia es requerido"),
-  idCiudad: Yup.object().required("El campo ciudad es requerido"),
+  idProvincia: Yup.object()
+    .shape({
+      value: Yup.string().required("Selecciona una provincia").notOneOf([""], "Selecciona una provincia"),
+      label: Yup.string().required("Selecciona una provincia"),
+    })
+    .nullable()
+    .required("El campo provincia es requerido"),
+  idCiudad: Yup.object()
+    .shape({
+      value: Yup.string().required("Selecciona una ciudad").notOneOf([""], "Selecciona una ciudad"),
+      label: Yup.string().required("Selecciona una ciudad"),
+    })
+    .nullable()
+    .required("El campo ciudad es requerido"),
   descripcion: Yup.string().required("El campo descripción es requerido"),
   email: Yup.string().email("El email no tiene un formato válido").required("El campo email es requerido"),
   password1: Yup.string().min(6, "La contraseña debe tener al menos 6 caracteres").required("El campo contraseña es requerido"),
   password2: Yup.string()
     .oneOf([Yup.ref("password1"), null], "Las contraseñas deben coincidir")
     .required("El campo confirmar contraseña es requerido"),
+  cantidadDeMascotas: Yup.number().typeError("Debe ser un número").min(0, "La cantidad de mascotas debe ser un número positivo").required("El campo cantidad de mascotas es requerido"),
   calle: Yup.string().required("El campo calle es requerido"),
   numero: Yup.string().required("El campo número es requerido"),
   piso: Yup.string(),
@@ -99,4 +122,5 @@ export const initialValues = {
   sitioWeb: "",
   instagram: "",
   facebook: "",
+  cantidadDeMascotas: "",
 };

@@ -1,77 +1,72 @@
 import { Formik, Form } from "formik";
-import { RegisterShelterInput, initialValues, validationSchema, inputs1, inputs2 } from "../";
-import { RegisterShelterSelect } from "./RegisterShelterSelect";
 import { registerNewShelter } from "../../api/setupAxios";
 import { useAddress } from "../hooks";
+import { RegisterShelterInput, RegisterShelterSelect, initialValues, validationSchema, inputs1, inputs2 } from "../";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterShelterForm = () => {
+  const navigate = useNavigate();
+
   const { provinces, cities, setSelectedProvinces } = useAddress();
+  const provinceOptions = provinces.map(({ id, nombre }) => ({
+    value: JSON.stringify({ id, nombre }),
+    label: nombre,
+  }));
+  const cityOptions = cities.map(({ id, nombre, idProvincia }) => ({
+    value: JSON.stringify({ id, nombre, idProvincia }),
+    label: nombre,
+  }));
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        registerNewShelter(values);
+      onSubmit={async (values) => {
+        try {
+          await registerNewShelter(values);
+          navigate("/validation_email");
+        } catch (error) {
+          navigate("/email_registered");
+          console.log(error);
+        }
       }}
     >
-      {({ setFieldValue, values }) => {
-        console.log({ values });
-
+      {({ setFieldValue }) => {
         return (
           <Form noValidate className="w-100 mx-auto" style={{ maxWidth: "1280px" }}>
             <div className="d-flex flex-column " style={{ gap: "16px" }}>
-              {/*//! Primeros inputs */}
               {inputs1.map((props) => (
                 <RegisterShelterInput key={props.name} {...props} />
               ))}
 
-              {/*//! Selects provincias*/}
               <RegisterShelterSelect
                 name="idProvincia"
-                label="Provincia"
-                value={values.idProvincia ? JSON.stringify(values.idProvincia) : ""}
-                onChange={({ target }) => {
-                  if (target.value) {
-                    const selectedProvince = JSON.parse(target.value);
+                placeholder="Provincia*"
+                options={provinceOptions}
+                customOnChange={(selectedOption) => {
+                  if (selectedOption) {
+                    const selectedProvince = JSON.parse(selectedOption.value);
                     setSelectedProvinces(selectedProvince.id);
-                    setFieldValue("idProvincia", selectedProvince);
+                    setFieldValue("idProvincia", selectedOption);
+                    setFieldValue("idCiudad", null);
                   } else {
                     setSelectedProvinces("");
-                    setFieldValue("idProvincia", null); // O un objeto vacío, según tu lógica
+                    setFieldValue("idProvincia", null);
                   }
                 }}
-              >
-                <option value="">Seleccione una provincia</option>
-                {provinces &&
-                  provinces.map(({ id, nombre }) => (
-                    <option key={id} value={JSON.stringify({ id, nombre })}>
-                      {nombre}
-                    </option>
-                  ))}
-              </RegisterShelterSelect>
-              {/*//! Selects ciudades*/}
+              />
               <RegisterShelterSelect
                 name="idCiudad"
-                label="Ciudad"
-                value={values.idCiudad ? JSON.stringify(values.idCiudad) : ""}
-                onChange={({ target }) => {
-                  if (target.value) {
-                    const selectedCitie = JSON.parse(target.value);
-                    setFieldValue("idCiudad", selectedCitie);
+                placeholder="Ciudad*"
+                options={cityOptions}
+                customOnChange={(selectedOption) => {
+                  if (selectedOption) {
+                    setFieldValue("idCiudad", selectedOption);
                   } else {
-                    setFieldValue("idCiudad", null); // O un objeto vacío, según tu lógica
+                    setFieldValue("idCiudad", null);
                   }
                 }}
-              >
-                <option value="">Seleccione una provincia</option>
-                {cities &&
-                  cities.map(({ id, nombre, idProvincia }) => (
-                    <option key={id} value={JSON.stringify({ id, nombre, idProvincia })}>
-                      {nombre}
-                    </option>
-                  ))}
-              </RegisterShelterSelect>
-              {/*//! Segundos inputs */}
+              />
+
               {inputs2.map((props) => (
                 <RegisterShelterInput key={props.name} {...props} />
               ))}

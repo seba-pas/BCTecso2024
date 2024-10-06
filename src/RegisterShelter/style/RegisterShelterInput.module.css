@@ -6,6 +6,14 @@
   border-radius: 10px;
   background-color: var(--background-lightmode-secondary);
 }
+.registerShelterTextarea {
+  color: var(--brand-primary-01);
+  font-weight: 400;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--background-lightmode-secondary);
+}
 
 .registerShelterInput::placeholder {
   color: var(--brand-neutro-01);
