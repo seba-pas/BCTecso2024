@@ -9,14 +9,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const isAthenticated = false;
+  const isAuthenticated = () => {
+    const token = localStorage.getItem("authToken");
+    return !!token;
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   useEffect(() => {
-    if (isAthenticated) {
+    if (isAuthenticated) {
       navigate("/home");
     }
   }, [isAthenticated, navigate]);
