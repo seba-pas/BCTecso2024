@@ -4,7 +4,7 @@ import FormPetOwner from "../components/PetOwner/FormPetOwner";
 import "../assets/styles/PetOwner/PetOwner.css";
 const PetRegistration = () => {
   return (
-    <Container as="div" className="vh-100">
+    <Container as="div" className="vh-100 pet-owner-width">
       <Row>
         <Col className="d-flex justify-content-center pt-5 pb-5" xs={12}>
           <Image src={Isologo} alt="Isologo" />

@@ -1,5 +1,6 @@
 import axios from "axios";
-const { VITE_API_URL_GENERAL } = import.meta.env;
+import emailjs from "@emailjs/browser";
+const { VITE_API_URL_GENERAL, VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, VITE_API_PUBLIC_KEY } = import.meta.env;
 const instance = axios.create({
   baseURL: VITE_API_URL_GENERAL,
   timeout: 3000,
@@ -7,6 +8,7 @@ const instance = axios.create({
 });
 
 export const GetGeneral = async (path) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const respuesta = await instance.get(path);
     return respuesta.data;
@@ -16,6 +18,7 @@ export const GetGeneral = async (path) => {
 };
 
 export const PostGeneral = async (path, body) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const respuesta = await instance.post(path, body);
     return respuesta.data;
@@ -24,8 +27,9 @@ export const PostGeneral = async (path, body) => {
   }
 };
 
-//Configuracion axios login.
+// Configuracion axios login.
 export const login = async (values) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await instance.post(`Authentication/token`, {
       user: values.email,
@@ -82,5 +86,23 @@ export const getCities = async (province) => {
     return response.data;
   } catch (error) {
     console.error("Error al pedir ciudades:", error);
+  }
+};
+export const RegisterPet = async (path, body) => {
+  try {
+    const response = await instance.post(path, body);
+    return response.data;
+  } catch (error) {
+    throw error.response.data.errors;
+  }
+};
+
+export const SendEmail = async (form) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    let response = await emailjs.sendForm(VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, form, VITE_API_PUBLIC_KEY);
+    return response;
+  } catch (error) {
+    throw error;
   }
 };
