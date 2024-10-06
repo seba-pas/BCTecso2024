@@ -15,10 +15,10 @@ function App() {
   let routes = [
     { path: "/", element: <LoginMuma /> },
     { path: "/home", element: <Home /> },
-    { path: "user_select", element: <UserSelect /> },
-    { path: "register_pet_owner", element: <PetRegistration /> },
-    { path: "valitadion_email", element: <ValidationAccount /> },
-    { path: "email_registered", element: <EmailRegistered /> },
+    { path: "/user_select", element: <UserSelect /> },
+    { path: "/register_pet_owner", element: <PetRegistration /> },
+    { path: "/validation_email", element: <ValidationAccount /> },
+    { path: "/email_registered", element: <EmailRegistered /> },
     { path: "/success_registration", element: <SuccesScreen /> },
   ];
   return (
