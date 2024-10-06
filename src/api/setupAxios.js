@@ -43,42 +43,28 @@ export const login = async (values) => {
 };
 
 export const registerNewShelter = async (values) => {
-  // Preparar los datos para el backend
   delete values.password2;
-  const { idCiudad, calle, numero, piso, departamento, password1: password, ...rest } = values;
+  const { idProvincia, idCiudad, calle, numero, piso, departamento, password1: password, ...rest } = values;
 
   const dataToSend = {
     ...rest,
     password,
     direccion: {
-      idCiudad: idCiudad,
+      idCiudad: JSON.parse(idCiudad.value).id,
       calle: calle,
       numero: numero,
       piso: piso,
       departamento: departamento,
-      provincia: {
-        id: 0, //! Sacar de backend
-        nombre: "string", //! Sacar de backend
-      },
-      ciudad: {
-        id: idCiudad,
-        nombre: "string", //! Sacar de backend
-        idProvincia: 0, //! Sacar de backend
-      },
+      provincia: JSON.parse(idProvincia.value),
+      ciudad: JSON.parse(idCiudad.value),
     },
   };
 
-  console.log(dataToSend);
-
   try {
-    const response = await instance.post(`Protectoras/registro`, {
-      dataToSend,
-    });
-
-    console.log(response);
+    const response = await instance.post(`Protectoras/registro`, dataToSend);
+    return response.data;
   } catch (error) {
     console.error("Error al registrar protectora:", error);
-    // Maneja el error según sea necesario
   }
 };
 
@@ -87,16 +73,14 @@ export const getProvinces = async () => {
     const response = await instance.get("Combos/Provincias");
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error("Error al pedir provincias:", error);
   }
 };
 export const getCities = async (province) => {
-  console.log({province});
-  
   try {
     const response = await instance.get(`Combos/Ciudades/${province}`);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error("Error al pedir ciudades:", error);
   }
 };
