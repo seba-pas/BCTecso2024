@@ -10,6 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import Redirection from "./components/Redirection";
+import PetPage from "./Pages/PetPage";
 
 function App() {
   let routes = [
@@ -20,6 +21,7 @@ function App() {
     { path: "/validation_email", element: <ValidationAccount /> },
     { path: "/email_registered", element: <EmailRegistered /> },
     { path: "/success_registration", element: <SuccesScreen /> },
+    { path: "/form_pet", element: <PetPage /> },
   ];
   return (
     <RouteChangeLoader>
