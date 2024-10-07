@@ -18,11 +18,12 @@
     content: url('../assets/started-screen/dots/dot01.png');
 }
 
+.slider-container {
+    overflow: hidden;
+}
+
 .slide {
     font-family: 'Montserrat-Regular';
-    .slide-image {
-
-    }
     .slide-title {
         font-size: 22px;
         line-height: 24px;
@@ -32,5 +33,14 @@
     .slide-text {
         color: $text-slider;
         font-size: 14px;
+    }
+}
+
+.area-button {
+    font-family: 'Montserrat-Regular';
+    .link {
+        font-size: 14px;
+        color: $secondary-01;
+        text-decoration: none;
     }
 }
