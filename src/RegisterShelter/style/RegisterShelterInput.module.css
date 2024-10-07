@@ -15,13 +15,18 @@
   background-color: var(--background-lightmode-secondary);
 }
 
+.registerShelterTextarea::placeholder {
+  color: var(--brand-neutro-01);
+}
 .registerShelterInput::placeholder {
   color: var(--brand-neutro-01);
 }
 
 .registerShelterSpan {
+  width: 100%;
   color: var(--system-error);
   padding-left: 16px;
+  display: inline-block;
 }
 
 .registerShelterEyeButton {
@@ -46,7 +51,8 @@
   height: 24px;
 }
 
-.registerShelterError .registerShelterInput {
+.registerShelterError .registerShelterInput,
+.registerShelterError .registerShelterTextarea {
   color: var(--system-error);
   border: 1px solid var(--system-error);
 }

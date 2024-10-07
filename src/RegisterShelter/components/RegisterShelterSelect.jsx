@@ -19,8 +19,12 @@ export const RegisterShelterSelect = ({ options, customOnChange, placeholder, ..
   const styles = {
     ...customStyles,
     control: (provided) => ({
-      ...customStyles.control(provided), // Llama a tu función de estilos personalizada
+      ...customStyles.control(provided),
       border: meta.touched && meta.error ? "1px solid var(--system-error)" : "none",
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: meta.touched && meta.error ? "var(--system-error)" : "var(--brand-primary-01)", // Cambia el color de la flecha
     }),
   };
 
