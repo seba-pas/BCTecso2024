@@ -9,17 +9,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const isAthenticated = false;
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   useEffect(() => {
-    if (isAthenticated) {
+    const isAuthenticated = () => {
+      const token = localStorage.getItem("authToken");
+      return !!token;
+    };
+    if (isAuthenticated()) {
       navigate("/home");
     }
-  }, [isAthenticated, navigate]);
+  }, [navigate]);
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
