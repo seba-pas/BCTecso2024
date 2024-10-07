@@ -9,7 +9,7 @@ import UserSelect from "./Pages/UserSelect";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
-import { RegisterShelter } from "./Pages/RegisterShelter";
+import RegisterShelter from "./Pages/RegisterShelter";
 import Redirection from "./components/Redirection";
 
 function App() {

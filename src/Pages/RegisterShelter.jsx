@@ -3,10 +3,12 @@ import { AuthLayout } from "../layout";
 
 import "../RegisterShelter/style/index.css";
 
-export const RegisterShelter = () => {
+function RegisterShelter() {
   return (
     <AuthLayout>
       <RegisterShelterForm />
     </AuthLayout>
   );
 };
+
+export default RegisterShelter;
