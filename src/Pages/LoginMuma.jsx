@@ -5,25 +5,39 @@ import logo from "../assets/images/logo.png";
 import { login } from "../api/setupAxios";
 import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [email, setEmail] = useState(""); 
+  const [rememberMe, setRememberMe] = useState(false); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  // Cargo el email en el localStorage si es que existe
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    console.log(savedEmail);
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []); 
+
+  // Chequeo si está autenticado, si lo está redirige a home.
   useEffect(() => {
     const isAuthenticated = () => {
-        const token = localStorage.getItem("authToken");
-        return !!token;
-      };
-      if (isAuthenticated()) {
-        navigate("/home");
-      }
-    }, [navigate]);
+      const token = localStorage.getItem("authToken");
+      return !!token;
+    };
+    if (isAuthenticated()) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
@@ -33,22 +47,28 @@ function Login() {
         </div>
 
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: email, password: "" }} 
+          enableReinitialize 
           validate={(values) => {
             const errors = {};
             if (!values.email) {
-                errors.email = "Required";
-              } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                errors.email = "El email no es valido";
-              }
-              if (!values.password) {
-                errors.password = "Ingrese una contraseña";
-              }
+              errors.email = "Required";
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = "El email no es valido";
+            }
+            if (!values.password) {
+              errors.password = "Ingrese una contraseña";
+            }
             return errors;
           }}
           onSubmit={async (values, { setSubmitting, setFieldError }) => {
             try {
-              await login(values);
+              await login(values); //Si esta marcado recordar guarda el mail en el localStorage
+              if (rememberMe) {
+                localStorage.setItem("savedEmail", values.email); 
+              } else {
+                localStorage.removeItem("savedEmail");
+              }
               navigate("/home");
             } catch (error) {
               setFieldError("general", "Credenciales incorrectas");
@@ -61,24 +81,45 @@ function Login() {
             <form onSubmit={handleSubmit}>
               {errors.general && <Alert variant="danger">{errors.general}</Alert>}
               <div className="form-group mb-3">
-                <input type="email" name="email" className={`form-control ${errors.email && touched.email ? "is-invalid" : ""}`} placeholder="Email*" onChange={handleChange} onBlur={handleBlur} value={values.email} />
+                <input
+                  type="email"
+                  name="email"
+                  className={`form-control ${errors.email && touched.email ? "is-invalid" : ""}`}
+                  placeholder="Email*"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
                 {errors.email && touched.email && <div className="invalid-feedback">{errors.email}</div>}
               </div>
 
               <div className="form-group mb-4 position-relative">
-                <input type={showPassword ? "text" : "password"} name="password" className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`} placeholder="Contraseña*" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
+                  placeholder="Contraseña*"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
                 {values.password && values.password.length > 0 && (
                   <span className="position-absolute top-50 end-0 translate-middle-y me-3" style={{ cursor: "pointer" }} onClick={togglePasswordVisibility}>
-                    {showPassword ? "🙈" : "👁️"}
+                    {showPassword ? "🙈" : <i className="bi bi-eye"></i>}
                   </span>
                 )}
-                {/* Mostrar mensaje de error si hay errores y el campo esta vacio */}
                 {errors.password && touched.password && <div className="invalid-feedback">{errors.password}</div>}
               </div>
 
               <div className="d-flex justify-content-between mb-5">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" name="rememberMe" />
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="rememberMe"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
                   <label className="form-check-label">Recordarme</label>
                 </div>
                 <a href="/forgot-password" className="text-decoration-none">
