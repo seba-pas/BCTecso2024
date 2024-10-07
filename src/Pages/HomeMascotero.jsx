@@ -95,7 +95,7 @@ const Home =() => {
                                                 <img src={iconSex} style={{width:'30px'}}/>
                                             </div>
                                             <div className='d-flex justify-content-start align-items-center'>
-                                                <i class="bi bi-geo-alt fs-3" style={{color:'#99DBD6'}}></i>
+                                                <i className="bi bi-geo-alt fs-3" style={{color:'#99DBD6'}}></i>
                                                 <p className="card-text ms-2">Ubicación</p>
                                             </div> 
                                         </div>
