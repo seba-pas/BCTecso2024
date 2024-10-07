@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 const Redirection = ({ element, path }) => {
-  let pathsNoToken = ["/user_select", "/register_pet_owner", "/validation_email", "/email_registered", "/success_registration"];
+  let pathsNoToken = ["/user_select", "/register_pet_owner", "/validation_email", "/email_registered", "/success_registration","/register_shelter"];
   function goToLoginOrHome(element, path) {
     let isAutenticated = localStorage.getItem("token");
     if (path === "/") return isAutenticated ? <Navigate to="/home" /> : element;
