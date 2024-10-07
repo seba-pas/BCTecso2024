@@ -5,7 +5,6 @@ import Select from "react-select";
 import { customStyles } from "../../assets/styles/elements/Select/selectCustomStyle";
 
 const SelectGeneral = ({ options, customOnChange = () => {}, placeholder, ...props }) => {
-  console.log(placeholder);
   const [field, meta, helpers] = useField(props);
 
   const handleChange = (selectedOption) => {
