@@ -32,9 +32,11 @@
 
 .pet-img{
     border-radius: 10px 10px 40px 10px;
-}
-.card-img-top {
     width: 100%;
     height: 16rem; 
     object-fit: cover; 
-  }
+}
+
+.protector-img{
+    width: 10rem;
+}

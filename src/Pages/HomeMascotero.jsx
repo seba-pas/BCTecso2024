@@ -9,7 +9,8 @@ import iconSex from '../assets/images/icons/sexo.png';
 
 const Home =() => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [images, setImages] = useState([]);
+    const [petsImages, setPetsImages] = useState([]); // Cambiado a "petsImages" para mayor claridad
+    const [logosImages, setLogosImages] = useState([]); // Imágenes de protectoras
 
     const handleSearch = (e) => {
       e.preventDefault();
@@ -18,20 +19,33 @@ const Home =() => {
 
     // Cargar las imágenes dinámicamente
     useEffect(() => {
-        const imagesObject = import.meta.glob('../assets/images/pets/*.{png,jpg,jpeg,svg}');
-        
-        const loadImages = async () => {
+        const loadImagesFromFolder = async (folderPath) => {
+            let imagesObject;
+            
+            if (folderPath === 'pets') {
+                imagesObject = import.meta.glob('../assets/images/pets/*.{png,jpg,jpeg,svg}');
+            } else if (folderPath === 'protectors') {
+                imagesObject = import.meta.glob('../assets/images/protectors/*.{png,jpg,jpeg,svg}');
+            }
+    
             const imagePromises = Object.entries(imagesObject).map(async ([path, resolver]) => {
                 const image = await resolver();
                 return { path, image: image.default };
             });
-            
+    
             const loadedImages = await Promise.all(imagePromises);
-            setImages(loadedImages);
+            return loadedImages;
         };
-
-        loadImages(); 
-    }, []); 
+    
+        const loadImages = async () => {
+            const pets = await loadImagesFromFolder('pets');
+            const logos = await loadImagesFromFolder('protectors');
+            setPetsImages(pets); // Guardar imágenes de mascotas
+            setLogosImages(logos); // Guardar imágenes de protectoras
+        };
+    
+        loadImages();
+    }, []);
 
     const settings = {
         dots: false,
@@ -74,7 +88,8 @@ const Home =() => {
                         <button className='home-button-categoria'>🐰 Conejo</button>
                     </div>
                 </section>
-                {images.length === 0 ? (
+                <section>
+                {petsImages.length === 0 ? (
                     <div className='d-flex align-items-center justify-content-center' style={{height:'75vh'}}>
                         <p>No hay animales registrados actualmente</p>
                     </div>
@@ -85,7 +100,7 @@ const Home =() => {
                             <a href="#"style={{textDecoration:'none',color:'#017179'}}>Ver todos</a>
                         </div>
                         <Slider {...settings}>
-                            {images.map((image, index) => (
+                            {petsImages.map((image, index) => (
                                 <div key={index} className='pb-5'>
                                     <div className="card ms-3" style={{ width: '18rem',heigh:'18rem',border:'none',boxShadow:'-4px 14px 17px -3px rgba(0,0,0,0.25)'}}>
                                         <img src={image.image} className="card-img-top pet-img" alt="..." />
@@ -105,6 +120,32 @@ const Home =() => {
                     </Slider>
                     </div>
                 )}
+                </section>
+                <section>
+                    <div>
+                        <div className='d-flex justify-content-between ms-4 me-4'> 
+                            <p>Protectoras</p>
+                            <a href="#" style={{textDecoration:'none',color:'#017179'}}>Ver todas</a>
+                        </div>
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">
+                        {logosImages.length === 0 ? (
+                            <p>No hay protectoras registradas actualmente</p>
+                        ) : (
+                            logosImages.map((image, index) => (
+                            <div key={index} >
+                                <div className="card" style={{ width: '10rem',boxShadow:'-4px 14px 17px -3px rgba(0,0,0,0.25)' }}>
+                                    <img src={image.image} className="card-img-top protector-img" alt={`Protectora ${index}`} />
+                                    <div className="card-body d-flex flex-column align-items-center">
+                                        <h5 className="card-title" style={{fontSize:'9px'}}>Nombre de la Protectora</h5>
+                                        <p className="card-text" style={{fontSize:'7px'}}>Descripción de la protectora</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )))
+                        }
+                    </div>
+                </section>
             </main>
         </div>
     );
