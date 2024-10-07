@@ -44,3 +44,18 @@
         text-decoration: none;
     }
 }
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
+    opacity: 0; // Comienza invisible
+    animation-fill-mode: forwards; // Mantiene la animación en el último estado
+}
