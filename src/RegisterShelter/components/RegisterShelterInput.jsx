@@ -30,10 +30,10 @@ export const RegisterShelterInput = (props) => {
       <ErrorMessage name={props.name} component="span" className={style.registerShelterSpan} />
     </div>
   ) : (
-    <div className={`position-relative ${errorClassname}`}>
+    <div className={` ${errorClassname}`}>
       {props.type === "textarea" ? (
         <textarea
-          className={`px-3 w-100 ${style.registerShelterTextarea}`}
+          className={`p-3 w-100 ${style.registerShelterTextarea}`}
           style={{
             height: "70px",
           }}
