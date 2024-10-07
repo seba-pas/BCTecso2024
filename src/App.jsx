@@ -10,26 +10,21 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import PetPage from "./Pages/PetPage";
-import { RegisterShelter } from "./Pages/RegisterShelter";
+import RegisterShelter from "./Pages/RegisterShelter";
 
 function App() {
-  let routes = [
-    { path: "/", element: <LoginMuma /> },
-    { path: "/home", element: <HomeMascotero /> },
-    { path: "/user_select", element: <UserSelect /> },
-    { path: "/register_pet_owner", element: <PetRegistration /> },
-    { path: "/register_shelter", element: <RegisterShelter /> },
-    { path: "/validation_email", element: <ValidationAccount /> },
-    { path: "/email_registered", element: <EmailRegistered /> },
-    { path: "/success_registration", element: <SuccesScreen /> },
-    { path: "/form_pet", element: <PetPage /> },
-  ];
   return (
     <RouteChangeLoader>
       <Routes>
-        {routes.map((value, key) => (
-          <Route key={key} path={value.path} element={value.element} />
-        ))}
+        <Route path="/" element={<LoginMuma />} />
+        <Route path="/home" element={<HomeMascotero />} />
+        <Route path="/user_select" element={<UserSelect />} />
+        <Route path="/register_pet_owner" element={<PetRegistration />} />
+        <Route path="/register_shelter" element={<RegisterShelter />} />
+        <Route path="/validation_email" element={<ValidationAccount />} />
+        <Route path="/email_registered" element={<EmailRegistered />} />
+        <Route path="/success_registration" element={<SuccesScreen />} />
+        <Route path="/form_pet" element={<PetPage />} />
       </Routes>
     </RouteChangeLoader>
   );
