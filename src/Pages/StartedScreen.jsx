@@ -41,7 +41,7 @@ const StartedScreen = () => {
 
 
   return (
-    <div className='vh-100 vw-100 d-flex align-items-center'>
+    <div className='vh-100 vw-100 d-flex align-items-center fade-in'>
       <Container>
         <Row>
           <Col className="p-0">
