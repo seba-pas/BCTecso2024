@@ -138,6 +138,7 @@ const Login = () => {
                   variant="primary"
                   type="submit"
                   disabled={isSubmitting}
+                  onClick={()=>navigate("/select-user")}
                 >
                   Crear Cuenta
               </Button>
