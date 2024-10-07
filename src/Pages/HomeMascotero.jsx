@@ -27,11 +27,11 @@ const Home =() => {
             });
             
             const loadedImages = await Promise.all(imagePromises);
-            setImages(loadedImages); // Guardar las imágenes en el estado
+            setImages(loadedImages);
         };
 
-        loadImages(); // Llamada para cargar las imágenes
-    }, []); // [] asegura que se ejecute solo una vez al montar el componente
+        loadImages(); 
+    }, []); 
 
     const settings = {
         dots: false,

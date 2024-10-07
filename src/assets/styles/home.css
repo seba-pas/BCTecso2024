@@ -35,6 +35,6 @@
 }
 .card-img-top {
     width: 100%;
-    height: 16rem; /* Ajusta la altura según tu diseño */
-    object-fit: cover; /* Mantiene la proporción y recorta la imagen si es necesario */
+    height: 16rem; 
+    object-fit: cover; 
   }
