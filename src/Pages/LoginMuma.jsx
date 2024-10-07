@@ -17,13 +17,13 @@ function Login() {
 
   useEffect(() => {
     const isAuthenticated = () => {
-      const token = localStorage.getItem("authToken");
-      return !!token;
-    };
-    if (isAuthenticated()) {
-      navigate("/home");
-    }
-  }, [navigate]);
+        const token = localStorage.getItem("authToken");
+        return !!token;
+      };
+      if (isAuthenticated()) {
+        navigate("/home");
+      }
+    }, [navigate]);
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
@@ -37,13 +37,13 @@ function Login() {
           validate={(values) => {
             const errors = {};
             if (!values.email) {
-              errors.email = "Required";
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-              errors.email = "El email no es valido";
-            }
-            if (!values.password) {
-              errors.password = "Ingrese una contraseña";
-            }
+                errors.email = "Required";
+              } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                errors.email = "El email no es valido";
+              }
+              if (!values.password) {
+                errors.password = "Ingrese una contraseña";
+              }
             return errors;
           }}
           onSubmit={async (values, { setSubmitting, setFieldError }) => {

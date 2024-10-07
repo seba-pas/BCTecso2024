@@ -9,15 +9,15 @@ import iconSex from '../assets/images/icons/sexo.png';
 
 const Home =() => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [petsImages, setPetsImages] = useState([]); // Cambiado a "petsImages" para mayor claridad
-    const [logosImages, setLogosImages] = useState([]); // Imágenes de protectoras
+    const [petsImages, setPetsImages] = useState([]);
+    const [logosImages, setLogosImages] = useState([]); 
 
     const handleSearch = (e) => {
       e.preventDefault();
       console.log('Buscando:', searchTerm);
     };
 
-    // Cargar las imágenes dinámicamente
+    // Cargar las imágenes dinámicamente desde las carpetas
     useEffect(() => {
         const loadImagesFromFolder = async (folderPath) => {
             let imagesObject;
@@ -40,8 +40,8 @@ const Home =() => {
         const loadImages = async () => {
             const pets = await loadImagesFromFolder('pets');
             const logos = await loadImagesFromFolder('protectors');
-            setPetsImages(pets); // Guardar imágenes de mascotas
-            setLogosImages(logos); // Guardar imágenes de protectoras
+            setPetsImages(pets); 
+            setLogosImages(logos); 
         };
     
         loadImages();
