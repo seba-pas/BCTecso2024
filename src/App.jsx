@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./Pages/HomeMascotero";
+import HomeMascotero from "./Pages/HomeMascotero";
 import LoginMuma from "./Pages/LoginMuma";
 import PetRegistration from "./Pages/PetRegistration";
 import ValidationAccount from "./Pages/ValidationAccount";
@@ -15,7 +15,7 @@ import Redirection from "./components/Redirection";
 function App() {
   let routes = [
     { path: "/", element: <LoginMuma /> },
-    { path: "/home", element: <Home /> },
+    { path: "/home", element: <HomeMascotero /> },
     { path: "/user_select", element: <UserSelect /> },
     { path: "/register_pet_owner", element: <PetRegistration /> },
     { path: "/register_shelter", element: <RegisterShelter /> },
