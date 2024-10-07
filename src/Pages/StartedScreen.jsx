@@ -8,8 +8,12 @@ import Button from 'react-bootstrap/Button';
 import image01 from '../assets/started-screen/image01.png';
 import image02 from '../assets/started-screen/image02.png';
 import dot02 from '../assets/started-screen/dots/dot02.png';
+import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StartedScreen = () => {
+  
+  const navigate = useNavigate();
 
   var settings = {
     dots: true,
@@ -59,8 +63,8 @@ const StartedScreen = () => {
                 </div>
               </Slider>
               <div className="d-flex flex-column align-items-center area-button">
-                <Button variant="primary" className="mt-4 btn-sm">Siguiente</Button>
-                <a className="link mt-3" href="#">Omitir</a>
+                <Button variant="primary" className="mt-4 btn-sm" onClick={() => navigate('/login')}>Siguiente</Button>
+                <Link to="/login" className="link mt-3">Omitir</Link>
               </div>
             </div>
           </Col>
