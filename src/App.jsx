@@ -9,7 +9,6 @@ import UserSelect from "./Pages/UserSelect";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
-import Redirection from "./components/Redirection";
 import PetPage from "./Pages/PetPage";
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
     <RouteChangeLoader>
       <Routes>
         {routes.map((value, key) => (
-          <Route key={key} path={value.path} element={<Redirection path={value.path} element={value.element} />} />
+          <Route key={key} path={value.path} element={value.element} />
         ))}
       </Routes>
     </RouteChangeLoader>

@@ -3,13 +3,17 @@ import { Col, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
 
 const FormPetPage = ({ action }) => {
-  const [borderDanger, setborderDanger] = useState({ name: "", idraza: 0, idtipo: 0, idtamano: 0, idcaracter: 0, ubicacion: "", nacimiento: "", description: "", idgenero: 0 });
+  const [borderDanger, setborderDanger] = useState({ nombre: "", tipoAnimal: "", raza: "", descripcion: "", sexo: "", tamano: "", temperamentoConAnimales: "", temperamentoConPersonas: "", ciudad: "", mesAnioNacimiento: "", protectora: "", fotos: [] });
+  const [combos, setCombos] = useState({ razas: [{ label: "Raza*" }], tipo: [{ label: "Tipo*" }], tamano: [{ label: "Tamaño*" }], caracterConAnimales: [{ label: "Caracter con animales*" }], caracterConPersonas: [{ label: "Caracter con personas*" }] });
   const valueManagement = (values) => {
     const errors = {};
     let classDanger = "border border-danger text-danger placeholder-danger";
     if (!values.name) {
       errors.name = "Campo requerido";
       setborderDanger({ ...borderDanger, name: classDanger });
+    } else if (!values.raza) {
+      errors.raza = "Campo requerido";
+      setborderDanger({ ...borderDanger, raza: classDanger });
     }
     return errors;
   };
@@ -20,7 +24,7 @@ const FormPetPage = ({ action }) => {
     }, 2000);
   };
   return (
-    <Formik initialValues={{ name: "", idraza: 0, idtipo: 0, idtamano: 0, idcaracter: 0, ubicacion: "", nacimiento: "", description: "", idgenero: 0 }} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
+    <Formik initialValues={{ nombre: "", tipoAnimal: "", raza: "", descripcion: "", sexo: "", tamano: "", temperamentoConAnimales: "", temperamentoConPersonas: "", ciudad: "", mesAnioNacimiento: "", protectora: "", fotos: [] }} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
         const handleInputChange = (e) => {
           handleChange(e);
@@ -37,6 +41,17 @@ const FormPetPage = ({ action }) => {
             <Col xs={12}>
               <Form.Control className={`input-muma ${borderDanger.name}`} style={{ transition: "none" }} placeholder="Nombre del animal*" type="text" name="name" onChange={handleInputChange} onBlur={handleBlur} value={values.name} />
               <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.name && touched.name && errors.name}</p>
+            </Col>
+            <Col xs={12}>
+              {/* <Form.Control className={`input-muma ${borderDanger.name}`} style={{ transition: "none" }} placeholder="Nombre del animal*" type="text" name="name" onChange={handleInputChange} onBlur={handleBlur} value={values.name} /> */}
+              <Form.Select aria-label="Raza*" className="custom-select-focus">
+                {combos.razas.map((raza, key) => (
+                  <option key={key} value={raza.label}>
+                    {raza.label}
+                  </option>
+                ))}
+              </Form.Select>
+              <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.raza && touched.raza && errors.raza}</p>
             </Col>
             <Button className="background-button-muma w-100 mt-5" type="submit" disabled={isSubmitting}>
               Agregar mascota
