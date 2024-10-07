@@ -12,7 +12,7 @@ function UserSelect (){
         if (props === "pet") {
           navigate('/register_pet_owner');
         } else if (props === "protector") {
-          navigate('/home');
+          navigate('/register_shelter');
         }
       };
 

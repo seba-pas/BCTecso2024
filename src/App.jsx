@@ -9,6 +9,7 @@ import UserSelect from "./Pages/UserSelect";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
+import { RegisterShelter } from "./Pages/RegisterShelter";
 import Redirection from "./components/Redirection";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     { path: "/home", element: <Home /> },
     { path: "/user_select", element: <UserSelect /> },
     { path: "/register_pet_owner", element: <PetRegistration /> },
+    { path: "/register_shelter", element: <RegisterShelter /> },
     { path: "/validation_email", element: <ValidationAccount /> },
     { path: "/email_registered", element: <EmailRegistered /> },
     { path: "/success_registration", element: <SuccesScreen /> },
