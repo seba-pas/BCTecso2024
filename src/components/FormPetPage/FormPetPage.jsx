@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Col, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
+import Select from "../elements/Select";
 
 const FormPetPage = ({ action }) => {
   const [borderDanger, setborderDanger] = useState({ nombre: "", tipoAnimal: "", raza: "", descripcion: "", sexo: "", tamano: "", temperamentoConAnimales: "", temperamentoConPersonas: "", ciudad: "", mesAnioNacimiento: "", protectora: "", fotos: [] });
-  const [combos, setCombos] = useState({ razas: [{ label: "Raza*" }], tipo: [{ label: "Tipo*" }], tamano: [{ label: "Tamaño*" }], caracterConAnimales: [{ label: "Caracter con animales*" }], caracterConPersonas: [{ label: "Caracter con personas*" }] });
+  const [combos, setCombos] = useState({ razas: [{ label: "Raza*", value: "" }], tipo: [{ label: "Tipo*", value: "" }], tamano: [{ label: "Tamaño*", value: "" }], caracterConAnimales: [{ label: "Caracter con animales*", value: "" }], caracterConPersonas: [{ label: "Caracter con personas*", value: "" }] });
   const valueManagement = (values) => {
     const errors = {};
     let classDanger = "border border-danger text-danger placeholder-danger";
@@ -44,13 +45,7 @@ const FormPetPage = ({ action }) => {
             </Col>
             <Col xs={12}>
               {/* <Form.Control className={`input-muma ${borderDanger.name}`} style={{ transition: "none" }} placeholder="Nombre del animal*" type="text" name="name" onChange={handleInputChange} onBlur={handleBlur} value={values.name} /> */}
-              <Form.Select aria-label="Raza*" className="custom-select-focus">
-                {combos.razas.map((raza, key) => (
-                  <option key={key} value={raza.label}>
-                    {raza.label}
-                  </option>
-                ))}
-              </Form.Select>
+              <Select options={combos.razas} placeholder="Raza*" />
               <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.raza && touched.raza && errors.raza}</p>
             </Col>
             <Button className="background-button-muma w-100 mt-5" type="submit" disabled={isSubmitting}>

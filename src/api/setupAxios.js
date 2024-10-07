@@ -22,6 +22,7 @@ instance.interceptors.response.use(
 );
 
 export const GetGeneral = async (path) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const respuesta = await instance.get(path);
     return respuesta.data;
@@ -31,6 +32,7 @@ export const GetGeneral = async (path) => {
 };
 
 export const PostGeneral = async (path, body) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const respuesta = await instance.post(path, body);
     return respuesta.data;
@@ -39,8 +41,9 @@ export const PostGeneral = async (path, body) => {
   }
 };
 
-//Configuracion axios login.
+// Configuracion axios login.
 export const login = async (values) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await instance.post(`Authentication/token`, {
       user: values.email,
@@ -57,6 +60,49 @@ export const login = async (values) => {
   }
 };
 
+export const registerNewShelter = async (values) => {
+  delete values.password2;
+  const { idProvincia, idCiudad, calle, numero, piso, departamento, password1: password, ...rest } = values;
+
+  const dataToSend = {
+    ...rest,
+    password,
+    direccion: {
+      idCiudad: JSON.parse(idCiudad.value).id,
+      calle: calle,
+      numero: numero,
+      piso: piso,
+      departamento: departamento,
+      provincia: JSON.parse(idProvincia.value),
+      ciudad: JSON.parse(idCiudad.value),
+    },
+  };
+
+  try {
+    const response = await instance.post(`Protectoras/registro`, dataToSend);
+    return response.data;
+  } catch (error) {
+    console.error("Error al registrar protectora:", error);
+    throw error;
+  }
+};
+
+export const getProvinces = async () => {
+  try {
+    const response = await instance.get("Combos/Provincias");
+    return response.data;
+  } catch (error) {
+    console.error("Error al pedir provincias:", error);
+  }
+};
+export const getCities = async (province) => {
+  try {
+    const response = await instance.get(`Combos/Ciudades/${province}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error al pedir ciudades:", error);
+  }
+};
 export const RegisterPet = async (path, body) => {
   try {
     const response = await instance.post(path, body);
@@ -67,6 +113,7 @@ export const RegisterPet = async (path, body) => {
 };
 
 export const SendEmail = async (form) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     let response = await emailjs.sendForm(VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, form, VITE_API_PUBLIC_KEY);
     return response;
