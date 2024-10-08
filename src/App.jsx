@@ -11,6 +11,9 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
+import SuccessSubmitPet from "./Pages/SuccessSubmitPet";
+import PetPage from "./Pages/PetPage";
+import { element } from "prop-types";
 
 function App() {
   let routes = [
@@ -36,10 +39,34 @@ function App() {
       ),
     },
     {
+      path: "/success_submit_pet",
+      element: (
+        <ProtectedRoute>
+          <SuccessSubmitPet />
+        </ProtectedRoute>
+      ),
+    },
+    {
       path: "/home",
       element: (
         <ProtectedRoute>
           <HomeMascotero />{" "}
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/form_pet",
+      element: (
+        <ProtectedRoute>
+          <PetPage />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/form_pet/:id",
+      element: (
+        <ProtectedRoute>
+          <PetPage />
         </ProtectedRoute>
       ),
     },

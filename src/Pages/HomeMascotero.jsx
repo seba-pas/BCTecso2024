@@ -6,8 +6,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
@@ -66,6 +68,11 @@ const Home = () => {
     ],
   };
 
+  const modificatePet = (id) => {
+    localStorage.setItem("action", "m");
+    navigate("/form_pet/" + id);
+  };
+
   return (
     <div>
       <Header />
@@ -111,6 +118,8 @@ const Home = () => {
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
                           <p className="card-text ms-2">Ubicación</p>
+                          <button onClick={() => modificatePet(2)}>Modificar</button>
+                          <button>Eliminar</button>
                         </div>
                       </div>
                     </div>

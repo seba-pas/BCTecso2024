@@ -11,3 +11,7 @@ export const inputs2 = [
   { type: "date", placeholder: "DD/MM/AAAA", name: "mesAnioNacimiento" },
   { type: "textarea", placeholder: "Descripción", name: "descripcion" },
 ];
+export const checks = [
+  { id: "check-macho", label: "Macho", type: "radio", value: "macho", name: "sexo" },
+  { id: "check-hembra", label: "Hembra", type: "radio", value: "hembra", name: "sexo" },
+];

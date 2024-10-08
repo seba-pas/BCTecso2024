@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 const ArrowBack = ({ className, path }) => {
   const navigate = useNavigate();
-  const returnToHome = () => navigate(path);
+  const returnToHome = () => {
+    localStorage.removeItem("action");
+    navigate(path);
+  };
   return (
     <Col className={className}>
       <Image onClick={returnToHome} className="pointer" src={arrowBack} alt="arrow_back" />
