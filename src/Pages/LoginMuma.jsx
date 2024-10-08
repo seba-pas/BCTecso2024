@@ -1,43 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux"; 
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import { login } from "../api/setupAxios";
+import { login } from "../features/auth/authSlice"; 
 import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState(""); 
   const [rememberMe, setRememberMe] = useState(false); 
 
+  // Accedo al estado de autenticación y de carga de Redux
+  const { loading, isAuthenticated, error } = useSelector((state) => state.auth);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // Cargo el email en el localStorage si es que existe
+  // Si existe el mail lo cargo ene el localStorage
   useEffect(() => {
     const savedEmail = localStorage.getItem("savedEmail");
-    console.log(savedEmail);
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
   }, []); 
 
-  // Chequeo si está autenticado, si lo está redirige a home.
+  // Si está autenticado redirige al home.
   useEffect(() => {
-    const isAuthenticated = () => {
-      const token = localStorage.getItem("authToken");
-      return !!token;
-    };
-    if (isAuthenticated()) {
+    if (isAuthenticated) {
       navigate("/home");
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
@@ -61,25 +60,20 @@ function Login() {
             }
             return errors;
           }}
-          onSubmit={async (values, { setSubmitting, setFieldError }) => {
-            try {
-              await login(values); //Si esta marcado recordar guarda el mail en el localStorage
-              if (rememberMe) {
-                localStorage.setItem("savedEmail", values.email); 
-              } else {
-                localStorage.removeItem("savedEmail");
-              }
-              navigate("/home");
-            } catch (error) {
-              setFieldError("general", "Credenciales incorrectas");
-            } finally {
-              setSubmitting(false);
+          onSubmit={(values, { setSubmitting, setFieldError }) => {
+            dispatch(login(values));  
+
+            if (rememberMe) {
+              localStorage.setItem("savedEmail", values.email);  
+            } else {
+              localStorage.removeItem("savedEmail");
             }
+            setSubmitting(false);
           }}
         >
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
-              {errors.general && <Alert variant="danger">{errors.general}</Alert>}
+              {error && <Alert variant="danger">{error}</Alert>}
               <div className="form-group mb-3">
                 <input
                   type="email"
@@ -122,13 +116,13 @@ function Login() {
                   />
                   <label className="form-check-label">Recordarme</label>
                 </div>
-                <a href="/forgot-password" className="text-decoration-none">
+                <a href="" className="text-decoration-none">
                   ¿Olvidaste tu contraseña?
                 </a>
               </div>
 
-              <button type="submit" className="btn btn-warning w-100 mb-3" disabled={isSubmitting}>
-                Ingresar
+              <button type="submit" className="btn btn-warning w-100 mb-3" disabled={isSubmitting || loading}>
+                {loading ? "Cargando..." : "Ingresar"}
               </button>
 
               <button type="button" className="btn btn-outline-warning w-100" onClick={() => navigate("/user_select")}>
