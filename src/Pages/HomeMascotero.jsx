@@ -102,8 +102,14 @@ const Home =() => {
                         <Slider {...settings}>
                             {petsImages.map((image, index) => (
                                 <div key={index} className='pb-5'>
-                                    <div className="card ms-3" style={{ width: '18rem',heigh:'18rem',border:'none',boxShadow:'-4px 14px 17px -3px rgba(0,0,0,0.25)'}}>
-                                        <img src={image.image} className="card-img-top pet-img" alt="..." />
+                                    <div className="card ms-3" style={{ width: '19rem',heigh:'18rem',border:'none',boxShadow:'-4px 14px 17px -3px rgba(0,0,0,0.25)'}}>
+                                        <div>
+                                            <div className='pet-whishlist'>
+                                                <i className="bi bi-heart" style={{fontSize:'24px',color:'#E11900'}}></i>
+                                            </div>
+                                            <img src={image.image} className="card-img-top pet-img" alt="..." />
+                                        </div>
+                                        
                                         <div className="card-body">
                                             <div className='d-flex justify-content-between align-items-center'>
                                                 <h5 className="card-title" >Nombre del Animal</h5>
