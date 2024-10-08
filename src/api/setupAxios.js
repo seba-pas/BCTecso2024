@@ -52,6 +52,7 @@ export const login = async (values) => {
     if (response.data && response.data.token) {
       const token = response.data.token;
       localStorage.setItem("token", token);
+      return {token};
     } else {
       throw new Error("No se recibio el token");
     }
