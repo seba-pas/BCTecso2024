@@ -6,7 +6,6 @@
   display: flex;
   align-items: center; 
   justify-content: center;
-  padding: 5rem;
   flex-direction: column;
   
 }
@@ -19,7 +18,13 @@
   }
   
   .container-abajo{
-    margin-left:300px;
+    left: 50px;
+    top: 35px;
+  }
+
+  .container-arriba {
+    left: -50px;
+    top: -35px;
   }
   
   .btn-mascotero, .btn-protectora {
@@ -33,6 +38,7 @@
     position: relative;
     padding: 0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
   }
   
   .btn-mascotero {
