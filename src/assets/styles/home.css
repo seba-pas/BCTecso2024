@@ -40,3 +40,12 @@
 .protector-img{
     width: 10rem;
 }
+
+.pet-whishlist{
+    background-color: white;
+    padding: 0px 6px;
+    position: absolute;
+    border-radius: 5px;
+    top: 15px;
+    right: 15px;
+}

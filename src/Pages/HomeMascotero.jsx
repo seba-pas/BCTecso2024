@@ -42,6 +42,8 @@ const Home = () => {
     const loadImages = async () => {
       const pets = await loadImagesFromFolder("pets");
       const logos = await loadImagesFromFolder("protectors");
+      console.log("Pets Images:", pets);
+      console.log("Logos Images:", logos);
       setPetsImages(pets);
       setLogosImages(logos);
     };
@@ -77,9 +79,9 @@ const Home = () => {
     <div>
       <Header />
       <main className="vh-100">
-        <Form className="d-flex justify-content-center p-4">
-          <Form.Control type="search" placeholder="Nombre, estado, protectora y sexo" className="input-bar-search" aria-label="Search" />
-          <Button className="button-bar-search">
+        <Form className="d-flex justify-content-center p-4" onSubmit={handleSearch}>
+          <Form.Control type="search" placeholder="Nombre, estado, protectora y sexo" className="input-bar-search" aria-label="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <Button className="button-bar-search" type="submit">
             <i className="bi bi-search"></i>
           </Button>
         </Form>
@@ -108,12 +110,12 @@ const Home = () => {
               <Slider {...settings}>
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5">
-                    <div className="card ms-3" style={{ width: "18rem", heigh: "18rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                    <div className="card ms-3" style={{ width: "18rem", height: "18rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
                       <img src={image.image} className="card-img-top pet-img" alt="..." />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
                           <h5 className="card-title">Nombre del Animal</h5>
-                          <img src={iconSex} style={{ width: "30px" }} />
+                          <img src={iconSex} style={{ width: "30px" }} alt="Sexo" />
                         </div>
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
