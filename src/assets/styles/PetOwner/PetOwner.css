@@ -9,7 +9,7 @@
 }
 
 .input-muma::placeholder {
-  color: #f08318 !important;
+  color: var(--brand-neutro-01) !important;
 }
 
 .placeholder-danger::placeholder {

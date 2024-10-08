@@ -43,6 +43,7 @@ export const RegisterShelterForm = () => {
                 placeholder="Provincia*"
                 options={provinceOptions}
                 customOnChange={(selectedOption) => {
+                  console.log(selectedOption);
                   if (selectedOption) {
                     const selectedProvince = JSON.parse(selectedOption.value);
                     setSelectedProvinces(selectedProvince.id);
