@@ -3,17 +3,19 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import avatar from '../../assets/images/avatar.png';
 import { BiMenuAltLeft } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout as logoutAction } from '../../features/auth/authSlice';
 
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();  
 
   const logOut = () => {
-    localStorage.removeItem("token");
+    dispatch(logoutAction());
     navigate("/");
   };
   const goHome = () => {
