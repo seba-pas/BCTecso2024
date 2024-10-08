@@ -22,7 +22,7 @@ function UserSelect (){
                 <a onClick={() => handleClick("pet")} style={{textDecoration:'none'}} className='d-flex flex-column justify-content-center align-items-center'>
                     <img src={circlesUp} alt="" className='arco-cirulos-arriba'/>
                     <div className='d-flex flex-column align-items-center' style={{paddingRight:'8rem'}}>
-                        <div className="rounded-circle d-flex align-items-center justify-content-center flex-column logo-mascotero">
+                        <div className="rounded-circle d-flex align-items-center justify-content-center flex-column logo-mascotero" style={{boxShadow:'3px 5px 10px 3px rgba(0,0,0,0.24)'}}>
                             <img src={logoMascW} alt="" style={{width:'83px'}}/>
                         </div>
                         <p className='denominacion-mascotero'>Mascotero</p>
@@ -32,7 +32,7 @@ function UserSelect (){
             <section className="w-100">
                 <a onClick={() => handleClick("protector")} style={{textDecoration:'none'}} className='d-flex flex-column justify-content-center align-items-center'> 
                     <div className='d-flex flex-column align-items-center' style={{paddingLeft:'8rem'}}>
-                        <div className="rounded-circle d-flex align-items-center justify-content-center logo-protectora">
+                        <div className="rounded-circle d-flex align-items-center justify-content-center logo-protectora" style={{boxShadow:'3px 5px 14px 5px rgba(0,0,0,0.24)'}}>
                             <img src={logoProtecG} alt="" style={{width:'83px'}} />
                         </div>
                         <p className='denominacion-protectora'>Protectora</p>
