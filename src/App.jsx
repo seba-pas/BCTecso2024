@@ -1,18 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import HomeMascotero from "./Pages/HomeMascotero";
-import LoginMuma from "./Pages/LoginMuma";
-import PetRegistration from "./Pages/PetRegistration";
-import ValidationAccount from "./Pages/ValidationAccount";
-import EmailRegistered from "./Pages/EmailRegistered";
-import SuccesScreen from "./Pages/SuccesScreen";
-import UserSelect from "./Pages/UserSelect";
-import RegisterShelter from "./Pages/RegisterShelter";
+import { DetailPet, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount } from "./Pages";
+
+import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import ProtectedRoute from "./components/ProtectedRoutes";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
-import RouteChangeLoader from "./components/SplashLoader/Routechange";
-import SuccessSubmitPet from "./Pages/SuccessSubmitPet";
-import PetPage from "./Pages/PetPage";
+
 import { element } from "prop-types";
 
 function App() {
