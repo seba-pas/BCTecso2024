@@ -1,0 +1,77 @@
+@use "../../sass/utils/variables" as var; 
+@use "../base/fonts" as font;
+
+
+.container-success{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 4rem;
+}
+
+.container-text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin-bottom: 60px;
+}
+
+
+.img-success {
+    width: 300.56px;
+    height: 414.83px;
+    top:107px;
+    left:56px;
+    border-top-left-radius: 140.86px;
+    border-top-right-radius: 140.86px;
+    border-bottom-left-radius: 14.09px;
+    border-bottom-right-radius: 14.09px;
+
+
+}
+
+.title-main {
+    width: 700;
+    font-size: 22px;
+    font-family: 'Montserrat-Regular';
+    color: var.$neutral-01;
+    line-height: 24px;
+    font-weight: bold;
+    
+}
+
+.paragraph-main{
+    font-family: "Montserrat-Regular";
+    color: var.$text-slider;
+    font-size: 14px;
+}
+
+.btn-login {
+    width: 198px;
+    height: 50px;
+    font-size: 14px;
+    padding-top: 13.5px !important;
+    padding-bottom: 13.5px !important;
+    width: 198px;
+    border-radius: 8px;
+    background-color: var.$primary-01 !important;
+    border: none;
+}
+
+
+@media (max-width:768px){
+
+    .title-main {
+    font-size: 5vw;
+
+    }
+    .paragraph-main{
+      font-size: 4vw;
+      line-height: 1.5;
+    }
+
+}
