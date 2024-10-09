@@ -33,7 +33,7 @@ export const RegisterShelterForm = () => {
     >
       {({ setFieldValue }) => {
         return (
-          <Form noValidate className="w-100 mx-auto" style={{ maxWidth: "768px" }}>
+          <Form noValidate className="w-100 mx-auto" style={{ maxWidth: "640px" }}>
             <div className="d-flex flex-column " style={{ gap: "16px" }}>
               {inputs1.map((props) => (
                 <RegisterShelterInput key={props.name} {...props} />
