@@ -15,7 +15,6 @@ export const customStyles = {
   menu: (provided) => ({
     ...provided,
     borderRadius: "10px",
-    // backgroundColor: "var(--background-lightmode-secondary)",
   }),
   option: (provided, state) => ({
     ...provided,
