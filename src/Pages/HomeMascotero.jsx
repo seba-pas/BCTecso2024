@@ -7,9 +7,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
+import FormDeletePet from "../components/FormDeletePet";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [modalShow, setmodalShow] = useState(false);
+  const closeModal = () => setmodalShow(false);
+  const openModal = () => setmodalShow(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
@@ -77,6 +82,9 @@ const Home = () => {
 
   return (
     <div>
+      <Modal show={modalShow} onHide={closeModal}>
+        <FormDeletePet title="Dar de baja" onClose={closeModal} description="¿Estás seguro de que querés dar de baja a Bruno?" />
+      </Modal>
       <Header />
       <main className="vh-100">
         <Form className="d-flex justify-content-center p-4" onSubmit={handleSearch}>
@@ -121,7 +129,7 @@ const Home = () => {
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
                           <p className="card-text ms-2">Ubicación</p>
                           <button onClick={() => modificatePet(2)}>Modificar</button>
-                          <button>Eliminar</button>
+                          <button onClick={openModal}>Eliminar</button>
                         </div>
                       </div>
                     </div>
