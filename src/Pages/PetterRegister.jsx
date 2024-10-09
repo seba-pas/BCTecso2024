@@ -3,6 +3,8 @@ import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,12 +30,31 @@ const validationSchema = Yup.object().shape({
 
 function PetterRegister() {
   const navigate = useNavigate();
+
+  const form = useRef();
+
+  const sendEmail = async () => {
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+      return "SUCCESS";
+    } catch (error) {
+      console.log(error)
+      return error.text;
+    }
+  };
+  
   const handleSubmit = (values) => {
     console.log("Nombre:", values.name);
     console.log("Apellido:", values.lastName);
     console.log("Email:", values.email);
     console.log("Password:", values.password);
     console.log("Confirmation Password:", values.confirmPassword);
+    
     axios
       .post("http://localhost:8081/api/Mascoteros/registro", {
         nombre: values.name,
@@ -41,20 +62,32 @@ function PetterRegister() {
         email: values.email,
         password: values.password,
       })
-      .then((response) => {
+      .then(async (response) => {
         console.log("Response:", response);
-        navigate("/register/success");
+  
+        // Llamar a sendEmail y esperar su respuesta
+        const emailStatus = await sendEmail();
+        
+        if (emailStatus === "SUCCESS") {
+          navigate("/register/account-validation");
+        } else {
+          console.error("Error al enviar el email:", emailStatus);
+        }
+  
       })
       .catch((error) => {
+        console.log('el error es: ' + error)
         const response = JSON.parse(error.request.response);
+        console.log('la respuesta es: ' + response)
   
         if (response.errors && response.errors.includes("Ya existe un usuario registrado con esa dirección de email")) {
-          navigate("/registered-mail");
+          navigate("/register/refused");
         } else {
           console.error("Error:", response.errors);
         }
       });
   };
+  
 
   return (
     <div className="vh-100 justify-content-center align-items-center">
@@ -83,7 +116,7 @@ function PetterRegister() {
             handleSubmit: formikHandleSubmit,
             isSubmitting,
           }) => (
-            <Form onSubmit={formikHandleSubmit}>
+            <Form ref={form} onSubmit={formikHandleSubmit}>
               <Form.Group controlId="formBasicName">
                 <Form.Label>Nombre*</Form.Label>
                 <Form.Control
