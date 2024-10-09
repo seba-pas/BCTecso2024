@@ -9,13 +9,13 @@ import Home from './Pages/Home';
 
 import ProtectorRegister from './Pages/ProtectorRegister';
 import PetterRegister from './Pages/PetterRegister';
-import AccountValidation from './Pages/AccountValidation';
-import RegisterRefused from './Pages/RegisterRefused';
-import RegisterSuccess from './Pages/RegisterSuccess';
+// import AccountValidation from './Pages/AccountValidation';
+import RegisteredMail from './Pages/RegisteredMail/RegisteredMail';
+// import RegisterRefused from './Pages/RegisterRefused';
+// import RegisterSuccess from './Pages/RegisterSuccess';
 import SelectUser from './Pages/SelectUser/SelectUser';
 import SuccessScreen from './Pages/SuccessScreen/SuccessScreen';
 import AccountValidation from './Pages/AccountValidation/AccountValidation';
-import RegisteredMail from './Pages/RegisteredMail/RegisteredMail';
 
 
 
@@ -44,11 +44,11 @@ function App() {
       <Route path="/register/protector" element={<ProtectorRegister />} />
       <Route path="/register/petter" element={<PetterRegister />} />
       <Route path="/register/account-validation" element={<AccountValidation />} />
-      <Route path="/register/refused" element={<RegisterRefused />} />
-      <Route path="/register/success" element={<RegisterSuccess />} />
-      <Route path="/success" element={<SuccessScreen />} />
-      <Route path="/account-validation" element={<AccountValidation />} />
-      <Route path="/registered-mail" element={<RegisteredMail />} />
+      <Route path="/register/refused" element={<RegisteredMail />} />
+      <Route path="/register/success" element={<SuccessScreen/>} />
+      {/* <Route path="/success" element={<SuccessScreen />} /> */}
+      {/* <Route path="/account-validation" element={<AccountValidation />} /> */}
+      {/* <Route path="/registered-mail" element={<RegisteredMail />} /> */}
 
 
 
