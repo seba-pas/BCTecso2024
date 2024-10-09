@@ -8,4 +8,3 @@ export { default as SuccesScreen } from "./SuccesScreen";
 export { default as SuccessSubmitPet } from "./SuccessSubmitPet";
 export { default as UserSelect } from "./UserSelect";
 export { default as ValidationAccount } from "./ValidationAccount";
-export { DetailPet } from "./DetailPet";
