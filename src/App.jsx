@@ -13,6 +13,7 @@ import RegisterRefused from './Pages/RegisterRefused';
 import RegisterSuccess from './Pages/RegisterSuccess';
 import SelectUser from './Pages/SelectUser/SelectUser';
 import SuccessScreen from './Pages/SuccessScreen/SuccessScreen';
+import AccountValidation from './Pages/AccountValidation/AccountValidation';
 
 
 
@@ -43,6 +44,7 @@ function App() {
       <Route path="/register/refused" element={<RegisterRefused />} />
       <Route path="/register/success" element={<RegisterSuccess />} />
       <Route path="/success" element={<SuccessScreen />} />
+      <Route path="/account-validation" element={<AccountValidation />} />
 
 
 

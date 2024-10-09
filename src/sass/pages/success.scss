@@ -8,16 +8,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    text-align: center;
     padding: 4rem;
+ 
 }
 
 .container-text {
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap:10px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+   
+   
+  
 }
 
 
@@ -34,6 +38,19 @@
 
 }
 
+.img-account{
+    width: 250px;
+    height: 393px;
+    left: 55px;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 60px;
+    
+    
+}
+
 .title-main {
     width: 700;
     font-size: 22px;
@@ -41,13 +58,17 @@
     color: var.$neutral-01;
     line-height: 24px;
     font-weight: bold;
+    text-align: center;
+  
     
 }
 
 .paragraph-main{
     font-family: "Montserrat-Regular";
     color: var.$text-slider;
-    font-size: 14px;
+    font-size: 17px;
+  
+   
 }
 
 .btn-login {
@@ -65,13 +86,19 @@
 
 @media (max-width:768px){
 
+    .container-text{
+        width: 100%;
+    }
+
     .title-main {
     font-size: 5vw;
+    text-align: left;
 
     }
     .paragraph-main{
       font-size: 4vw;
-      line-height: 1.5;
+      text-align: left;
+
     }
 
 }
