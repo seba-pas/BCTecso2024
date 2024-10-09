@@ -1,25 +1,47 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home';
+import { useEffect, useState } from 'react';
+import SplashScreen from './Pages/SplashScreen';
+import StartedScreen from './Pages/StartedScreen';
 import Login from './Pages/Login/Login';
 
+
+import Home from './Pages/Home';
+
+import ProtectorRegister from './Pages/ProtectorRegister';
+import PetterRegister from './Pages/PetterRegister';
+import RegisterRefused from './Pages/RegisterRefused';
+import RegisterSuccess from './Pages/RegisterSuccess';
 import SelectUser from './Pages/SelectUser/SelectUser';
-// import ProtectorRegister from './Pages/ProtectorRegister';
-// import PetterRegister from './Pages/PetterRegister';
-// import RegisterRefused from './Pages/RegisterRefused';
-// import RegisterSuccess from './Pages/RegisterSuccess';
+
 
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
+
+
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<StartedScreen />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
 
       <Route path="/select-user" element={<SelectUser />} />
-      {/* <Route path="/register/protector" element={<ProtectorRegister />} /> */}
-      {/* <Route path="/register/petter" element={<PetterRegister />} />
+
+
+      <Route path="/register/protector" element={<ProtectorRegister />} />
+      <Route path="/register/petter" element={<PetterRegister />} />
       <Route path="/register/refused" element={<RegisterRefused />} />
-      <Route path="/register/success" element={<RegisterSuccess />} /> */}
+      <Route path="/register/success" element={<RegisterSuccess />} />
+
 
 
     </Routes>
