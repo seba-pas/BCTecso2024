@@ -12,6 +12,7 @@ import PetterRegister from './Pages/PetterRegister';
 import RegisterRefused from './Pages/RegisterRefused';
 import RegisterSuccess from './Pages/RegisterSuccess';
 import SelectUser from './Pages/SelectUser/SelectUser';
+import SuccessScreen from './Pages/SuccessScreen/SuccessScreen';
 
 
 
@@ -41,6 +42,7 @@ function App() {
       <Route path="/register/petter" element={<PetterRegister />} />
       <Route path="/register/refused" element={<RegisterRefused />} />
       <Route path="/register/success" element={<RegisterSuccess />} />
+      <Route path="/success" element={<SuccessScreen />} />
 
 
 
