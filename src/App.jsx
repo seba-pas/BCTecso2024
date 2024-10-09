@@ -15,6 +15,7 @@ import RegisterSuccess from './Pages/RegisterSuccess';
 import SelectUser from './Pages/SelectUser/SelectUser';
 import SuccessScreen from './Pages/SuccessScreen/SuccessScreen';
 import AccountValidation from './Pages/AccountValidation/AccountValidation';
+import RegisteredMail from './Pages/RegisteredMail/RegisteredMail';
 
 
 
@@ -47,6 +48,7 @@ function App() {
       <Route path="/register/success" element={<RegisterSuccess />} />
       <Route path="/success" element={<SuccessScreen />} />
       <Route path="/account-validation" element={<AccountValidation />} />
+      <Route path="/registered-mail" element={<RegisteredMail />} />
 
 
 
