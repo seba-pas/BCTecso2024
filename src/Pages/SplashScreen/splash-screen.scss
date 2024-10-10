@@ -1,5 +1,7 @@
+@use "../../sass/utils/variables" as var; 
+
 .custom-bg-primary {
-    background-color: $primary-03;
+    background-color: var.$primary-03;
 }
 
 .logo-position {

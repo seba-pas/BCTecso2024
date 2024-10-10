@@ -1,14 +1,18 @@
 
 import {useState} from "react"
+//libraries
+import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+//components
+import { Form, Button, Container } from "react-bootstrap";
 import login from "../../assets/login.png";
 import eye from "../../assets/eye.png";
 import hidden from "../../assets/Vector.png"
+//styles
 import "./login.scss"
+
 const validationSchema = Yup.object().shape({
   email: Yup.string("Debe ingresar su usuario")
     .email("Debe ingresar un email")

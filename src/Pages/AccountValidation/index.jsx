@@ -11,10 +11,7 @@ const AccountValidation = () => {
 
     const handleSubmitValidation = () =>{
         navigate("/login")
-
     };
-
-
 
     return(
         
@@ -32,13 +29,13 @@ const AccountValidation = () => {
                 </p>
             </div>
             
-            <Button className="btn-login"
-                  variant="primary"
-                  type="submit"
-                  onClick={handleSubmitValidation}
-                >
-                  Abrir Correo
-              </Button>
+            <Button className="btn-sm"
+                variant="primary"
+                type="submit"
+                onClick={handleSubmitValidation}
+            >
+                Abrir Correo
+            </Button>
 
         </div>
     );
