@@ -1,19 +1,35 @@
 @use "../../sass/utils/variables" as var; 
 @use "../base/fonts" as font;
 
+.container-box {
+    width: 350px; 
+}
+
 .box {
     font-family: 'Montserrat-Regular';
+    .box-image {
+        .img-dog {
+            z-index: 2;
+        }
+        .img-blur {
+            z-index: 1;
+            bottom: -100px;
+        }
+    }
     .box-title {
         font-size: 22px;
         line-height: 24px;
         color: var.$neutral-01;
         font-weight: bold;
+        height: 48px;
+        align-content: center;
     }
     .box-text {
         color: var.$text-slider;
         font-size: 14px;
     }
 }
+
 
 
 // .container-success{
