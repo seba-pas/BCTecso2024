@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Form, Button, Row,Alert } from "react-bootstrap";
+import { Col, Form, Button, Row, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import Select from "../elements/Select";
 import Input from "../elements/Input";
@@ -7,7 +7,7 @@ import Check from "../elements/Check";
 import { inputs, selects, inputs2, checks } from "../../data/FormPetPage";
 import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
-import {PostGeneral} from "../../api/setupAxios";
+import { PostGeneral } from "../../api/setupAxios";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
@@ -15,7 +15,7 @@ const FormPetPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [checked, setchecked] = useState({ 0: false, 1: false });
-  const [errorRegister,seterrorRegister] = useState(false)
+  const [errorRegister, seterrorRegister] = useState(false);
   const [petData, setpetData] = useState({ nombre: "", tipoAnimal: "", raza: "", descripcion: "", sexo: "", tamano: "", temperamentoConAnimales: "", temperamentoConPersonas: "", ciudad: "", mesAnioNacimiento: "", protectora: "", fotos: [] });
   let action = localStorage.getItem("action");
   const [combos, setCombos] = useState({ raza: [{ label: "Raza*", value: "" }], tipoAnimal: [{ label: "Tipo*", value: "" }], tamano: [{ label: "Tamaño*", value: "" }], temperamentoConAnimales: [{ label: "Caracter con animales*", value: "" }], temperamentoConPersonas: [{ label: "Caracter con personas*", value: "" }] });
@@ -31,15 +31,15 @@ const FormPetPage = () => {
     else if (!values.sexo) errors.sexo = "Campo requerido";
     return errors;
   };
-  const submitForm = async(values, setSubmitting) => {
+  const submitForm = async (values, setSubmitting) => {
     try {
       setSubmitting(true);
       values.mesAnioNacimiento = moment.tz(values.mesAnioNacimiento, "America/Argentina/Buenos_Aires").format("YYYY-MM");
-      await PostGeneral("Mascotas/registro",values);
+      await PostGeneral("Mascotas/registro", values);
       setSubmitting(false);
-      navigate("/success_submit_pet");
+      /* navigate("/success_submit_pet"); */
     } catch (error) {
-      seterrorRegister(true)
+      seterrorRegister(true);
     }
   };
   const returnTextButton = (action) => {
@@ -97,10 +97,10 @@ const FormPetPage = () => {
               ))}
               <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
             </Row>
+            {errorRegister && <Alert variant="danger">Huno un error al intentar registrar su animal.</Alert>}
             <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
               {returnTextButton(action)}
             </Button>
-            {errorRegister && <Alert variant="danger">Huno un error al intentar registrar su animal.</Alert>}
           </Form>
         );
       }}
