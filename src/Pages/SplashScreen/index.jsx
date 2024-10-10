@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
-import isologotype from '../assets/splash-screen/isologotype.svg';
-import footprints from '../assets/splash-screen/footprints.svg';
+import isologotype from '../../assets/splash-screen/isologotype.svg';
+import footprints from '../../assets/splash-screen/footprints.svg';
+import './splash-screen.scss';
 
 const SplashScreen = () => {
   return (

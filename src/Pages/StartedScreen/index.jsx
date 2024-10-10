@@ -5,11 +5,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import image01 from '../assets/started-screen/image01.png';
-import image02 from '../assets/started-screen/image02.png';
-import dot02 from '../assets/started-screen/dots/dot02.png';
+import image01 from '../../assets/started-screen/image01.png';
+import image02 from '../../assets/started-screen/image02.png';
+import dot02 from '../../assets/started-screen/dots/dot02.png';
 import {Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import './started-screen.scss';
 
 const StartedScreen = () => {
   

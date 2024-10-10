@@ -1,3 +1,5 @@
+@use "../../sass/utils/variables" as var; 
+
 .img-size {
     width: 250px;
     height: auto;
@@ -27,11 +29,11 @@
     .slide-title {
         font-size: 22px;
         line-height: 24px;
-        color: $neutral-01;
+        color: var.$neutral-01;
         font-weight: bold;
     }
     .slide-text {
-        color: $text-slider;
+        color: var.$text-slider;
         font-size: 14px;
     }
 }
@@ -40,7 +42,7 @@
     font-family: 'Montserrat-Regular';
     .link {
         font-size: 14px;
-        color: $secondary-01;
+        color: var.$secondary-01;
         text-decoration: none;
     }
 }
