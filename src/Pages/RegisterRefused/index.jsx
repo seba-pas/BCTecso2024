@@ -27,7 +27,7 @@ const RegisterRefused = () => {
                   <p className="box-text text-start px-4">Si no recordás tu contraseña podés cambiarla desde el login ingresando en el enlace “Olvidé mi contraseña”.</p>
                 </div>
                 <div className="d-flex flex-column align-items-center area-button">
-                  <Button variant="primary" className="mt-2 btn-sm" onClick={() => navigate('/login')}>Siguiente</Button>
+                  <Button variant="primary" className="mt-2 btn-sm" onClick={() => navigate('/login')}>Ir al login</Button>
                 </div>
               </div>
             </Col>

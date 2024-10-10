@@ -21,10 +21,10 @@ const SuccessScreen = () => {
                   <img className="img-fluid img-size" src={Success} alt="Success" />
                 </div>
                 <h2 className="box-title text-center mb-2 mt-4">¡Qué bueno que estés acá!</h2>
-                <p className="box-text text-center px-3">¡Listo ya ! Ya puedes empezar a usar tu cuenta.</p>
+                <p className="box-text text-center px-3">¡Listo! Ya puedes empezar a usar tu cuenta.</p>
               </div>
               <div className="d-flex flex-column align-items-center area-button">
-                <Button variant="primary" className="mt-4 btn-sm" onClick={() => navigate('/login')}>Siguiente</Button>
+                <Button variant="primary" className="mt-4 btn-sm" onClick={() => navigate('/login')}>Ir al login</Button>
               </div>
             </Col>
           </Row>
