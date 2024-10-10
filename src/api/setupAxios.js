@@ -1,10 +1,16 @@
 import axios from "axios";
 import emailjs from "@emailjs/browser";
-const { VITE_API_URL_GENERAL, VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, VITE_API_PUBLIC_KEY } = import.meta.env;
+const { VITE_API_URL_GENERAL, VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, VITE_API_PUBLIC_KEY, VITE_API_URL_CLOUDINARY, VITE_API_UPLOAD_PRESET } = import.meta.env;
 const instance = axios.create({
   baseURL: VITE_API_URL_GENERAL,
   timeout: 3000,
   headers: { "Content-Type": "application/json" },
+});
+
+const instanceCloudinary = axios.create({
+  baseURL: VITE_API_URL_CLOUDINARY,
+  timeout: 3000,
+  headers: { "X-Requested-With": "XMLHttpRequest" },
 });
 
 //Con este interceptor si el token expiro automaticamente redirige al login
@@ -122,6 +128,20 @@ export const SendEmail = async (form) => {
   try {
     let response = await emailjs.sendForm(VITE_API_SERVICE_ID, VITE_API_TEMPLATE_ID, form, VITE_API_PUBLIC_KEY);
     return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createImageCloudinary = async (image) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", VITE_API_UPLOAD_PRESET);
+    let response = await instanceCloudinary.post("image/upload", formData);
+    let secureUrl = response.data.secure_url;
+    const transformedUrl = secureUrl.replace("/upload/", "/upload/w_300,h_200,c_fill/");
+    return transformedUrl;
   } catch (error) {
     throw error;
   }
