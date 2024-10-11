@@ -54,3 +54,18 @@
   line-height: 20px;
   color: #5f5b5b;
 }
+
+.scroll-animated {
+  animation: reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 40% cover 40%;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 60%;
+  }
+  to {
+    opacity: 1;
+  }
+}
