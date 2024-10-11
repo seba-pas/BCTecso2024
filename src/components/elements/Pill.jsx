@@ -15,6 +15,7 @@ export const Pill = ({ status, color = "purple" }) => {
             padding: 8px 16px;
             height: min-content;
             font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
           }
         `}
       </style>
