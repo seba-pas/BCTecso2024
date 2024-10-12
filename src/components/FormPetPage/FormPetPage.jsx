@@ -7,7 +7,7 @@ import Check from "../elements/Check";
 import { inputs, selects, inputs2, checks } from "../../data/FormPetPage";
 import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
-import { PostGeneral } from "../../api/setupAxios";
+import { GetGeneral, PostGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
@@ -86,7 +86,7 @@ const FormPetPage = () => {
       }
       await PostGeneral("Mascotas/registro", values);
       setSubmitting(false);
-      /* navigate("/success_submit_pet"); */
+      navigate("/success_submit_pet");
     } catch (error) {
       let errors = error.response.data;
       if (Array.isArray(errors)) setErrorsMessages(errors);
@@ -110,7 +110,7 @@ const FormPetPage = () => {
 
   useEffect(() => {
     //Se manejara el llenado byid para la modificacion.
-    if (id)
+    if (id) {
       setpetData({
         nombre: "Leandro",
         raza: { label: "Perro", value: "Perro" },
@@ -125,7 +125,16 @@ const FormPetPage = () => {
         sexo: "Macho",
         fotos: ["https://firebasestorage.googleapis.com/v0/b/pagina-lg-simulacion.appspot.com/o/mascota.jfif?alt=media&token=de20c011-e973-4b51-9227-7a7bb37b679a"],
       });
-  }, []);
+    }
+    GetGeneral("Protectoras", {}).then((protectoras) => {
+      let combosProtectoras = protectoras.map((protectora) => ({ label: protectora.nombreProtectora, value: protectora.id }));
+      setCombos({
+        ...combos,
+        protectoraId: combosProtectoras,
+      });
+    });
+    /* return () => localStorage.removeItem("action"); */
+  }, [id]);
   return (
     <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
       {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
@@ -164,7 +173,7 @@ const FormPetPage = () => {
                 {images.map((image, key) => (
                   <Col lg={6} key={key} className="position-relative">
                     <img className="img-fluid" src={image} alt={`image-${key}`} />
-                    <i class="bi bi-x-circle-fill pointer ubicar-icon" onClick={() => deleteImage(key)}></i>
+                    <i className="bi bi-x-circle-fill pointer ubicar-icon" onClick={() => deleteImage(key)}></i>
                   </Col>
                 ))}
               </Row>

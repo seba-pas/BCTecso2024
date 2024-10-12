@@ -33,7 +33,7 @@ export const GetGeneral = async (path) => {
   // eslint-disable-next-line no-useless-catch
   try {
     let config = returnConfigToken();
-    const respuesta = await instance.get(path, body, config);
+    const respuesta = await instance.get(path, config);
     return respuesta.data;
   } catch (error) {
     throw error;

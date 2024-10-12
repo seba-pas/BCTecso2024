@@ -76,6 +76,7 @@ const Home = () => {
   };
 
   const modificatePet = (id) => {
+    console.log("ACA");
     localStorage.setItem("action", "m");
     navigate("/form_pet/" + id);
   };
