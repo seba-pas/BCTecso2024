@@ -31,7 +31,7 @@ function App() {
       <Route path="/select-user" element={<SelectUser />} />
       <Route path="/register/protector" element={<ProtectorRegister />} />
       <Route path="/register/petter" element={<PetterRegister />} />
-      <Route path="/register/account-validation" element={<AccountValidation />} />
+      <Route path="/register/account" element={<AccountValidation />} />
       <Route path="/register/refused" element={<RegisterRefused />} />
       <Route path="/register/success" element={<RegisterSuccess/>} />
     </Routes>
