@@ -1,0 +1,71 @@
+:root {
+  /* Brand */
+  --brand-primary-01: rgb(240, 131, 24);
+  --brand-primary-02: rgba(248, 173, 52, 1);
+  --brand-primary-03: rgba(243, 233, 236, 1);
+  --brand-secondary-01: rgba(1, 153, 163, 1);
+  --brand-secondary-02: rgba(1, 113, 121, 1);
+  --brand-secondary-03: rgba(153, 219, 214, 1);
+  --brand-neutro-01: rgba(95, 91, 91, 1);
+  --brand-neutro-02: rgba(177, 177, 177, 1);
+  --brand-neutro-03: rgba(153, 219, 214, 1);
+  /* Backgrouund */
+  --background-darkmode-primary: rgba(51, 51, 51, 1);
+  --background-darkmode-secondary: rgba(68, 68, 68, 1);
+  --background-darkmode-tertiary: rgba(43, 43, 43, 1);
+  --background-lightmode-primary: rgba(255, 255, 255, 1);
+  --background-lightmode-secondary: rgba(246, 246, 246, 1);
+  /*System*/
+  --system-error: rgba(225, 25, 0, 1);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.background-button-muma {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.background-button-muma:hover {
+  background-color: #f08318;
+  border: 1px solid #f08318;
+}
+
+.background-button-muma:active {
+  background-color: #f08318 !important;
+  border: 1px solid #f08318 !important;
+}
+
+.title-muma {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 24px;
+  color: #5f5b5b;
+}
+
+.p-muma {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5f5b5b;
+}
+
+.scroll-animated {
+  animation: reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 40% cover 40%;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 60%;
+  }
+  to {
+    opacity: 1;
+  }
+}
