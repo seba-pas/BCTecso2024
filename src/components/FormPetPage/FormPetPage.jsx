@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Form, Button, Row, Alert } from "react-bootstrap";
+import { Col, Form, Button, Row, Alert, Carousel } from "react-bootstrap";
 import { Formik } from "formik";
 import Select from "../elements/Select";
 import Input from "../elements/Input";
@@ -9,6 +9,7 @@ import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
 import { GetGeneral, PostGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
+import { MyCarousel } from "../index";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
@@ -18,6 +19,7 @@ const FormPetPage = () => {
   const [checked, setchecked] = useState({ 0: false, 1: false });
   const [images, setImages] = useState([]);
   const [errorsMessages, setErrorsMessages] = useState([]);
+  const [alert, setAlert] = useState("<div></div>");
   const [petData, setpetData] = useState({
     id: 0,
     nombre: "",
@@ -71,7 +73,6 @@ const FormPetPage = () => {
     else if (!moment(values.mesAnioNacimiento, "DD/MM/YYYY", true).isValid) errors.mesAnioNacimiento = "Ingrese una fecha valida";
     else if (moment(values.mesAnioNacimiento).isAfter(hoy)) errors.mesAnioNacimiento = "Ingrese una fecha anterior al día de hoy";
     else if (!values.sexo) errors.sexo = "Campo requerido";
-    else if (values.fotos.length > 10) errors.fotos = "Solo se permiten hasta 10 fotos";
     return errors;
   };
   const submitForm = async (values, setSubmitting) => {
@@ -168,21 +169,16 @@ const FormPetPage = () => {
               <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
             </Row>
             <Row>
-              <UploadFile images={images} setImages={setImages} />
-              <Row className="d-flex">
-                {images.map((image, key) => (
-                  <Col lg={6} key={key} className="position-relative">
-                    <img className="img-fluid" src={image} alt={`image-${key}`} />
-                    <i className="bi bi-x-circle-fill pointer ubicar-icon" onClick={() => deleteImage(key)}></i>
-                  </Col>
-                ))}
-              </Row>
+              <UploadFile images={images} setImages={setImages} setError={setAlert} />
+              <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.fotos && touched.fotos && errors.fotos}</p>
+              <Row className="d-flex">{images?.length ? <MyCarousel images={images} deleteImage={deleteImage} /> : null}</Row>
             </Row>
             {errorsMessages?.map((error, key) => (
               <Alert variant="danger" key={key}>
                 {error}
               </Alert>
             ))}
+            <div dangerouslySetInnerHTML={{ __html: alert }}></div>
             <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
               {returnTextButton(action)}
             </Button>

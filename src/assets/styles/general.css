@@ -69,3 +69,8 @@
     opacity: 1;
   }
 }
+
+.min-h-200px {
+  height: auto;
+  min-height: 400px !important;
+}

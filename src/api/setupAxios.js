@@ -139,8 +139,7 @@ export const createImageCloudinary = async (image) => {
     formData.append("upload_preset", VITE_API_UPLOAD_PRESET);
     let response = await instanceCloudinary.post("image/upload", formData);
     let secureUrl = response.data.secure_url;
-    const transformedUrl = secureUrl.replace("/upload/", "/upload/w_300,h_200,c_fill/");
-    return transformedUrl;
+    return secureUrl;
   } catch (error) {
     throw error;
   }
