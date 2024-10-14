@@ -10,12 +10,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { GetGeneral, PostGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
 import { MyCarousel } from "../index";
+import Modal from "../Modal";
+import FormDeletePet from "../FormDeletePet";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
 const FormPetPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [modalShow, setmodalShow] = useState(false);
+  const closeModal = () => setmodalShow(false);
+  const openModal = () => setmodalShow(true);
   const [checked, setchecked] = useState({ 0: false, 1: false });
   const [images, setImages] = useState([]);
   const [errorsMessages, setErrorsMessages] = useState([]);
@@ -96,12 +101,25 @@ const FormPetPage = () => {
       setSubmitting(false);
     }
   };
-  const returnTextButton = (action) => {
+  const returnButtons = (action, isSubmitting) => {
     switch (action) {
       case "m":
-        return "Modificar animal";
+        return (
+          <div>
+            <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
+              Guardar Cambios
+            </Button>
+            <Button variant="outline-danger" className="w-100 mt-2 mb-2" onClick={openModal} disabled={isSubmitting}>
+              Dar de baja
+            </Button>
+          </div>
+        );
       default:
-        return "Cargar animal";
+        return (
+          <Button className="background-button-muma w-100 mb-2" type="submit" disabled={isSubmitting}>
+            Cargar animal
+          </Button>
+        );
     }
   };
   const deleteImage = (key) => {
@@ -137,55 +155,58 @@ const FormPetPage = () => {
     /* return () => localStorage.removeItem("action"); */
   }, [id]);
   return (
-    <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
-      {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
-        const setCheckedLocal = (setFieldValue, key, value) => {
-          setFieldValue("sexo", value);
-          setchecked({ ...checked, [key]: !checked[key] });
-        };
-        return (
-          <Form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
-            {inputs.map((input, key) => (
-              <Col xs={12} key={key}>
-                <Input type={input.type} name={input.name} placeholder={input.placeholder} />
-              </Col>
-            ))}
-            {selects.map((select, key) => (
-              <Col xs={12} key={key}>
-                <Select name={select.name} type={select.type} placeholder={select.placeholder} options={combos[select.name]} noOption={select.noOption} />
-              </Col>
-            ))}
-            {inputs2.map((input, key) => (
-              <Col xs={12} key={key}>
-                <Input type={input.type} name={input.name} placeholder={input.placeholder} />
-              </Col>
-            ))}
-            <Row className="mt-2 mb-2">
-              {checks.map((check, key) => (
-                <Col key={key} md={6} className="d-flex justify-content-center">
-                  <Check onChange={(e) => setCheckedLocal(setFieldValue, key, e.target.value)} id={check.id} label={check.label} value={check.value} checked={checked[key]} type={check.type} name={check.name} />
+    <div>
+      <Modal show={modalShow} onHide={closeModal}>
+        <FormDeletePet title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} />
+      </Modal>
+      <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
+        {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
+          const setCheckedLocal = (setFieldValue, key, value) => {
+            setFieldValue("sexo", value);
+            setchecked({ ...checked, [key]: !checked[key] });
+          };
+          return (
+            <Form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
+              {inputs.map((input, key) => (
+                <Col xs={12} key={key}>
+                  <Input type={input.type} name={input.name} placeholder={input.placeholder} />
                 </Col>
               ))}
-              <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
-            </Row>
-            <Row>
-              <UploadFile images={images} setImages={setImages} setError={setAlert} />
-              <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.fotos && touched.fotos && errors.fotos}</p>
-              <Row className="d-flex">{images?.length ? <MyCarousel images={images} deleteImage={deleteImage} /> : null}</Row>
-            </Row>
-            {errorsMessages?.map((error, key) => (
-              <Alert variant="danger" key={key}>
-                {error}
-              </Alert>
-            ))}
-            <div dangerouslySetInnerHTML={{ __html: alert }}></div>
-            <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
-              {returnTextButton(action)}
-            </Button>
-          </Form>
-        );
-      }}
-    </Formik>
+              {selects.map((select, key) => (
+                <Col xs={12} key={key}>
+                  <Select name={select.name} type={select.type} placeholder={select.placeholder} options={combos[select.name]} noOption={select.noOption} />
+                </Col>
+              ))}
+              {inputs2.map((input, key) => (
+                <Col xs={12} key={key}>
+                  <Input type={input.type} name={input.name} placeholder={input.placeholder} />
+                </Col>
+              ))}
+              <Row className="mt-2 mb-2">
+                {checks.map((check, key) => (
+                  <Col key={key} md={6} className="d-flex justify-content-center">
+                    <Check onChange={(e) => setCheckedLocal(setFieldValue, key, e.target.value)} id={check.id} label={check.label} value={check.value} checked={checked[key]} type={check.type} name={check.name} />
+                  </Col>
+                ))}
+                <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
+              </Row>
+              <Row>
+                <UploadFile images={images} setImages={setImages} setError={setAlert} />
+                <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.fotos && touched.fotos && errors.fotos}</p>
+                <Row className="d-flex">{images?.length ? <MyCarousel images={images} deleteImage={deleteImage} /> : null}</Row>
+              </Row>
+              {errorsMessages?.map((error, key) => (
+                <Alert variant="danger" key={key}>
+                  {error}
+                </Alert>
+              ))}
+              <div dangerouslySetInnerHTML={{ __html: alert }}></div>
+              {returnButtons(action)}
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 
