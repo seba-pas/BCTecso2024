@@ -30,7 +30,7 @@ function Header() {
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={{border:'none'}}>
             <BiMenuAltLeft style={{fontSize:'35px'}} />
             </Navbar.Toggle>
-            <Navbar.Brand href="#" ><img src={avatar} alt="" style={{height:'35px'}}/></Navbar.Brand>
+            <Navbar.Brand onClick={goHome}><img src={avatar} alt="" style={{height:'35px'}}/></Navbar.Brand>
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}

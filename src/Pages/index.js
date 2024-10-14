@@ -10,3 +10,4 @@ export { default as UserSelect } from "./UserSelect";
 export { default as ValidationAccount } from "./ValidationAccount";
 export { PetDetails } from "./PetDetails";
 export { PetDetailsWithShelter } from "./PetDetailsWithShelter";
+export { default as AllPets } from "./AllPets";

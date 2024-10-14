@@ -61,7 +61,9 @@ export const login = async (values) => {
     });
     if (response.data && response.data.token) {
       const token = response.data.token;
-      return { token };
+      const user = response.data.usuario;
+      console.log(user);
+      return { token,user };
     } else {
       throw new Error("No se recibio el token");
     }
@@ -93,6 +95,24 @@ export const registerNewShelter = async (values) => {
     return response.data;
   } catch (error) {
     console.error("Error al registrar protectora:", error);
+    throw error;
+  }
+};
+
+//Configuaracion de get User axios.
+export const getUser = async (id, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await instance.get(`Mascoteros/${id}`, config);
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al buscar mascotero:", error);
     throw error;
   }
 };

@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import "../assets/styles/home.css";
+import "../assets/styles/allPets.css";
 import Header from "../components/Header/Header";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
+import iconSex from "../assets/images/icons/sexo.png";
 import { useNavigate } from "react-router-dom";
-import Modal from "../components/Modal";
-import FormDeletePet from "../components/FormDeletePet";
+import { useSelector } from "react-redux";
+import { getUser } from "../api/setupAxios";
 
-const Home = () => {
+const AllPets = () => {
   const navigate = useNavigate();
-  const [modalShow, setmodalShow] = useState(false);
-  const closeModal = () => setmodalShow(false);
-  const openModal = () => setmodalShow(true);
-  const [petsImages, setPetsImages] = useState([]);
+ 
   const [logosImages, setLogosImages] = useState([]);
+/*   const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (token && user?.id) {
+      const fetchUserData = async () => {
+        try {
+          const data = await getUser(user.id, token);
+          setUserData(data); 
+          console.log(userData);
+        } catch (error) {
+          console.error("Error al obtener los datos del usuario", error);
+        }
+      };
+
+      fetchUserData();
+    }
+  }, [token, user?.id]); */
+
+
 
   // Cargar las imágenes dinámicamente desde las carpetas
   useEffect(() => {
@@ -40,7 +54,6 @@ const Home = () => {
     };
 
     const loadImages = async () => {
-      const pets = await loadImagesFromFolder("pets");
       const logos = await loadImagesFromFolder("protectors");
       console.log("Pets Images:", pets);
       console.log("Logos Images:", logos);
@@ -70,68 +83,19 @@ const Home = () => {
     ],
   };
 
-  const modificatePet = (id) => {
-    console.log("ACA");
-    localStorage.setItem("action", "m");
-    navigate("/form_pet/" + id);
-  };
-
   const allPets = () => {
     navigate("/all_pets")
   };
 
   return (
     <div>
-{/*       <Modal show={modalShow} onHide={closeModal}>
-        <FormDeletePet title="Dar de baja" onClose={closeModal} description="¿Estás seguro de que querés dar de baja a Bruno?" />
-      </Modal> */}
       <Header />
       <main className="vh-100">
         <Filters />
         <section>
-          {petsImages.length === 0 ? (
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
-              <p>No hay animales registrados actualmente</p>
-            </div>
-          ) : (
-            <div>
-              <div className="d-flex justify-content-between ms-4 me-4">
-                <p>Animales</p>
-                <a onClick={allPets} style={{ textDecoration: "none", color: "#017179" }}>
-                  Ver todos
-                </a>
-              </div>
-              <Slider {...settings}>
-                {petsImages.map((image, index) => (
-                  <div key={index} className="pb-5">
-                    <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                      <img src={image.image} className="card-img-top pet-img" alt="..." />
-                      <div className="card-body">
-                        <div className="d-flex justify-content-between align-items-center">
-                          <h5 className="card-title">Nombre del Animal</h5>
-                          <img src={iconSex} style={{ width: "30px" }} alt="Sexo" />
-                        </div>
-                        <div className="d-flex justify-content-start align-items-center">
-                          <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
-                          <p className="card-text ms-2">Ubicación</p>
-                         {/*  <button onClick={() => modificatePet(2)}>Modificar</button>
-                          <button onClick={openModal}>Eliminar</button> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          )}
-        </section>
-        <section>
           <div>
             <div className="d-flex justify-content-between ms-4 me-4">
               <p>Protectoras</p>
-              <a href="#" style={{ textDecoration: "none", color: "#017179" }}>
-                Ver todas
-              </a>
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">
@@ -161,4 +125,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AllPets;
