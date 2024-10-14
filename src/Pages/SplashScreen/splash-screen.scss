@@ -1,0 +1,73 @@
+@use "../../sass/utils/variables" as var; 
+
+.custom-bg-primary {
+    background-color: var.$primary-03;
+}
+
+.logo-position {
+    top: 476px;
+}
+
+.option-1 {
+    top: 209.26px;
+    left: -20px;
+}
+
+.option-2 {
+    top: 167.46px;
+    left: 19.1px;
+}
+
+.option-3 {
+    top: 128.36px;
+    left: 43.37px;
+}
+
+.option-4 {
+    top: 108.14px;
+    left: 91.91px;
+}
+
+.option-5 {
+    top: 85.21px;
+    left: 143.15px;
+}
+
+.option-6 {
+    top: 59.6px;
+    left: 192.69px;
+}
+
+.option-7 {
+    top: 20.49px;
+    left: 225.39px;
+}
+
+.option-8 {
+    top: -24px;
+    left: 252.36px;
+}
+
+// Definir la animación
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+// Estilo para las opciones con bucle en Sass
+$duration: 0.4s; // Duración de la animación
+$stagger: 0.2s;  // Tiempo de diferencia entre cada animación
+
+@for $i from 1 through 8 {
+  .option-#{$i} {
+    animation: fadeIn $duration ease-in;
+    animation-delay: ($i - 1) * $stagger; // Retraso escalonado
+    opacity: 0; // Comienza invisible
+    animation-fill-mode: forwards; // Mantiene la animación en el último estado
+  }
+}
+  

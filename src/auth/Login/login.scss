@@ -1,0 +1,126 @@
+@use "../../sass/utils/variables" as var; 
+@import "node_modules/bootstrap/scss/bootstrap";
+
+  
+  .container-login {
+    width: 50% !important;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .logo-login {
+    width: 106.67px;
+    height: 99px;
+    margin-top: 153px;
+    margin-bottom: 100px;
+   
+}
+  
+  .container-pass {
+    position: relative;
+  }
+  
+  .toggle-visibility {
+    position: absolute;
+    right: 0;
+    top: 60%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    color: var.$secondary-01;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-left: auto;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 100px;
+  }
+  
+  .container-recordarme {
+    display: flex;
+    font-size: 0.9rem;
+    accent-color: var.$secondary-01;
+    margin-bottom: 50px;
+  }
+  
+  .remember {
+    margin-right: 0.5rem;
+  }
+  
+  .bnt-container {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    position: relative;
+
+  }
+  
+
+  .btn-primary{
+    background-color: var.$primary-01 !important;
+    padding: 20px;
+
+  }
+
+  .btn-create{
+    background-color: var.$primary-04 !important;
+    color: var.$primary-01 !important; 
+  }
+
+  .btn-primary, .btn-create{
+    border-radius: 8px;
+    border: 2px solid var.$primary-01 !important;
+    cursor:pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover,.btn-create:hover{
+    background-color: var.$primary-02 !important;
+    color: var.$primary-04 !important;
+  }
+ 
+  .container-icons{
+    display: flex;
+    flex-direction: column;
+  }
+
+   @media (max-width:800px){
+    .container-login {
+      width: 100% !important;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .mt-3  input[type="email"],
+    .mt-3  input[type="password"] {
+            padding: 10px;
+            margin:  10px 0;
+            font-size: 14px !important;
+    } 
+    
+    .btn-primary, .btn-create {
+            font-size: 14px !important;
+            width: 100% !important;
+         
+    }
+
+   .remember-label, .forgot-password {
+     font-size: 14px ;
+   }
+
+    .img-eye{
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+
+    }
+
+  }
+     
+    

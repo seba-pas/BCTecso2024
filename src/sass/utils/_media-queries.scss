@@ -1,0 +1,23 @@
+@mixin sm-viewport {
+    @media only screen and (min-width: 576px) {
+        @content;
+    };
+}
+
+@mixin md-viewport {
+    @media only screen and (min-width: 768px) {
+        @content;
+    };
+}
+
+@mixin lg-viewport {
+    @media only screen and (min-width: 992px) {
+        @content;
+    };
+}
+
+@mixin xl-viewport {
+    @media only screen and (min-width: 1200px) {
+        @content;
+    };
+}
