@@ -3,8 +3,12 @@ import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useRef } from 'react';
+import { useRef , useState} from 'react';
 import emailjs from '@emailjs/browser';
+import logo from "../../assets/login.png";
+import eye from "../../assets/eye.png";
+import hidden from "../../assets/Vector.png"
+import "./petter-register.scss";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,6 +36,17 @@ function PetterRegister() {
   const navigate = useNavigate();
 
   const form = useRef();
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confPasswordVisible, setConfPasswordVisible] = useState(false);
+  
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  const toggleConfPasswordVisibility = () => {
+    setConfPasswordVisible(!confPasswordVisible);
+  };
 
   const sendEmail = async () => {
     try {
@@ -90,15 +105,9 @@ function PetterRegister() {
   
 
   return (
-    <div className="vh-100 justify-content-center align-items-center">
-      <Container
-        className="bg-dark text-white rounded-2 py-4 align-self-center"
-        style={{
-          maxWidth: "400px",
-          paddingTop: "50px",
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+    <div>
+      <Container className="container-register">
+        <img className="img-register" src={logo}/>
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
@@ -118,11 +127,11 @@ function PetterRegister() {
           }) => (
             <Form ref={form} onSubmit={formikHandleSubmit}>
               <Form.Group controlId="formBasicName">
-                <Form.Label>Nombre*</Form.Label>
-                <Form.Control
+                <Form.Label ></Form.Label>
+                <Form.Control className="form-register"
                   type="text"
                   name="name"
-                  placeholder="Nombre"
+                  placeholder="Nombre*"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -134,27 +143,28 @@ function PetterRegister() {
               </Form.Group>
 
               <Form.Group controlId="formBasicLastName">
-                <Form.Label>Apellido*</Form.Label>
-                <Form.Control
+                <Form.Label></Form.Label>
+                <Form.Control className="form-register"
                   type="text"
                   name="lastName"
-                  placeholder="Apellido"
+                  placeholder="Apellido*"
                   value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isInvalid={!!errors.lastName && touched.lastName}
                 />
+                
                 <Form.Control.Feedback type="invalid">
                   {errors.lastName}
                 </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email*</Form.Label>
-                <Form.Control
+                <Form.Label></Form.Label>
+                <Form.Control className="form-register"
                   type="emial"
                   name="email"
-                  placeholder="Ingrese su usuario"
+                  placeholder="Email*"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -165,44 +175,70 @@ function PetterRegister() {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId="formBasicPassword" className="mt-3">
-                <Form.Label>Contraseña*</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Ingrese su password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isInvalid={!!errors.password && touched.password}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.password}
-                </Form.Control.Feedback>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label></Form.Label>
+                
+                    <Form.Control className="form-register"
+                      type={passwordVisible ? 'text' : 'password'}
+                      name="password"
+                      placeholder="Contraseña*"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isInvalid={!!errors.password && touched.password}
+                    />
+                    <div className="container-pass">
+                    <span className="toggle-visibility" onClick={togglePasswordVisibility}>
+                                      {passwordVisible ? (
+                                        <img src={eye} alt="Ocultar contraseña" />
+                                      ) : (
+                                        <img src={hidden} alt="Mostrar contraseña" />
+                                      )}
+                                    
+                      </span>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.password}
+                    </Form.Control.Feedback>
+                </div>
+                
               </Form.Group>
 
-              <Form.Group controlId="formBasicConfirmPassword" className="mt-3">
-                <Form.Label>Confirmar Contraseña*</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Ingrese su password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isInvalid={!!errors.confirmPassword && touched.confirmPassword}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.confirmPassword}
-                </Form.Control.Feedback>
+              <Form.Group controlId="formBasicConfirmPassword" >
+                <Form.Label></Form.Label>
+              
+                <div className="container-pass">
+                    <Form.Control className="form-register"
+                      type={confPasswordVisible ? 'text' : 'password'}
+                      name="confirmPassword"
+                      placeholder="Confirmar Contraseña*"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isInvalid={!!errors.confirmPassword && touched.confirmPassword}
+                    />
+                    
+                    <span className="toggle-visibility" onClick={toggleConfPasswordVisibility}>
+                                      {confPasswordVisible ? (
+                                        <img src={eye} alt="Ocultar contraseña" />
+                                      ) : (
+                                        <img src={hidden} alt="Mostrar contraseña" />
+                                      )}
+                                    
+                    </span>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.confirmPassword}
+                    </Form.Control.Feedback>
+
+                </div>
+               
               </Form.Group>
 
 
-              <div className="justify-content-center w-100">
+              <div>
                 <Button
                   variant="primary"
                   type="submit"
-                  className="mt-4 align-self-center"
+                  className="btn-register"
                   disabled={isSubmitting}
                 >
                   Registrarme
