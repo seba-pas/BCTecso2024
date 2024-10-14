@@ -3,6 +3,8 @@ import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
+import { setUserData } from "../redux/slices/user"; // Importar la acción setUserData desde el slice
 
 const validationSchema = Yup.object().shape({
   email: Yup.string("Debe ingresar su usuario")
@@ -15,21 +17,32 @@ const validationSchema = Yup.object().shape({
 
 function Login() {
   const navigate = useNavigate();
-  const handleSubmit = (values) => {
-    console.log("Email:", values.email);
-    console.log("Password:", values.password);
-    axios
-      .post("http://localhost:8080/api/Authentication/token", {
-        user: values.email,
-        password: values.password,
-      })
-      .then((response) => {
-        console.log("Response:", response.data?.token);
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  const dispatch = useDispatch(); // Definir el dispatch
+
+  const handleSubmit = async (values) => {
+    try {
+      console.log("Email:", values.email);
+      console.log("Password:", values.password);
+
+      const response = await axios.post(
+        "http://localhost:8081/api/Authentication/token",
+        {
+          user: values.email,
+          password: values.password,
+        }
+      );
+
+      const { token, usuario } = response.data; // Suponiendo que la respuesta trae token y usuario
+      console.log("Response:", token);
+
+      // Despachar la acción para guardar los datos en Redux
+      dispatch(setUserData({ token, usuario }));
+
+      // Navegar a la ruta home
+      navigate("/home");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

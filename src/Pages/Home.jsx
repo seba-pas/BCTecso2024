@@ -1,8 +1,11 @@
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  console.log(user.token, 'aca esta el token');
 
   const goToLogin = () => {
     navigate("/");
