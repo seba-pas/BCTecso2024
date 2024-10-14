@@ -68,7 +68,7 @@ const Login = () => {
             isSubmitting,
           }) => (
             <Form onSubmit={formikHandleSubmit}>
-              <Form.Group  controlId="formBasicEmail">
+              <Form.Group className="mt-3" controlId="formBasicEmail">
                 <Form.Control
                   type="email"
                   name="email"
@@ -96,9 +96,9 @@ const Login = () => {
                   />
                   <span className="toggle-visibility" onClick={togglePasswordVisibility}>
                     {passwordVisible ? (
-                      <img src={eye} alt="Ocultar contraseña" />
+                      <img className="img-eye" src={eye} alt="Ocultar contraseña" />
                     ) : (
-                      <img src={hidden} alt="Mostrar contraseña" />
+                      <img  className="img-eye" src={hidden} alt="Mostrar contraseña" />
                     )}      
                   </span>    
                   <Form.Control.Feedback type="invalid">
@@ -109,8 +109,8 @@ const Login = () => {
               
               <div className="actions">
                 <div className="container-recordarme">
-                  <input className="recordame"  type="checkbox" id="remember" name="remember" />
-                  <label htmlFor="remember">Recordarme</label>
+                  <input className="remember"  type="checkbox" id="remember" name="remember" />
+                  <label className="remember-label" htmlFor="remember">Recordarme</label>
                 </div>
                 <a href="/forgot-password" className="forgot-password">¿Olvidaste tu contraseña?</a>
               </div>
