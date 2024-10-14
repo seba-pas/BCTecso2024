@@ -28,21 +28,6 @@ function Header() {
     navigate("/home");
   };
 
-  useEffect(() => {
-   /*  if (token && user?.id) {
-      const fetchUserData = async () => {
-        try {
-          const data = await getUser(user.id, token);
-          setUserData(data); 
-          console.log(data);
-        } catch (error) {
-          console.error("Error al obtener los datos del usuario", error);
-        }
-      };
-      fetchUserData();
-    } */
-   console.log(user);
-  }, []);
 
   return (
     <>

@@ -5,67 +5,31 @@ import Filters from "../components/Filters/Filters";
 import iconSex from "../assets/images/icons/sexo.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getUser } from "../api/setupAxios";
+import { getPets } from "../api/setupAxios";
 
 const AllPets = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
   const [petsImages, setPetsImages] = useState([]);
-  const [logosImages, setLogosImages] = useState([]);
-/*   const token = useSelector((state) => state.auth.token);
-  const user = useSelector((state) => state.auth.user);
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    if (token && user?.id) {
-      const fetchUserData = async () => {
-        try {
-          const data = await getUser(user.id, token);
-          setUserData(data); 
-          console.log(userData);
-        } catch (error) {
-          console.error("Error al obtener los datos del usuario", error);
-        }
-      };
-
-      fetchUserData();
-    }
-  }, [token, user?.id]); */
-
+  const token = useSelector((state) => state.auth.token);
 
 
   // Cargar las imágenes dinámicamente desde las carpetas
   useEffect(() => {
-    const loadImagesFromFolder = async (folderPath) => {
-      let imagesObject;
-
-      if (folderPath === "pets") {
-        imagesObject = import.meta.glob("../assets/images/pets/*.{png,jpg,jpeg,svg}");
-      } else if (folderPath === "protectors") {
-        imagesObject = import.meta.glob("../assets/images/protectors/*.{png,jpg,jpeg,svg}");
+    const loadPetsFromAPI = async () => {
+      try {
+        if (token) {
+          const petsData = await getPets(token);  // Llama a la API para obtener las mascotas
+          console.log("Pets from API:", petsData);
+          setPetsImages(petsData);  // Almacena las mascotas en el estado
+        }
+      } catch (error) {
+        console.error("Error al cargar las mascotas desde el backend:", error);
       }
-
-      const imagePromises = Object.entries(imagesObject).map(async ([path, resolver]) => {
-        const image = await resolver();
-        return { path, image: image.default };
-      });
-
-      const loadedImages = await Promise.all(imagePromises);
-      return loadedImages;
     };
 
-    const loadImages = async () => {
-      const pets = await loadImagesFromFolder("pets");
-      const logos = await loadImagesFromFolder("protectors");
-      console.log("Pets Images:", pets);
-      console.log("Logos Images:", logos);
-      setPetsImages(pets);
-      setLogosImages(logos);
-    };
-
-    loadImages();
-  }, []);
-
+    loadPetsFromAPI();  // Llama a la función
+  }, [token]);
+   
 
   return (
     <div>
@@ -90,12 +54,12 @@ const AllPets = () => {
                       <img src={image.image} className="card-img-top pet-img" alt="..." />
                       <div className="card-body pt-2">
                         <div className="d-flex justify-content-between align-items-center">
-                          <h5 className="card-title pet-name">Nombre</h5>
+                          <h5 className="card-title pet-name">{image.nombre}</h5>
                           <img src={iconSex} style={{ width: "23px" }} alt="Sexo" />
                         </div>
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-6" style={{ color: "#99DBD6" }}></i>
-                          <p className="card-text ms-2">Ubicación</p>
+                          <p className="card-text ms-2">{image.ciudad}</p>
                         </div>
                       </div>
                     </div>

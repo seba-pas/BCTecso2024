@@ -117,6 +117,25 @@ export const getUser = async (id, token) => {
   }
 };
 
+//Configuracion de get Pets axios
+
+export const getPets = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await instance.get(`Mascotas`, config);
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al buscar mascotas:", error);
+    throw error;
+  }
+};
+
 export const getProvinces = async () => {
   try {
     const response = await instance.get("Combos/Provincias");
