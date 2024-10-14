@@ -9,7 +9,7 @@ import { getUser } from "../api/setupAxios";
 
 const AllPets = () => {
   const navigate = useNavigate();
- 
+  const [searchTerm, setSearchTerm] = useState("");
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
 /*   const token = useSelector((state) => state.auth.token);
@@ -66,28 +66,6 @@ const AllPets = () => {
     loadImages();
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 200,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    swipeToSlide: false,
-    variableWidth: true,
-    cssEase: "linear",
-    arrows: false,
-    draggable: true,
-    centerMode: false,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 700, settings: { slidesToShow: 3 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
-    ],
-  };
-
-  const allPets = () => {
-    navigate("/all_pets")
-  };
 
   return (
     <div>
@@ -101,16 +79,14 @@ const AllPets = () => {
             </div>
           ) : (
             <div>
-              <div className="d-flex justify-content-between ms-4 me-4">
+              <div className="d-flex justify-content-between ms-4 me-4 ">
                 <p>Animales</p>
-                <a onClick={allPets} style={{ textDecoration: "none", color: "#017179" }}>
-                  Ver todos
-                </a>
               </div>
-              <section className="d-flex flex-wrap">
+              <section className="d-flex flex-wrap justify-content-center">
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5 ">
-                    <div className="card ms-3" style={{ width: "12rem", height: "16rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                    <div className="card ms-3" style={{ width: "10rem", height: "16rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                      <i className="bi bi-heart fs-6 text-danger pets-wishList"></i>
                       <img src={image.image} className="card-img-top pet-img" alt="..." />
                       <div className="card-body pt-2">
                         <div className="d-flex justify-content-between align-items-center">
@@ -128,37 +104,6 @@ const AllPets = () => {
               </section>
             </div>
           )}
-        </section>
-        <section>
-          <div>
-            <div className="d-flex justify-content-between ms-4 me-4">
-              <p>Protectoras</p>
-              <a href="#" style={{ textDecoration: "none", color: "#017179" }}>
-                Ver todas
-              </a>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">
-            {logosImages.length === 0 ? (
-              <p>No hay protectoras registradas actualmente</p>
-            ) : (
-              logosImages.map((image, index) => (
-                <div key={index}>
-                  <div className="card" style={{ width: "10rem", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                    <img src={image.image} className="card-img-top protector-img" alt={`Protectora ${index}`} />
-                    <div className="card-body d-flex flex-column align-items-center">
-                      <h5 className="card-title" style={{ fontSize: "9px" }}>
-                        Nombre de la Protectora
-                      </h5>
-                      <p className="card-text" style={{ fontSize: "7px" }}>
-                        Descripción de la protectora
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
         </section>
       </main>
     </div>

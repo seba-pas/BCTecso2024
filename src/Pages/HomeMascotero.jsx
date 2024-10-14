@@ -76,8 +76,13 @@ const Home = () => {
     navigate("/form_pet/" + id);
   };
 
-  const allPets = () => {
-    navigate("/all_pets")
+  const views = (value) => {
+    if(value === "pets"){
+      navigate("/all_pets")
+    }else if(value === "shelters"){
+      navigate("/all_shelters")
+    }
+    
   };
 
   return (
@@ -97,7 +102,7 @@ const Home = () => {
             <div>
               <div className="d-flex justify-content-between ms-4 me-4">
                 <p>Animales</p>
-                <a onClick={allPets} style={{ textDecoration: "none", color: "#017179" }}>
+                <a onClick={() => views("pets")} style={{ textDecoration: "none", color: "#017179" }}>
                   Ver todos
                 </a>
               </div>
@@ -105,6 +110,7 @@ const Home = () => {
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5">
                     <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                      <i className="bi bi-heart fs-3 text-danger pets-wishList"></i>
                       <img src={image.image} className="card-img-top pet-img" alt="..." />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
@@ -129,7 +135,7 @@ const Home = () => {
           <div>
             <div className="d-flex justify-content-between ms-4 me-4">
               <p>Protectoras</p>
-              <a href="#" style={{ textDecoration: "none", color: "#017179" }}>
+              <a onClick={() => views("shelters")} style={{ textDecoration: "none", color: "#017179" }}>
                 Ver todas
               </a>
             </div>

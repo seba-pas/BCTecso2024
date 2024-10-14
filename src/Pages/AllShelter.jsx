@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUser } from "../api/setupAxios";
 
-const AllPets = () => {
+const AllShelter = () => {
   const navigate = useNavigate();
  
   const [logosImages, setLogosImages] = useState([]);
@@ -55,9 +55,7 @@ const AllPets = () => {
 
     const loadImages = async () => {
       const logos = await loadImagesFromFolder("protectors");
-      console.log("Pets Images:", pets);
       console.log("Logos Images:", logos);
-      setPetsImages(pets);
       setLogosImages(logos);
     };
 
@@ -125,4 +123,4 @@ const AllPets = () => {
   );
 };
 
-export default AllPets;
+export default AllShelter;

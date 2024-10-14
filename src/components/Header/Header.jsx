@@ -1,4 +1,5 @@
 import Button from 'react-bootstrap/Button';
+import React, { useState, useEffect } from 'react'; 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -7,12 +8,17 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import avatar from '../../assets/images/avatar.png';
 import { BiMenuAltLeft } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { logout as logoutAction } from '../../features/auth/authSlice';
+import { getUser } from '../../api/setupAxios';
+
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();  
+  const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState(null);
 
   const logOut = () => {
     dispatch(logoutAction());
@@ -22,6 +28,22 @@ function Header() {
     navigate("/home");
   };
 
+  useEffect(() => {
+   /*  if (token && user?.id) {
+      const fetchUserData = async () => {
+        try {
+          const data = await getUser(user.id, token);
+          setUserData(data); 
+          console.log(data);
+        } catch (error) {
+          console.error("Error al obtener los datos del usuario", error);
+        }
+      };
+      fetchUserData();
+    } */
+   console.log(user);
+  }, []);
+
   return (
     <>
       {['sm'].map((expand) => (
@@ -30,7 +52,9 @@ function Header() {
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={{border:'none'}}>
             <BiMenuAltLeft style={{fontSize:'35px'}} />
             </Navbar.Toggle>
-            <Navbar.Brand onClick={goHome}><img src={avatar} alt="" style={{height:'35px'}}/></Navbar.Brand>
+            <Navbar.Brand onClick={goHome}>
+              <img src={avatar} alt="" style={{height:'35px'}}/>
+            </Navbar.Brand>
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -38,13 +62,16 @@ function Header() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Muma
+                  Bienvenida {user.nombre +' '+ user.apellido +'!'}
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link onClick={goHome}>Home</Nav.Link>
-                  <Nav.Link onClick={logOut}>logout</Nav.Link>
+                <Nav className="justify-content-space-between align-items-center flex-grow-1 pe-3">
+                  <p style={{textAlign:'center',marginBottom:'0'}}>Bienvenida {user.nombre +' '+ user.apellido +'!'}</p>
+                  <Nav className="justify-content-end flex-grow-1 pe-3">
+                    <Nav.Link onClick={goHome}>Home</Nav.Link>
+                    <Nav.Link onClick={logOut}>logout</Nav.Link>
+                  </Nav>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
