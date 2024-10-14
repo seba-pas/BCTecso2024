@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SplashScreen from './Pages/SplashScreen';
 import StartedScreen from './Pages/StartedScreen';
-import Login from './Pages/Login';
+import Login from './auth/Login';
 import Home from './Pages/Home';
 import SelectUser from './Pages/SelectUser';
 import ProtectorRegister from './Pages/ProtectorRegister';
