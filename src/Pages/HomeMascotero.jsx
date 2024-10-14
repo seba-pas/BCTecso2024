@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
+import { getPets,getShelters } from "../api/setupAxios";
+import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
 import FormDeletePet from "../components/FormDeletePet";
 
@@ -18,38 +20,27 @@ const Home = () => {
   const openModal = () => setmodalShow(true);
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
+  const token = useSelector((state) => state.auth.token);
 
   // Cargar las imágenes dinámicamente desde las carpetas
   useEffect(() => {
-    const loadImagesFromFolder = async (folderPath) => {
-      let imagesObject;
-
-      if (folderPath === "pets") {
-        imagesObject = import.meta.glob("../assets/images/pets/*.{png,jpg,jpeg,svg}");
-      } else if (folderPath === "protectors") {
-        imagesObject = import.meta.glob("../assets/images/protectors/*.{png,jpg,jpeg,svg}");
+    const loadPetsFromAPI = async () => {
+      try {
+        if (token) {
+          const petsData = await getPets(token); 
+          const shelterData = await getShelters(token)
+          console.log("Pets from API:", petsData);
+          console.log("Shelters from API:",shelterData);
+          setPetsImages(petsData); 
+          setLogosImages(shelterData);
+        }
+      } catch (error) {
+        console.error("Error al cargar las mascotas desde el backend:", error);
       }
-
-      const imagePromises = Object.entries(imagesObject).map(async ([path, resolver]) => {
-        const image = await resolver();
-        return { path, image: image.default };
-      });
-
-      const loadedImages = await Promise.all(imagePromises);
-      return loadedImages;
     };
 
-    const loadImages = async () => {
-      const pets = await loadImagesFromFolder("pets");
-      const logos = await loadImagesFromFolder("protectors");
-      console.log("Pets Images:", pets);
-      console.log("Logos Images:", logos);
-      setPetsImages(pets);
-      setLogosImages(logos);
-    };
-
-    loadImages();
-  }, []);
+    loadPetsFromAPI();  
+  }, [token]);
 
   const settings = {
     dots: false,
@@ -150,10 +141,10 @@ const Home = () => {
                     <img src={image.image} className="card-img-top protector-img" alt={`Protectora ${index}`} />
                     <div className="card-body d-flex flex-column align-items-center">
                       <h5 className="card-title" style={{ fontSize: "9px" }}>
-                        Nombre de la Protectora
+                        {image.nombreProtectora}
                       </h5>
                       <p className="card-text" style={{ fontSize: "7px" }}>
-                        Descripción de la protectora
+                        {image.descripcion}
                       </p>
                     </div>
                   </div>

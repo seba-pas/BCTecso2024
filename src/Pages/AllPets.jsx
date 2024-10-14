@@ -12,22 +12,19 @@ const AllPets = () => {
   const [petsImages, setPetsImages] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
-
-  // Cargar las imágenes dinámicamente desde las carpetas
   useEffect(() => {
     const loadPetsFromAPI = async () => {
       try {
         if (token) {
-          const petsData = await getPets(token);  // Llama a la API para obtener las mascotas
+          const petsData = await getPets(token);  
           console.log("Pets from API:", petsData);
-          setPetsImages(petsData);  // Almacena las mascotas en el estado
+          setPetsImages(petsData);  
         }
       } catch (error) {
         console.error("Error al cargar las mascotas desde el backend:", error);
       }
     };
-
-    loadPetsFromAPI();  // Llama a la función
+    loadPetsFromAPI();  
   }, [token]);
    
 

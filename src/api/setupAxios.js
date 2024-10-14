@@ -136,6 +136,24 @@ export const getPets = async (token) => {
   }
 };
 
+
+export const getShelters = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await instance.get(`Protectoras`, config);
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error al buscar mascotas:", error);
+    throw error;
+  }
+};
+
 export const getProvinces = async () => {
   try {
     const response = await instance.get("Combos/Provincias");
