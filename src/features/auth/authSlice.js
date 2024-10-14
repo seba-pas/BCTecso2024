@@ -13,10 +13,11 @@ export const login = createAsyncThunk('auth/login', async (values, { rejectWithV
 
 // El estado inicial de la autenticación
 const initialState = {
-  token: localStorage.getItem('token') || null, 
-  isAuthenticated: !!localStorage.getItem('token'), 
-  loading: false, 
-  error: null,     
+  token: localStorage.getItem('token') || null,
+  isAuthenticated: !!localStorage.getItem('token'),
+  user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+  loading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -26,7 +27,9 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.isAuthenticated = false;
+      state.user = null;
       localStorage.removeItem('token'); 
+      localStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {
@@ -37,13 +40,16 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        if(action.payload && action.payload.token) {
+        if(action.payload && action.payload.token && action.payload.user) {
         state.token = action.payload.token;
         state.isAuthenticated = true;
+        state.user = action.payload.user;
         localStorage.setItem('token', action.payload.token); 
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
         }else{
           state.token = null;
           state.isAuthenticated = false;
+          state.user = null;
         } 
       })
       .addCase(login.rejected, (state, action) => {

@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
+import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 import FormDeletePet from "../components/FormDeletePet";
@@ -15,14 +16,8 @@ const Home = () => {
   const [modalShow, setmodalShow] = useState(false);
   const closeModal = () => setmodalShow(false);
   const openModal = () => setmodalShow(true);
-  const [searchTerm, setSearchTerm] = useState("");
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Buscando:", searchTerm);
-  };
 
   // Cargar las imágenes dinámicamente desde las carpetas
   useEffect(() => {
@@ -81,28 +76,23 @@ const Home = () => {
     navigate("/form_pet/" + id);
   };
 
+  const views = (value) => {
+    if(value === "pets"){
+      navigate("/all_pets")
+    }else if(value === "shelters"){
+      navigate("/all_shelters")
+    }
+    
+  };
+
   return (
     <div>
-      <Modal show={modalShow} onHide={closeModal}>
+{/*       <Modal show={modalShow} onHide={closeModal}>
         <FormDeletePet title="Dar de baja" onClose={closeModal} description="¿Estás seguro de que querés dar de baja a Bruno?" />
-      </Modal>
+      </Modal> */}
       <Header />
       <main className="vh-100">
-        <Form className="d-flex justify-content-center p-4" onSubmit={handleSearch}>
-          <Form.Control type="search" placeholder="Nombre, estado, protectora y sexo" className="input-bar-search" aria-label="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          <Button className="button-bar-search" type="submit">
-            <i className="bi bi-search"></i>
-          </Button>
-        </Form>
-        <section className="mb-4">
-          <h4 className="home-categorias mb-3">Categorías</h4>
-          <div className="home-group-button">
-            <button className="home-button-categoria">🐱 Gato</button>
-            <button className="home-button-categoria">🐶 Perro</button>
-            <button className="home-button-categoria">🐹 Hamster</button>
-            <button className="home-button-categoria">🐰 Conejo</button>
-          </div>
-        </section>
+        <Filters />
         <section>
           {petsImages.length === 0 ? (
             <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
@@ -112,14 +102,15 @@ const Home = () => {
             <div>
               <div className="d-flex justify-content-between ms-4 me-4">
                 <p>Animales</p>
-                <a href="#" style={{ textDecoration: "none", color: "#017179" }}>
+                <a onClick={() => views("pets")} style={{ textDecoration: "none", color: "#017179" }}>
                   Ver todos
                 </a>
               </div>
               <Slider {...settings}>
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5">
-                    <div className="card ms-3" style={{ width: "18rem", height: "18rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                    <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                      <i className="bi bi-heart fs-3 text-danger pets-wishList"></i>
                       <img src={image.image} className="card-img-top pet-img" alt="..." />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
@@ -129,8 +120,8 @@ const Home = () => {
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
                           <p className="card-text ms-2">Ubicación</p>
-                          <button onClick={() => modificatePet(2)}>Modificar</button>
-                          <button onClick={openModal}>Eliminar</button>
+                         {/*  <button onClick={() => modificatePet(2)}>Modificar</button>
+                          <button onClick={openModal}>Eliminar</button> */}
                         </div>
                       </div>
                     </div>
@@ -144,7 +135,7 @@ const Home = () => {
           <div>
             <div className="d-flex justify-content-between ms-4 me-4">
               <p>Protectoras</p>
-              <a href="#" style={{ textDecoration: "none", color: "#017179" }}>
+              <a onClick={() => views("shelters")} style={{ textDecoration: "none", color: "#017179" }}>
                 Ver todas
               </a>
             </div>

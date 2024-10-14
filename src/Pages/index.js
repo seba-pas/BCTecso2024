@@ -1,3 +1,5 @@
+export { default as AllPets } from "./AllPets";
+export { default as AllShelter } from "./AllShelter";
 export { default as EmailRegistered } from "./EmailRegistered";
 export { default as HomeMascotero } from "./HomeMascotero";
 export { default as LoginMuma } from "./LoginMuma";
