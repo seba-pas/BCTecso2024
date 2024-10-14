@@ -9,11 +9,10 @@ export const ShelterModal = ({ show, setShow }) => {
   return (
     <>
       <Modal show={show} onHide={() => setShow(false)} centered>
-        <Modal.Body closeButton className="d-flex flex-column align-items-center" style={{ backgroundColor: "var(--background-lightmode-primary)", borderRadius: "20px", fontFamily: "Poppins, sans-serif" }}>
+        <Modal.Body className="d-flex flex-column align-items-center" style={{ backgroundColor: "var(--background-lightmode-primary)", borderRadius: "20px", fontFamily: "Poppins, sans-serif" }}>
           <button className="align-self-end border-0 p-0" onClick={() => setShow(false)} style={{ backgroundColor: "var(--background-lightmode-primary)" }}>
             <img src={xCircle} alt="exit-logo" className="bg-transparent" />
           </button>
-
           <img src={shelter} alt="shelter-logo" className="" style={{ height: "115px" }} />
           <div className="d-flex flex-column">
             <h2 className="text-center m-0" style={{ color: "var(--brand-neutro-01)", fontSize: "16px", fontWeight: 700 }}>
