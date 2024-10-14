@@ -1,4 +1,5 @@
-import { HeaderButton, Detail } from "../components";
+import { DetailLayout } from "../layout";
+import { HeaderButton, DetailMain } from "../components";
 
 import image from "../assets/images/pets/Mascotas_Bruno02.png";
 import arrow from "../assets/images/arrow-left.jpg";
@@ -30,9 +31,9 @@ const details = {
   ],
 };
 
-export const PetDetails = () => {
+export const PetDetailForPetOwner = () => {
   return (
-    <section className="w-100 min-vh-100 mx-auto d-flex flex-column align-items-center position-relative" style={{ maxWidth: "640px" }}>
+    <DetailLayout>
       <header className="position-absolute  start-0 end-0 mx-3 d-flex justify-content-between" style={{ marginTop: "44px" }}>
         <HeaderButton to="/home">
           <img src={arrow} alt="back-button" />
@@ -41,9 +42,8 @@ export const PetDetails = () => {
           <img src={heart} alt="back-button" />
         </HeaderButton>
       </header>
-      <img src={image} alt="caca" className="w-100 object-fit-cover" height="400px" />
-
-      <Detail {...details} />
-    </section>
+      <img src={image} alt="pet-image" className="w-100 object-fit-cover" height="400px" />
+      <DetailMain {...details} />
+    </DetailLayout>
   );
 };

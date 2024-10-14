@@ -1,3 +1,3 @@
-export { Detail } from "./Detail/Detail";
+export { DetailMain } from "./Detail/DetailMain";
 export { ShelterDetail } from "./Detail/ShelterDetail";
 export * from "../components/elements";
