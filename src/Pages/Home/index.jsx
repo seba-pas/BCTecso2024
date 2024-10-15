@@ -1,12 +1,23 @@
+import { useEffect } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../auth/authSlice';
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.login);
 
-  const goToLogin = () => {
-    navigate("/");
+  const handleLogOut = () => {
+    dispatch(logout());  
   };
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   return (
     <Container
@@ -17,11 +28,11 @@ const Home = () => {
         <Card.Body>
           <Card.Title className="text-center">Bienvenido al Home</Card.Title>
           <Card.Text className="text-center">
-            Click para ir hacia el login:
+            Click para cerrar sesión:
           </Card.Text>
           <div className="d-flex justify-content-center">
-            <Button onClick={goToLogin} variant="primary">
-              Login
+            <Button onClick={handleLogOut} variant="primary">
+              Logout
             </Button>
           </div>
         </Card.Body>
