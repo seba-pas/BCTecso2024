@@ -6,6 +6,7 @@
     width: 50% !important;
     padding: 2rem;
     text-align: center;
+   
   }
   
   .logo-login {
@@ -16,14 +17,28 @@
    
 }
   
-  .container-pass {
-    position: relative;
+  .form-control-password{
+      width: 100%;
+      padding-right: 80px;
+      background-color: var.$neutral-04 !important;
+      border: none !important;
   }
+
+
   
+  // .form-control.is-invalid {
+  //   background-image: none !important;
+  // }
+  
+
+   .container-pass {
+     position: relative;
+   }
+
   .toggle-visibility {
     position: absolute;
-    right: 0;
-    top: 60%;
+    top: -30%;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
   }
@@ -33,8 +48,13 @@
     text-decoration: none;
     font-size: 0.9rem;
     margin-left: auto;
+    box-sizing: border-box;
+    font-size: 16px;
   }
-  
+  .img-eye {
+    width: 20px;
+    height: 20px;
+  }
   .actions {
     display: flex;
     justify-content: space-between;
@@ -122,5 +142,4 @@
     }
 
   }
-     
-    
+ 
