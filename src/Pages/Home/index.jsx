@@ -21,8 +21,7 @@ const Home = () => {
 
   return (
     <Container
-      fluid
-      className="d-flex vh-100 vw-100 bg-dark text-white align-items-center justify-content-center"
+      fluid className="d-flex justify-content-center align-items-center"
     >
       <Card bg="dark" text="white" className="p-4" style={{ width: "22rem" }}>
         <Card.Body>

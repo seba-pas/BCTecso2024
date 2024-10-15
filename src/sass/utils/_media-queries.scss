@@ -21,3 +21,9 @@
         @content;
     };
 }
+
+@mixin cm-viewport($min) {
+    @media only screen and (min-width: $min) {
+        @content;
+    };
+}

@@ -1,0 +1,21 @@
+.btn-categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97px;
+    box-shadow: 0px 4px 20px 0px #1728490D;
+    background-color: $primary-04;
+    font-family: 'Montserrat-Regular';
+    color: $neutral-01;
+    font-size: 12px;
+    border-radius: 32px;
+    border: none;
+    &:active {
+        background-color: $primary-04 !important;
+        color: $neutral-01 !important;
+    }
+    &:hover {
+        background-color: $primary-04;
+        color: $neutral-01;
+    }
+}
