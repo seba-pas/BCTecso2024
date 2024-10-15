@@ -9,10 +9,8 @@ import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
 import protectora from "../assets/images/protectors/Protectora-Animalistas.png";
 import { useNavigate } from "react-router-dom";
-import { getPets,getShelters } from "../api/setupAxios";
+import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
-
-
 
 const Home = () => {
   const navigate = useNavigate();
@@ -36,7 +34,7 @@ const Home = () => {
         console.error("Error al cargar las mascotas desde el backend:", error);
       }
     };
-  
+
     if (token) {
       loadPetsFromAPI();
     }
@@ -56,18 +54,17 @@ const Home = () => {
     centerMode: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 700, settings: { slidesToShow: 5} },
+      { breakpoint: 700, settings: { slidesToShow: 5 } },
       { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
   };
 
   const views = (value) => {
-    if(value === "pets"){
-      navigate("/all_pets")
-    }else if(value === "shelters"){
-      navigate("/all_shelters")
+    if (value === "pets") {
+      navigate("/all_pets");
+    } else if (value === "shelters") {
+      navigate("/all_shelters");
     }
-    
   };
 
   return (
@@ -93,7 +90,7 @@ const Home = () => {
                   <div key={index} className="pb-5">
                     <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
                       <i className="bi bi-heart fs-3 text-danger pets-wishList"></i>
-                      <img src={image.fotos} className="card-img-top pet-img" alt="..." />
+                      <img src={image.fotos} className="card-img-top pet-img pointer" alt="..." onClick={() => navigate(`/pet_details/${image.id}`)} />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
                           <h5 className="card-title">{image.nombre}</h5>
