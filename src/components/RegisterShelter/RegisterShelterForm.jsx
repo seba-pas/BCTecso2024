@@ -1,13 +1,16 @@
-import { Formik, Form } from "formik";
-import { registerNewShelter } from "../../api/setupAxios";
-import { useAddress } from "../hooks";
-import { RegisterShelterInput, RegisterShelterSelect, initialValues, validationSchema, inputs1, inputs2 } from "../";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
+
+import { Input, SelectGeneral } from "../";
+import { useFetchAddress } from "../../hooks/";
+import { registerNewShelter } from "../../api/setupAxios";
+
+import { initialValues, validationSchema, inputs1, inputs2 } from "../../data/RegisterShelter";
 
 export const RegisterShelterForm = () => {
   const navigate = useNavigate();
 
-  const { provinces, cities, setSelectedProvinces } = useAddress();
+  const { provinces, cities, setSelectedProvinces } = useFetchAddress();
   const provinceOptions = provinces.map(({ id, nombre }) => ({
     value: JSON.stringify({ id, nombre }),
     label: nombre,
@@ -36,9 +39,9 @@ export const RegisterShelterForm = () => {
           <Form noValidate className="w-100 mx-auto" style={{ maxWidth: "640px" }}>
             <div className="d-flex flex-column " style={{ gap: "16px" }}>
               {inputs1.map((props) => (
-                <RegisterShelterInput key={props.name} {...props} />
+                <Input key={props.name} {...props} />
               ))}
-              <RegisterShelterSelect
+              <SelectGeneral
                 name="idProvincia"
                 placeholder="Provincia*"
                 options={provinceOptions}
@@ -55,7 +58,7 @@ export const RegisterShelterForm = () => {
                   }
                 }}
               />
-              <RegisterShelterSelect
+              <SelectGeneral
                 name="idCiudad"
                 placeholder="Ciudad*"
                 options={cityOptions}
@@ -68,7 +71,7 @@ export const RegisterShelterForm = () => {
                 }}
               />
               {inputs2.map((props) => (
-                <RegisterShelterInput key={props.name} {...props} />
+                <Input key={props.name} {...props} />
               ))}
             </div>
             <button type="submit" className="w-100 rounded-3 border-0 py-3 mt-4" style={{ color: "var(--background-lightmode-secondary)", backgroundColor: "var(--brand-primary-01)" }}>

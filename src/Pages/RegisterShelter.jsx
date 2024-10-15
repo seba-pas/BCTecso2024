@@ -1,7 +1,5 @@
-import { RegisterShelterForm } from "../RegisterShelter";
+import { RegisterShelterForm } from "../components/RegisterShelter/RegisterShelterForm";
 import { AuthLayout } from "../layout";
-
-import "../RegisterShelter/style/index.css";
 
 function RegisterShelter() {
   return (
@@ -9,6 +7,6 @@ function RegisterShelter() {
       <RegisterShelterForm />
     </AuthLayout>
   );
-};
+}
 
 export default RegisterShelter;
