@@ -12,7 +12,7 @@ import AccountValidation from './Pages/AccountValidation';
 import RegisterRefused from './Pages/RegisterRefused';
 import HomeLayout from './layouts/HomeLayout';
 import UploadSuccessful from './Pages/UploadSuccessful';
-import PetAdd from './PettAdd';
+import PettAdd from "./Pages/PettAdd"
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ function App() {
       <Route path="/register/refused" element={<RegisterRefused />} />
       <Route path="/register/success" element={<RegisterSuccess/>} />
       <Route path="/register/pet/upload-successful" element={<UploadSuccessful/>} />
-      <Route path="/register/pet-add" element={<PetAdd/>} />
+      <Route path="/register/pett-add" element={<PettAdd/>} />
     </Routes>
   );
 }
