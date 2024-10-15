@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getCities, getProvinces } from "../../api/setupAxios";
+import { getCities, getProvinces } from "../api/setupAxios";
 
-export const useAddress = () => {
+export const useFetchAddress = () => {
   const [provinces, setProvinces] = useState([]);
   const [selectedProvinces, setSelectedProvinces] = useState("");
   const [cities, setCities] = useState([]);
