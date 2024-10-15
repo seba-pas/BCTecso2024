@@ -69,6 +69,7 @@ const ProtectorRegister = () => {
           tamaño: "",
           caracterAnimales: "",
           caracterPersonas: "",
+          protectora:"",
           nacimiento: "",
           genero: "",
           descripcion: "",
@@ -161,6 +162,21 @@ const ProtectorRegister = () => {
               />
               <Form.Control.Feedback type="invalid">
                 {errors.caracterAnimales}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="protectora">
+              <Form.Control
+                type="text"
+                name="protectora"
+                placeholder="Protectora*"
+                value={values.protectora}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                isInvalid={!!errors.protectora && touched.protectora}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.protectora}
               </Form.Control.Feedback>
             </Form.Group>
 
