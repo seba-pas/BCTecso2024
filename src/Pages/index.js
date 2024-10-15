@@ -1,3 +1,5 @@
+export { default as AllPets } from "./AllPets";
+export { default as AllShelter } from "./AllShelter";
 export { default as EmailRegistered } from "./EmailRegistered";
 export { default as HomeMascotero } from "./HomeMascotero";
 export { default as LoginMuma } from "./LoginMuma";
@@ -8,5 +10,5 @@ export { default as SuccesScreen } from "./SuccesScreen";
 export { default as SuccessSubmitPet } from "./SuccessSubmitPet";
 export { default as UserSelect } from "./UserSelect";
 export { default as ValidationAccount } from "./ValidationAccount";
-export { PetDetails } from "./PetDetails";
-export { PetDetailsWithShelter } from "./PetDetailsWithShelter";
+export { PetDetailForPetOwner } from "./PetDetailForPetOwner";
+export { PetDetailForShelter } from "./PetDetailForShelter";

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { PetDetailsWithShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, PetDetails } from "./Pages";
+import { PetDetailForPetOwner, PetDetailForShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, AllPets, AllShelter } from "./Pages";
 
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import ProtectedRoute from "./components/ProtectedRoutes";
@@ -17,8 +17,22 @@ function App() {
     { path: "/register_pet_owner", element: <PetRegistration /> },
     { path: "/validation_email", element: <ValidationAccount /> },
     { path: "/register_shelter", element: <RegisterShelter /> },
-    { path: "/pet_details_shelter", element: <PetDetailsWithShelter /> },
-    { path: "/pet_details", element: <PetDetails /> },
+    {
+      path: "/pet_details_shelter",
+      element: (
+        <ProtectedRoute>
+          <PetDetailForShelter />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/pet_details",
+      element: (
+        <ProtectedRoute>
+          <PetDetailForPetOwner />
+        </ProtectedRoute>
+      ),
+    },
     {
       path: "/email_registered",
       element: (
@@ -67,6 +81,22 @@ function App() {
         </ProtectedRoute>
       ),
     },
+    {
+      path: "/all_pets",
+      element: (
+        <ProtectedRoute>
+          <AllPets />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: "/all_shelters",
+      element: (
+        <ProtectedRoute>
+          <AllShelter />
+        </ProtectedRoute>
+      )
+    }
   ];
   return (
     <RouteChangeLoader>
