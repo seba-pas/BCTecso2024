@@ -7,7 +7,7 @@ export const DetailMain = ({ nombre, estado, descripcion, ciudad, contacto, edad
   }));
 
   return (
-    <main className="w-100 p-3 d-flex flex-column gap-4 position-absolute " style={{ backgroundColor: "var(--background-lightmode-primary)", marginTop: "380px", borderTopLeftRadius: "20px", borderTopRightRadius: "20px", fontFamily: "Poppins, sans-serif" }}>
+    <main className="w-100 p-3 d-flex flex-column gap-4 position-absolute z-1" style={{ backgroundColor: "var(--background-lightmode-primary)", marginTop: "380px", borderTopLeftRadius: "20px", borderTopRightRadius: "20px", fontFamily: "Poppins, sans-serif" }}>
       <div className="mx-auto" style={{ width: "50px", height: "2px", backgroundColor: "var( --brand-neutro-01)", opacity: "70%" }}></div>
       <div className="w-100 d-flex justify-content-between position-relative" style={{ marginTop: "0px" }}>
         <div className="d-flex flex-column gap-2">
