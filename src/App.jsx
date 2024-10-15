@@ -11,6 +11,7 @@ import RegisterSuccess from './Pages/RegisterSuccess';
 import AccountValidation from './Pages/AccountValidation';
 import RegisterRefused from './Pages/RegisterRefused';
 import UploadSuccessful from './Pages/UploadSuccessful';
+import PetAdd from './PettAdd';
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -35,6 +36,7 @@ function App() {
       <Route path="/register/refused" element={<RegisterRefused />} />
       <Route path="/register/success" element={<RegisterSuccess/>} />
       <Route path="/register/pet/upload-successful" element={<UploadSuccessful/>} />
+      <Route path="/register/pet-add" element={<PetAdd/>} />
     </Routes>
   );
 }
