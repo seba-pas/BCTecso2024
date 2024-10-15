@@ -10,8 +10,10 @@ import PetterRegister from './Pages/PetterRegister';
 import RegisterSuccess from './Pages/RegisterSuccess';
 import AccountValidation from './Pages/AccountValidation';
 import RegisterRefused from './Pages/RegisterRefused';
+import HomeLayout from './layouts/HomeLayout';
 import UploadSuccessful from './Pages/UploadSuccessful';
 import PetAdd from './PettAdd';
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,9 @@ function App() {
     <Routes>
       <Route path="/" element={<StartedScreen />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/home" element={
+        <HomeLayout><Home /></HomeLayout>}
+      />
       <Route path="/select-user" element={<SelectUser />} />
       <Route path="/register/protector" element={<ProtectorRegister />} />
       <Route path="/register/petter" element={<PetterRegister />} />
