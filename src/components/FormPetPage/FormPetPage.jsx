@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Form, Button, Row, Alert, Carousel } from "react-bootstrap";
+import { Col, Form, Button, Row, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import Select from "../elements/Select";
 import Input from "../elements/Input";
@@ -7,16 +7,18 @@ import Check from "../elements/Check";
 import { inputs, selects, inputs2, checks } from "../../data/FormPetPage";
 import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetGeneral, PostGeneral } from "../../api/setupAxios";
+import { GetGeneral, PostGeneral, PutGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
 import { MyCarousel } from "../index";
 import Modal from "../Modal";
 import FormDeletePet from "../FormDeletePet";
+import { useSelector } from "react-redux";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
 const FormPetPage = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const [modalShow, setmodalShow] = useState(false);
   const closeModal = () => setmodalShow(false);
@@ -101,12 +103,31 @@ const FormPetPage = () => {
       setSubmitting(false);
     }
   };
-  const returnButtons = (action, isSubmitting) => {
+  const changePet = async (values) => {
+    try {
+      let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
+      values.edad = moment().diff(moment(petData.mesAnioNacimiento), "years");
+      for (const key in values) {
+        if (valuesMassage.includes(key)) values[key] = values[key].value;
+        if (key === "mesAnioNacimiento") values[key] = moment.tz(values[key], "America/Argentina/Buenos_Aires").format("YYYY-MM");
+        if (key === "fotos") values[key] = images;
+      }
+      let response = await PutGeneral(`mascotas/${id}`, values);
+      navigate("/home");
+    } catch (error) {
+      console.log("ERROR", error);
+      let errors = error?.response?.data;
+      if (Array.isArray(errors)) setErrorsMessages(errors);
+      else if (!errors) setErrorsMessages(["Hubo un error al ingresar su animal, intente mas tarde."]);
+      else if (!Array.isArray(errors.errors)) setErrorsMessages(Object.values(errors.errors).map((error) => error[0]));
+    }
+  };
+  const returnButtons = (action, isSubmitting, values) => {
     switch (action) {
       case "m":
         return (
           <div>
-            <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
+            <Button className="background-button-muma w-100" onClick={() => changePet(values)} disabled={isSubmitting}>
               Guardar Cambios
             </Button>
             <Button variant="outline-danger" className="w-100 mt-2 mb-2" onClick={openModal} disabled={isSubmitting}>
@@ -126,25 +147,12 @@ const FormPetPage = () => {
     let deleteImg = images.filter((value, k) => k !== key);
     setImages(deleteImg);
   };
-
+  const onDeleteModal = async (id) => {
+    let response = await PostGeneral(`mascotas/${id}/baja`, { motivo: "porque pinto", idMascotero: user?.tipoRegistro.id });
+    console.log("ASD", response);
+  };
   useEffect(() => {
     //Se manejara el llenado byid para la modificacion.
-    if (id) {
-      setpetData({
-        nombre: "Leandro",
-        raza: { label: "Perro", value: "Perro" },
-        tipoAnimal: { label: "Tipo*", value: "tipo" },
-        tamano: { label: "Chiquito", value: "Chiquito" },
-        temperamentoConAnimales: { label: "Bueno", value: "Bueno" },
-        temperamentoConPersonas: { label: "Malo", value: "Malo" },
-        protectoraId: { label: "Protectora 1", value: 1 },
-        ciudad: "Formosa 1780, Quilmes",
-        mesAnioNacimiento: "2000-09-10",
-        descripcion: "Un perro muy lindo",
-        sexo: "Macho",
-        fotos: ["https://firebasestorage.googleapis.com/v0/b/pagina-lg-simulacion.appspot.com/o/mascota.jfif?alt=media&token=de20c011-e973-4b51-9227-7a7bb37b679a"],
-      });
-    }
     GetGeneral("Protectoras", {}).then((protectoras) => {
       let combosProtectoras = protectoras.map((protectora) => ({ label: protectora.nombreProtectora, value: protectora.id }));
       setCombos({
@@ -152,12 +160,31 @@ const FormPetPage = () => {
         protectoraId: combosProtectoras,
       });
     });
+    if (id) {
+      GetGeneral(`mascotas/${id}`).then((value) => {
+        setpetData({
+          nombre: value.nombre,
+          raza: combos.raza.find((val) => val.value === value.raza),
+          tipoAnimal: combos.tipoAnimal.find((val) => val.value === value.tipoAnimal),
+          tamano: combos.tamano.find((val) => val.value === value.tamano),
+          temperamentoConAnimales: combos.temperamentoConAnimales.find((val) => val.value === value.temperamentoConAnimales),
+          temperamentoConPersonas: combos.temperamentoConPersonas.find((val) => val.value === value.temperamentoConPersonas),
+          protectoraId: { label: value.protectora.nombre, value: value.protectora.id },
+          ciudad: value.ciudad,
+          mesAnioNacimiento: "",
+          descripcion: value.descripcion,
+          sexo: value.sexo,
+          fotos: value.fotos,
+        });
+        setImages(value.fotos);
+      });
+    }
     /* return () => localStorage.removeItem("action"); */
   }, [id]);
   return (
     <div>
       <Modal show={modalShow} onHide={closeModal}>
-        <FormDeletePet title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} />
+        <FormDeletePet id={id} title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} onDelete={onDeleteModal} />
       </Modal>
       <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
         {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
@@ -201,7 +228,7 @@ const FormPetPage = () => {
                 </Alert>
               ))}
               <div dangerouslySetInnerHTML={{ __html: alert }}></div>
-              {returnButtons(action)}
+              {returnButtons(action, isSubmitting, values)}
             </Form>
           );
         }}

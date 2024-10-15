@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 
 export const MyCarousel = ({ images = [], deleteImage }) => {
-  console.log("ASD", images);
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="carousel-dark min-h-200px">
+    <Carousel activeIndex={index} onSelect={handleSelect} className="carousel-dark">
       {images.map((image, key) => (
         <Carousel.Item key={key}>
           <div className="d-flex justify-content-center align-items-center w-100">
-            <img className="img-fluid" src={image} alt={`image-${key}`} />
+            <div>
+              <img className="w-100 h-200px object-fit-contain" src={image} alt={`image-${key}`} />
+            </div>
             <Carousel.Caption hidden={!deleteImage}>
               <button className="btn btn-danger btn-sm" onClick={() => deleteImage(key)}>
                 Eliminar

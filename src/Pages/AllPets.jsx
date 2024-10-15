@@ -16,22 +16,22 @@ const AllPets = () => {
     const loadPetsFromAPI = async () => {
       try {
         if (token) {
-          const petsData = await getPets(token);  
+          const petsData = await getPets(token);
           console.log("Pets from API:", petsData);
-          setPetsImages(petsData);  
+          setPetsImages(petsData);
         }
       } catch (error) {
         console.error("Error al cargar las mascotas desde el backend:", error);
       }
     };
-    loadPetsFromAPI();  
+    loadPetsFromAPI();
   }, [token]);
-   
+
   return (
     <div>
       <Header />
       <main className="vh-100">
-      <Filters />
+        <Filters />
         <section>
           {petsImages.length === 0 ? (
             <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
@@ -45,9 +45,11 @@ const AllPets = () => {
               <section className="d-flex flex-wrap justify-content-center">
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5 ">
-                    <div className="card ms-3" style={{ width: "10rem", height: "16rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                    <div className="card ms-3" style={{ width: "10rem", height: "auto", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
                       <i className="bi bi-heart fs-6 text-danger pets-wishList"></i>
-                      <img src={image.fotos} className="card-img-top pet-img" alt="..." />
+                      <div>
+                        <img src={image.fotos[0]} className="h-200px w-100 object-fit-contain" alt={`image-${index}`} />
+                      </div>
                       <div className="card-body pt-2">
                         <div className="d-flex justify-content-between align-items-center">
                           <h5 className="card-title pet-name">{image.nombre}</h5>
@@ -60,7 +62,7 @@ const AllPets = () => {
                       </div>
                     </div>
                   </div>
-                ))} 
+                ))}
               </section>
             </div>
           )}

@@ -51,6 +51,16 @@ export const PostGeneral = async (path, body) => {
   }
 };
 
+export const PutGeneral = async (path, body) => {
+  try {
+    let config = returnConfigToken();
+    const respuesta = await instance.put(path, body, config);
+    return respuesta.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Configuracion axios login.
 export const login = async (values) => {
   // eslint-disable-next-line no-useless-catch
@@ -63,7 +73,7 @@ export const login = async (values) => {
       const token = response.data.token;
       const user = response.data.usuario;
       console.log(user);
-      return { token,user };
+      return { token, user };
     } else {
       throw new Error("No se recibio el token");
     }
@@ -136,7 +146,6 @@ export const getPets = async (token) => {
   }
 };
 
-
 export const getShelters = async (token) => {
   try {
     const config = {
@@ -198,6 +207,25 @@ export const createImageCloudinary = async (image) => {
     let secureUrl = response.data.secure_url;
     return secureUrl;
   } catch (error) {
+    throw error;
+  }
+};
+
+//GetById de mascota
+
+export const getPetById = async (id) => {
+  const token = localStorage.getItem("token");
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await instance.get(`Mascotas/${id}`, config);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error al buscar mascota:", error);
     throw error;
   }
 };

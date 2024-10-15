@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-const FormDeletePet = ({ title, description, onClose, onDelete = () => {} }) => {
+const FormDeletePet = ({ id, title, description, onClose, onDelete = () => {} }) => {
   return (
     <Container>
       <Row>
@@ -16,7 +16,7 @@ const FormDeletePet = ({ title, description, onClose, onDelete = () => {} }) => 
             <Button variant="outline-danger" onClick={onClose}>
               Cancelar
             </Button>
-            <Button variant="danger" onClick={onDelete}>
+            <Button variant="danger" onClick={() => onDelete(id)}>
               Confirmar
             </Button>
           </div>
