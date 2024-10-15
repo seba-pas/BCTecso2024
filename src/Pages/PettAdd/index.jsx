@@ -5,7 +5,9 @@ import { Form, Button, Container} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-
+import "./pett-add.scss"
+import MapIcon from "../../assets/map-pin.png";
+import SelectIcon from "../../assets/flecha.png"
 
 
 const validationSchema = Yup.object().shape({
@@ -26,7 +28,7 @@ const validationSchema = Yup.object().shape({
   protectora: Yup.string().required("Este campo es obligatorio"),
 });
 
-const PetAdd = () => {
+const PettAdd = () => {
 
   const navigate = useNavigate();
   const form = useRef();
@@ -57,8 +59,8 @@ const PetAdd = () => {
   };
 
   return (
-    <Container className="container-animal">
-      <h2>Agregar animal</h2>
+    <Container className="container-pet">
+      <h2 className="title-pet">Agregar animal</h2>
       <Formik
         initialValues={{
           nombre: "",
@@ -94,7 +96,7 @@ const PetAdd = () => {
 
           <Form ref={form} onSubmit={formikHandleSubmit} encType="multipart/form-data">
             <Form.Group className="mb-3" controlId="nombre">
-              <Form.Control
+              <Form.Control className="form-pet"
                 type="text"
                 name="nombre"
                 placeholder="Nombre del animal*"
@@ -103,6 +105,7 @@ const PetAdd = () => {
                 onBlur={handleBlur}
                 isInvalid={!!errors.nombre && touched.nombre}
               />
+
               <Form.Control.Feedback type="invalid">
                 {errors.nombre}
               </Form.Control.Feedback>
@@ -110,7 +113,7 @@ const PetAdd = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="raza">
-              <Form.Control
+              <Form.Control className="form-pet"
                 type="text"
                 name="raza"
                 placeholder="Raza*"
@@ -119,13 +122,14 @@ const PetAdd = () => {
                 onBlur={handleBlur}
                 isInvalid={!!errors.raza && touched.raza}
               />
+            
               <Form.Control.Feedback type="invalid">
                 {errors.raza}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="tipo">
-              <Form.Control
+            <Form.Group className="mb-3 position-relative" controlId="tipo">
+              <Form.Control  className="form-pet"
                 as="select"
                 name="tipo"
                 value={values.tipo}
@@ -138,14 +142,14 @@ const PetAdd = () => {
                 <option value="Gato">Gato</option>
                 <option value="Otro">Otro</option>
               </Form.Control>
-
+              <img src={SelectIcon} alt="Select" className="select-icon" />
               <Form.Control.Feedback type="invalid">
                 {errors.tipo}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="tamano">
-              <Form.Control
+            <Form.Group className="mb-3 position-relative " controlId="tamano">
+              <Form.Control  className="form-pet"
                 as="select"
                 name="tamano"
                 value={values.tamano}
@@ -153,12 +157,14 @@ const PetAdd = () => {
                 onBlur={handleBlur}
                 isInvalid={!!errors.tamano && touched.tamano}
               >
+                
                 <option value="">Tamaño*</option>
                 <option value="Pequeño">Pequeño</option>
                 <option value="Mediano">Mediano</option>
                 <option value="Grande">Grande</option>
-              
+                
               </Form.Control>
+              <img src={SelectIcon} alt="Select" className="select-icon" />
               <Form.Control.Feedback type="invalid">
                   {errors.tamano}
               </Form.Control.Feedback>
@@ -166,7 +172,7 @@ const PetAdd = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="temperamentoConAnimal">
-              <Form.Control
+              <Form.Control  className="form-pet"
                 type="text"
                 name="temperamentoConAnimal"
                 placeholder="Carácter con animales*"
@@ -183,7 +189,7 @@ const PetAdd = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="temperamentoConPersonas">
-              <Form.Control
+              <Form.Control  className="form-pet"
                 type="text"
                 name="temperamentoConPersonas"
                 placeholder="Carácter con personas*"
@@ -198,7 +204,7 @@ const PetAdd = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="protectora">
-              <Form.Control
+              <Form.Control  className="form-pet"
                 type="text"
                 name="protectora"
                 placeholder="Protectora*"
@@ -215,22 +221,27 @@ const PetAdd = () => {
 
            
 
-            <Form.Group className="mb-3" controlId="ubicacion">
-              <Form.Control
-                type="text"
-                name="ubicacion"
-                placeholder="Ubicación*"
-                value={values.ubicacion}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                isInvalid={!!errors.ubicacion && touched.ubicacion}
-              />
-              <Form.Control.Feedback type="invalid">{errors.ubicacion}</Form.Control.Feedback>
+            <Form.Group className="mb-3 position-relative" controlId="ubicacion">
+                <img src={MapIcon} alt="Map" className="input-icon" />
+                <Form.Control
+                    className="form-pet with-icon"
+                    type="text"
+                    name="ubicacion"
+                    placeholder="Ubicación*"
+                    value={values.ubicacion}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={!!errors.ubicacion && touched.ubicacion}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.ubicacion}
+                </Form.Control.Feedback>
             </Form.Group>
 
 
+
             <Form.Group className="mb-3" controlId="mesAnioNacimiento">
-              <Form.Control
+              <Form.Control  className="form-pet"
                 type="date"
                 name="mesAnioNacimiento"
                 value={values.mesAnioNacimiento}
@@ -247,7 +258,7 @@ const PetAdd = () => {
        
 
             <Form.Group className="mb-3" controlId="descripcion">
-              <Form.Control
+              <Form.Control  className="form-pet"
                 as="textarea"
                 name="descripcion"
                 placeholder="Descripción"
@@ -257,8 +268,8 @@ const PetAdd = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Check
+            <Form.Group className="mb-3 radio-group">
+              <Form.Check  
                 type="radio"
                 label="Macho"
                 name="genero"
@@ -266,7 +277,7 @@ const PetAdd = () => {
                 onChange={handleChange}
                 checked={values.sexo === "Macho"}
               />
-              <Form.Check
+              <Form.Check 
                 type="radio"
                 label="Hembra"
                 name="genero"
@@ -281,7 +292,7 @@ const PetAdd = () => {
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={isSubmitting}>
+            <Button className="btn-sm" variant="primary" type="submit" disabled={isSubmitting}>
               Agregar Animal
             </Button>
           </Form>
@@ -291,4 +302,4 @@ const PetAdd = () => {
   );
 }
 
-export default PetAdd;
+export default PettAdd;
