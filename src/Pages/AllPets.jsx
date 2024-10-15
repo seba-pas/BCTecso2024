@@ -47,7 +47,7 @@ const AllPets = () => {
                   <div key={index} className="pb-5 ">
                     <div className="card ms-3" style={{ width: "10rem", height: "16rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
                       <i className="bi bi-heart fs-6 text-danger pets-wishList"></i>
-                      <img src={image.image} className="card-img-top pet-img" alt="..." />
+                      <img src={image.fotos} className="card-img-top pet-img" alt="..." />
                       <div className="card-body pt-2">
                         <div className="d-flex justify-content-between align-items-center">
                           <h5 className="card-title pet-name">{image.nombre}</h5>

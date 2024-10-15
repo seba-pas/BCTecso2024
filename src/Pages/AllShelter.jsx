@@ -5,6 +5,7 @@ import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getShelters } from "../api/setupAxios";
+import protectora from "../assets/images/protectors/Protectora-Animalistas.png";
 
 
 const AllShelter = () => {
@@ -70,13 +71,13 @@ const AllShelter = () => {
               logosImages.map((image, index) => (
                 <div key={index}>
                   <div className="card" style={{ width: "10rem", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                    <img src={image.image} className="card-img-top protector-img" alt={`Protectora ${index}`} />
+                    <img src={protectora} className="card-img-top protector-img" alt={`Protectora ${index}`} />
                     <div className="card-body d-flex flex-column align-items-center">
                       <h5 className="card-title" style={{ fontSize: "9px" }}>
-                        Nombre de la Protectora
+                        {image.nombreProtectora}
                       </h5>
                       <p className="card-text" style={{ fontSize: "7px" }}>
-                        Descripción de la protectora
+                        {image.descripcion}
                       </p>
                     </div>
                   </div>
