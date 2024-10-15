@@ -27,7 +27,6 @@ const AllPets = () => {
     loadPetsFromAPI();  
   }, [token]);
    
-
   return (
     <div>
       <Header />
