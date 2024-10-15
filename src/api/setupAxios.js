@@ -51,6 +51,16 @@ export const PostGeneral = async (path, body) => {
   }
 };
 
+export const PutGeneral = async (path, body) => {
+  try {
+    let config = returnConfigToken();
+    const respuesta = await instance.put(path, body, config);
+    return respuesta.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Configuracion axios login.
 export const login = async (values) => {
   // eslint-disable-next-line no-useless-catch
@@ -63,7 +73,7 @@ export const login = async (values) => {
       const token = response.data.token;
       const user = response.data.usuario;
       console.log(user);
-      return { token,user };
+      return { token, user };
     } else {
       throw new Error("No se recibio el token");
     }
@@ -195,8 +205,7 @@ export const createImageCloudinary = async (image) => {
     formData.append("upload_preset", VITE_API_UPLOAD_PRESET);
     let response = await instanceCloudinary.post("image/upload", formData);
     let secureUrl = response.data.secure_url;
-    const transformedUrl = secureUrl.replace("/upload/", "/upload/w_300,h_200,c_fill/");
-    return transformedUrl;
+    return secureUrl;
   } catch (error) {
     throw error;
   }

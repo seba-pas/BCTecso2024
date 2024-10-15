@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
 import "../assets/styles/home.css";
 import Header from "../components/Header/Header";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
-import protectora from "../assets/images/protectors/Protectora-Animalistas.png";
 import { useNavigate } from "react-router-dom";
 import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
+import CardPet from "../components/Cards/CardPet";
+import CardProtective from "../components/Cards/CardProtective";
+import { Container } from "react-bootstrap";
+import MyModal from "../components/Modal";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -66,9 +67,12 @@ const Home = () => {
       navigate("/all_shelters");
     }
   };
-
+  const goToEdit = (id, action) => {
+    localStorage.setItem("action", action);
+    navigate(`/form_pet/${id}`);
+  };
   return (
-    <div>
+    <Container as="div">
       <Header />
       <main className="vh-100">
         <Filters />
@@ -80,29 +84,14 @@ const Home = () => {
           ) : (
             <div>
               <div className="d-flex justify-content-between ms-4 me-4">
-                <p>Animales</p>
+                <p className="fw-semibold">Animales</p>
                 <a onClick={() => views("pets")} style={{ textDecoration: "none", color: "#017179" }}>
                   Ver todos
                 </a>
               </div>
               <Slider {...settings}>
                 {petsImages.map((image, index) => (
-                  <div key={index} className="pb-5">
-                    <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                      <i className="bi bi-heart fs-3 text-danger pets-wishList"></i>
-                      <img src={image.fotos} className="card-img-top pet-img pointer" alt="..." onClick={() => navigate(`/pet_details/${image.id}`)} />
-                      <div className="card-body">
-                        <div className="d-flex justify-content-between align-items-center">
-                          <h5 className="card-title">{image.nombre}</h5>
-                          <img src={iconSex} style={{ width: "30px" }} alt="Sexo" />
-                        </div>
-                        <div className="d-flex justify-content-start align-items-center">
-                          <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
-                          <p className="card-text ms-2">{image.ciudad}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <CardPet image={image} key={index} goToEdit={goToEdit} />
                 ))}
               </Slider>
             </div>
@@ -111,36 +100,16 @@ const Home = () => {
         <section>
           <div>
             <div className="d-flex justify-content-between ms-4 me-4">
-              <p>Protectoras</p>
+              <p className="fw-semibold">Protectoras</p>
               <a onClick={() => views("shelters")} style={{ textDecoration: "none", color: "#017179" }}>
                 Ver todas
               </a>
             </div>
           </div>
-          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">
-            {logosImages.length === 0 ? (
-              <p>No hay protectoras registradas actualmente</p>
-            ) : (
-              logosImages.map((image, index) => (
-                <div key={index}>
-                  <div className="card" style={{ width: "10rem", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                    <img src={protectora} className="card-img-top protector-img" alt={`Protectora ${index}`} />
-                    <div className="card-body d-flex flex-column align-items-center">
-                      <h5 className="card-title" style={{ fontSize: "18px" }}>
-                        {image.nombreProtectora}
-                      </h5>
-                      <p className="card-text" style={{ fontSize: "12px" }}>
-                        {image.descripcion}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">{logosImages.length === 0 ? <p>No hay protectoras registradas actualmente</p> : logosImages.map((image, index) => <CardProtective image={image} key={index} />)}</div>
         </section>
       </main>
-    </div>
+    </Container>
   );
 };
 

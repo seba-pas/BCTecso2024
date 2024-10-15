@@ -69,3 +69,15 @@
     opacity: 1;
   }
 }
+
+.min-h-200px {
+  min-height: 200px !important;
+}
+
+.h-200px {
+  height: 200px !important;
+}
+
+.fs-12 {
+  font-size: 12px;
+}

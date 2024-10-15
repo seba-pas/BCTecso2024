@@ -2,16 +2,19 @@ import React from "react";
 import { createImageCloudinary } from "../../api/setupAxios";
 import imgnaranja from "../../assets/images/img_naranja.png";
 import "../../assets/styles/elements/UploadFile/UploadFile.css";
+import Notiflix from "notiflix";
 
-const UploadFile = ({ images, setImages }) => {
+const UploadFile = ({ images, setImages, setError }) => {
   const changeImage = async (event) => {
     try {
       let file = event.target.files ? event.target.files[0] : null;
       if (file) {
         let url_image = await createImageCloudinary(file);
         setImages([...images, url_image]);
+        Notiflix.Notify.success("Imagen cargada con exito.");
       } else throw new Error("No se encontro la imagen.");
     } catch (error) {
+      setError && setError("<div class='alert alert-danger' role='alert'>Hubo un error al cargar su imagen</div>");
       throw error;
     }
   };

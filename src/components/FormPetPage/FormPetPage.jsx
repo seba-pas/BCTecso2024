@@ -7,17 +7,26 @@ import Check from "../elements/Check";
 import { inputs, selects, inputs2, checks } from "../../data/FormPetPage";
 import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetGeneral, PostGeneral } from "../../api/setupAxios";
+import { GetGeneral, PostGeneral, PutGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
+import { MyCarousel } from "../index";
+import Modal from "../Modal";
+import FormDeletePet from "../FormDeletePet";
+import { useSelector } from "react-redux";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
 const FormPetPage = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
+  const [modalShow, setmodalShow] = useState(false);
+  const closeModal = () => setmodalShow(false);
+  const openModal = () => setmodalShow(true);
   const [checked, setchecked] = useState({ 0: false, 1: false });
   const [images, setImages] = useState([]);
   const [errorsMessages, setErrorsMessages] = useState([]);
+  const [alert, setAlert] = useState("<div></div>");
   const [petData, setpetData] = useState({
     id: 0,
     nombre: "",
@@ -71,7 +80,6 @@ const FormPetPage = () => {
     else if (!moment(values.mesAnioNacimiento, "DD/MM/YYYY", true).isValid) errors.mesAnioNacimiento = "Ingrese una fecha valida";
     else if (moment(values.mesAnioNacimiento).isAfter(hoy)) errors.mesAnioNacimiento = "Ingrese una fecha anterior al día de hoy";
     else if (!values.sexo) errors.sexo = "Campo requerido";
-    else if (values.fotos.length > 10) errors.fotos = "Solo se permiten hasta 10 fotos";
     return errors;
   };
   const submitForm = async (values, setSubmitting) => {
@@ -95,37 +103,56 @@ const FormPetPage = () => {
       setSubmitting(false);
     }
   };
-  const returnTextButton = (action) => {
+  const changePet = async (values) => {
+    try {
+      let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
+      values.edad = moment().diff(moment(petData.mesAnioNacimiento), "years");
+      for (const key in values) {
+        if (valuesMassage.includes(key)) values[key] = values[key].value;
+        if (key === "mesAnioNacimiento") values[key] = moment.tz(values[key], "America/Argentina/Buenos_Aires").format("YYYY-MM");
+        if (key === "fotos") values[key] = images;
+      }
+      let response = await PutGeneral(`mascotas/${id}`, values);
+      navigate("/home");
+    } catch (error) {
+      console.log("ERROR", error);
+      let errors = error?.response?.data;
+      if (Array.isArray(errors)) setErrorsMessages(errors);
+      else if (!errors) setErrorsMessages(["Hubo un error al ingresar su animal, intente mas tarde."]);
+      else if (!Array.isArray(errors.errors)) setErrorsMessages(Object.values(errors.errors).map((error) => error[0]));
+    }
+  };
+  const returnButtons = (action, isSubmitting, values) => {
     switch (action) {
       case "m":
-        return "Modificar animal";
+        return (
+          <div>
+            <Button className="background-button-muma w-100" onClick={() => changePet(values)} disabled={isSubmitting}>
+              Guardar Cambios
+            </Button>
+            <Button variant="outline-danger" className="w-100 mt-2 mb-2" onClick={openModal} disabled={isSubmitting}>
+              Dar de baja
+            </Button>
+          </div>
+        );
       default:
-        return "Cargar animal";
+        return (
+          <Button className="background-button-muma w-100 mb-2" type="submit" disabled={isSubmitting}>
+            Cargar animal
+          </Button>
+        );
     }
   };
   const deleteImage = (key) => {
     let deleteImg = images.filter((value, k) => k !== key);
     setImages(deleteImg);
   };
-
+  const onDeleteModal = async (id) => {
+    let response = await PostGeneral(`mascotas/${id}/baja`, { motivo: "porque pinto", idMascotero: user?.tipoRegistro.id });
+    console.log("ASD", response);
+  };
   useEffect(() => {
     //Se manejara el llenado byid para la modificacion.
-    if (id) {
-      setpetData({
-        nombre: "Leandro",
-        raza: { label: "Perro", value: "Perro" },
-        tipoAnimal: { label: "Tipo*", value: "tipo" },
-        tamano: { label: "Chiquito", value: "Chiquito" },
-        temperamentoConAnimales: { label: "Bueno", value: "Bueno" },
-        temperamentoConPersonas: { label: "Malo", value: "Malo" },
-        protectoraId: { label: "Protectora 1", value: 1 },
-        ciudad: "Formosa 1780, Quilmes",
-        mesAnioNacimiento: "2000-09-10",
-        descripcion: "Un perro muy lindo",
-        sexo: "Macho",
-        fotos: ["https://firebasestorage.googleapis.com/v0/b/pagina-lg-simulacion.appspot.com/o/mascota.jfif?alt=media&token=de20c011-e973-4b51-9227-7a7bb37b679a"],
-      });
-    }
     GetGeneral("Protectoras", {}).then((protectoras) => {
       let combosProtectoras = protectoras.map((protectora) => ({ label: protectora.nombreProtectora, value: protectora.id }));
       setCombos({
@@ -133,63 +160,80 @@ const FormPetPage = () => {
         protectoraId: combosProtectoras,
       });
     });
+    if (id) {
+      GetGeneral(`mascotas/${id}`).then((value) => {
+        setpetData({
+          nombre: value.nombre,
+          raza: combos.raza.find((val) => val.value === value.raza),
+          tipoAnimal: combos.tipoAnimal.find((val) => val.value === value.tipoAnimal),
+          tamano: combos.tamano.find((val) => val.value === value.tamano),
+          temperamentoConAnimales: combos.temperamentoConAnimales.find((val) => val.value === value.temperamentoConAnimales),
+          temperamentoConPersonas: combos.temperamentoConPersonas.find((val) => val.value === value.temperamentoConPersonas),
+          protectoraId: { label: value.protectora.nombre, value: value.protectora.id },
+          ciudad: value.ciudad,
+          mesAnioNacimiento: "",
+          descripcion: value.descripcion,
+          sexo: value.sexo,
+          fotos: value.fotos,
+        });
+        setImages(value.fotos);
+      });
+    }
     /* return () => localStorage.removeItem("action"); */
   }, [id]);
   return (
-    <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
-      {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
-        const setCheckedLocal = (setFieldValue, key, value) => {
-          setFieldValue("sexo", value);
-          setchecked({ ...checked, [key]: !checked[key] });
-        };
-        return (
-          <Form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
-            {inputs.map((input, key) => (
-              <Col xs={12} key={key}>
-                <Input type={input.type} name={input.name} placeholder={input.placeholder} />
-              </Col>
-            ))}
-            {selects.map((select, key) => (
-              <Col xs={12} key={key}>
-                <Select name={select.name} type={select.type} placeholder={select.placeholder} options={combos[select.name]} noOption={select.noOption} />
-              </Col>
-            ))}
-            {inputs2.map((input, key) => (
-              <Col xs={12} key={key}>
-                <Input type={input.type} name={input.name} placeholder={input.placeholder} />
-              </Col>
-            ))}
-            <Row className="mt-2 mb-2">
-              {checks.map((check, key) => (
-                <Col key={key} md={6} className="d-flex justify-content-center">
-                  <Check onChange={(e) => setCheckedLocal(setFieldValue, key, e.target.value)} id={check.id} label={check.label} value={check.value} checked={checked[key]} type={check.type} name={check.name} />
+    <div>
+      <Modal show={modalShow} onHide={closeModal}>
+        <FormDeletePet id={id} title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} onDelete={onDeleteModal} />
+      </Modal>
+      <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
+        {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {
+          const setCheckedLocal = (setFieldValue, key, value) => {
+            setFieldValue("sexo", value);
+            setchecked({ ...checked, [key]: !checked[key] });
+          };
+          return (
+            <Form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
+              {inputs.map((input, key) => (
+                <Col xs={12} key={key}>
+                  <Input type={input.type} name={input.name} placeholder={input.placeholder} />
                 </Col>
               ))}
-              <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
-            </Row>
-            <Row>
-              <UploadFile images={images} setImages={setImages} />
-              <Row className="d-flex">
-                {images.map((image, key) => (
-                  <Col lg={6} key={key} className="position-relative">
-                    <img className="img-fluid" src={image} alt={`image-${key}`} />
-                    <i className="bi bi-x-circle-fill pointer ubicar-icon" onClick={() => deleteImage(key)}></i>
+              {selects.map((select, key) => (
+                <Col xs={12} key={key}>
+                  <Select name={select.name} type={select.type} placeholder={select.placeholder} options={combos[select.name]} noOption={select.noOption} />
+                </Col>
+              ))}
+              {inputs2.map((input, key) => (
+                <Col xs={12} key={key}>
+                  <Input type={input.type} name={input.name} placeholder={input.placeholder} />
+                </Col>
+              ))}
+              <Row className="mt-2 mb-2">
+                {checks.map((check, key) => (
+                  <Col key={key} md={6} className="d-flex justify-content-center">
+                    <Check onChange={(e) => setCheckedLocal(setFieldValue, key, e.target.value)} id={check.id} label={check.label} value={check.value} checked={checked[key]} type={check.type} name={check.name} />
                   </Col>
                 ))}
+                <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.sexo && touched.sexo && errors.sexo}</p>
               </Row>
-            </Row>
-            {errorsMessages?.map((error, key) => (
-              <Alert variant="danger" key={key}>
-                {error}
-              </Alert>
-            ))}
-            <Button className="background-button-muma w-100" type="submit" disabled={isSubmitting}>
-              {returnTextButton(action)}
-            </Button>
-          </Form>
-        );
-      }}
-    </Formik>
+              <Row>
+                <UploadFile images={images} setImages={setImages} setError={setAlert} />
+                <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.fotos && touched.fotos && errors.fotos}</p>
+                <Row className="d-flex">{images?.length ? <MyCarousel images={images} deleteImage={deleteImage} /> : null}</Row>
+              </Row>
+              {errorsMessages?.map((error, key) => (
+                <Alert variant="danger" key={key}>
+                  {error}
+                </Alert>
+              ))}
+              <div dangerouslySetInnerHTML={{ __html: alert }}></div>
+              {returnButtons(action, isSubmitting, values)}
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 
