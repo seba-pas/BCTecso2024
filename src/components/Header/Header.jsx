@@ -52,7 +52,7 @@ function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-space-between align-items-center flex-grow-1 pe-3">
-                  <p style={{textAlign:'center',marginBottom:'0'}}>Bienvenida {user.nombre +' '+ user.apellido +'!'}</p>
+                  <p className='d-none d-lg-block' style={{textAlign:'center',marginBottom:'0'}}>Bienvenida {user.nombre +' '+ user.apellido +'!'}</p>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
                     <Nav.Link onClick={goHome}>Home</Nav.Link>
                     <Nav.Link onClick={logOut}>logout</Nav.Link>
