@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
 import "../assets/styles/home.css";
 import Header from "../components/Header/Header";
 import Slider from "react-slick";
@@ -8,10 +7,9 @@ import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
-import { getPets,getShelters } from "../api/setupAxios";
+import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
-import Modal from "../components/Modal";
-import FormDeletePet from "../components/FormDeletePet";
+import { MyCarousel } from "../components/";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,11 +25,11 @@ const Home = () => {
     const loadPetsFromAPI = async () => {
       try {
         if (token) {
-          const petsData = await getPets(token); 
-          const shelterData = await getShelters(token)
+          const petsData = await getPets(token);
+          const shelterData = await getShelters(token);
           console.log("Pets from API:", petsData);
-          console.log("Shelters from API:",shelterData);
-          setPetsImages(petsData); 
+          console.log("Shelters from API:", shelterData);
+          setPetsImages(petsData);
           setLogosImages(shelterData);
         }
       } catch (error) {
@@ -39,7 +37,7 @@ const Home = () => {
       }
     };
 
-    loadPetsFromAPI();  
+    loadPetsFromAPI();
   }, [token]);
 
   const settings = {
@@ -68,17 +66,16 @@ const Home = () => {
   };
 
   const views = (value) => {
-    if(value === "pets"){
-      navigate("/all_pets")
-    }else if(value === "shelters"){
-      navigate("/all_shelters")
+    if (value === "pets") {
+      navigate("/all_pets");
+    } else if (value === "shelters") {
+      navigate("/all_shelters");
     }
-    
   };
-
+  console.log("IMAGESS", petsImages);
   return (
     <div>
-{/*       <Modal show={modalShow} onHide={closeModal}>
+      {/*       <Modal show={modalShow} onHide={closeModal}>
         <FormDeletePet title="Dar de baja" onClose={closeModal} description="¿Estás seguro de que querés dar de baja a Bruno?" />
       </Modal> */}
       <Header />
@@ -100,9 +97,9 @@ const Home = () => {
               <Slider {...settings}>
                 {petsImages.map((image, index) => (
                   <div key={index} className="pb-5">
-                    <div className="card ms-3" style={{ width: "18rem", height: "22rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                      <i className="bi bi-heart fs-3 text-danger pets-wishList"></i>
-                      <img src={image.image} className="card-img-top pet-img" alt="..." />
+                    <div className="card ms-3" style={{ width: "18rem", height: "auto", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
+                      <i className="bi bi-heart fs-3 text-danger pets-wishList z-3"></i>
+                      <MyCarousel images={image.fotos} />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
                           <h5 className="card-title">Nombre del Animal</h5>
@@ -111,7 +108,7 @@ const Home = () => {
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
                           <p className="card-text ms-2">Ubicación</p>
-                         {/*  <button onClick={() => modificatePet(2)}>Modificar</button>
+                          {/*  <button onClick={() => modificatePet(2)}>Modificar</button>
                           <button onClick={openModal}>Eliminar</button> */}
                         </div>
                       </div>
