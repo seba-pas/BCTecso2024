@@ -121,7 +121,7 @@ const Login = () => {
               </div>
 
               <div className="bnt-container">
-                <Button className="btn-primary"
+                <Button className="btn-large login-btn"
                     variant="primary"
                     type="submit"
                     disabled={isSubmitting}
