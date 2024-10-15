@@ -4,6 +4,7 @@ import Header from "../components/Header/Header";
 import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getShelters } from "../api/setupAxios";
 
 
 const AllShelter = () => {
