@@ -19,12 +19,20 @@ const SelectGeneral = ({ options, customOnChange = () => {}, placeholder, noOpti
     ...customStyles,
     control: (provided) => ({
       ...customStyles.control(provided),
-      border: meta.touched && Object.keys(meta.error || {}).length ? "1px solid var(--system-error)" : "none",
-      color: "var(--brand-primary-01)",
+      border: meta.touched && meta.error ? "1px solid var(--system-error)" : "none",
+      "&:hover": {
+        border: meta.touched && meta.error ? "1px solid var(--system-error)" : "none", // Cambia el color de la flecha
+      },
     }),
-    dropdownIndicator: (provided) => ({
+    dropdownIndicator: (provided, state) => ({
       ...provided,
-      color: meta.touched && Object.keys(meta.error || {}).length ? "var(--system-error)" : "var(--brand-primary-01)", // Cambia el color de la flecha
+      color: meta.touched && meta.error ? "var(--system-error)" : "var(--brand-primary-01)", // Cambia el color de la flecha
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
+      paddingRight: "16px",
+      paddingLeft: "16px",
+      "&:hover": {
+        color: meta.touched && meta.error ? "var(--system-error)" : "var(--brand-primary-01)", // Cambia el color de la flecha
+      },
     }),
   };
 
