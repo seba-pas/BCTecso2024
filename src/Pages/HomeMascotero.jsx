@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import iconSex from "../assets/images/icons/sexo.png";
 import Filters from "../components/Filters/Filters";
+import protectora from "../assets/images/protectors/Protectora-Animalistas.png";
 import { useNavigate } from "react-router-dom";
 import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
@@ -13,9 +14,6 @@ import { MyCarousel } from "../components/";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [modalShow, setmodalShow] = useState(false);
-  const closeModal = () => setmodalShow(false);
-  const openModal = () => setmodalShow(true);
   const [petsImages, setPetsImages] = useState([]);
   const [logosImages, setLogosImages] = useState([]);
   const token = useSelector((state) => state.auth.token);
@@ -37,12 +35,14 @@ const Home = () => {
       }
     };
 
-    loadPetsFromAPI();
-  }, [token]);
+    if (token) {
+      loadPetsFromAPI();
+    }
+  }, []);
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 200,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -54,15 +54,9 @@ const Home = () => {
     centerMode: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 700, settings: { slidesToShow: 3 } },
+      { breakpoint: 700, settings: { slidesToShow: 5 } },
       { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
-  };
-
-  const modificatePet = (id) => {
-    console.log("ACA");
-    localStorage.setItem("action", "m");
-    navigate("/form_pet/" + id);
   };
 
   const views = (value) => {
@@ -75,9 +69,6 @@ const Home = () => {
   console.log("IMAGESS", petsImages);
   return (
     <div>
-      {/*       <Modal show={modalShow} onHide={closeModal}>
-        <FormDeletePet title="Dar de baja" onClose={closeModal} description="¿Estás seguro de que querés dar de baja a Bruno?" />
-      </Modal> */}
       <Header />
       <main className="vh-100">
         <Filters />
@@ -102,14 +93,12 @@ const Home = () => {
                       <MyCarousel images={image.fotos} />
                       <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
-                          <h5 className="card-title">Nombre del Animal</h5>
+                          <h5 className="card-title">{image.nombre}</h5>
                           <img src={iconSex} style={{ width: "30px" }} alt="Sexo" />
                         </div>
                         <div className="d-flex justify-content-start align-items-center">
                           <i className="bi bi-geo-alt fs-3" style={{ color: "#99DBD6" }}></i>
-                          <p className="card-text ms-2">Ubicación</p>
-                          {/*  <button onClick={() => modificatePet(2)}>Modificar</button>
-                          <button onClick={openModal}>Eliminar</button> */}
+                          <p className="card-text ms-2">{image.ciudad}</p>
                         </div>
                       </div>
                     </div>
@@ -135,12 +124,12 @@ const Home = () => {
               logosImages.map((image, index) => (
                 <div key={index}>
                   <div className="card" style={{ width: "10rem", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                    <img src={image.image} className="card-img-top protector-img" alt={`Protectora ${index}`} />
+                    <img src={protectora} className="card-img-top protector-img" alt={`Protectora ${index}`} />
                     <div className="card-body d-flex flex-column align-items-center">
-                      <h5 className="card-title" style={{ fontSize: "9px" }}>
+                      <h5 className="card-title" style={{ fontSize: "18px" }}>
                         {image.nombreProtectora}
                       </h5>
-                      <p className="card-text" style={{ fontSize: "7px" }}>
+                      <p className="card-text" style={{ fontSize: "12px" }}>
                         {image.descripcion}
                       </p>
                     </div>
