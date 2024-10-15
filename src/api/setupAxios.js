@@ -136,7 +136,6 @@ export const getPets = async (token) => {
   }
 };
 
-
 export const getShelters = async (token) => {
   try {
     const config = {
@@ -199,6 +198,25 @@ export const createImageCloudinary = async (image) => {
     const transformedUrl = secureUrl.replace("/upload/", "/upload/w_300,h_200,c_fill/");
     return transformedUrl;
   } catch (error) {
+    throw error;
+  }
+};
+
+//GetById de mascota
+
+export const getPetById = async (id) => {
+  const token = localStorage.getItem("token");
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await instance.get(`Mascotas/${id}`, config);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error al buscar mascota:", error);
     throw error;
   }
 };
