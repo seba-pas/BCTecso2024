@@ -29,6 +29,7 @@ const Login = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
@@ -69,7 +70,7 @@ const Login = () => {
           }) => (
             <Form onSubmit={formikHandleSubmit}>
               <Form.Group className="mt-3" controlId="formBasicEmail">
-                <Form.Control
+                <Form.Control className="form-control-password"
                   type="email"
                   name="email"
                   placeholder="Email*"
@@ -85,7 +86,8 @@ const Login = () => {
 
               <Form.Group controlId="formBasicPassword" className="mt-3">
                 <div className="container-pass">
-                  <Form.Control
+                  <Form.Control  
+                    className={`form-control-password ${touched.password && errors.password ? 'input-error' : ''}`}
                     type={passwordVisible ? 'text' : 'password'}
                     name="password"
                     placeholder="Contraseña*"
@@ -100,9 +102,12 @@ const Login = () => {
                     ) : (
                       <img  className="img-eye" src={hidden} alt="Mostrar contraseña" />
                     )}      
-                  </span>    
+                  </span>
+
                   <Form.Control.Feedback type="invalid">
-                    {errors.password}
+                      {touched.password && errors.password && (
+                          <div className="error-text">{errors.password}</div>
+                      )}
                   </Form.Control.Feedback>
                 </div>
               </Form.Group>
@@ -110,7 +115,7 @@ const Login = () => {
               <div className="actions">
                 <div className="container-recordarme">
                   <input className="remember"  type="checkbox" id="remember" name="remember" />
-                  <label className="remember-label" htmlFor="remember">Recordarme</label>
+                  <label className="remember" htmlFor="remember">Recordarme</label>
                 </div>
                 <a href="/forgot-password" className="forgot-password">¿Olvidaste tu contraseña?</a>
               </div>
