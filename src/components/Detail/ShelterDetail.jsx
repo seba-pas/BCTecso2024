@@ -4,7 +4,7 @@ import { ShelterModal } from "./ShelterModal";
 import phoneLogo from "../../assets/images/icons/phone.svg";
 import shelter from "../../assets/images/protectors/Protectora-Animalistas.png";
 
-export const ShelterDetail = (props) => {
+export const ShelterDetail = () => {
   const [show, setShow] = useState(false);
 
   return (
