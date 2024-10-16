@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/allPets.css";
 import Header from "../components/Header/Header";
 import Filters from "../components/Filters/Filters";
-import iconSex from "../assets/images/icons/sexo.png";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getPets } from "../api/setupAxios";
+import CardAllPet from "../components/Cards/CardAllPet";
 
 const AllPets = () => {
-  const navigate = useNavigate();
   const [petsImages, setPetsImages] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
@@ -44,24 +42,7 @@ const AllPets = () => {
               </div>
               <section className="d-flex flex-wrap justify-content-center">
                 {petsImages.map((image, index) => (
-                  <div key={index} className="pb-5 ">
-                    <div className="card ms-3" style={{ width: "10rem", height: "auto", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-                      <i className="bi bi-heart fs-6 text-danger pets-wishList"></i>
-                      <div>
-                        <img src={image.fotos[0]} className="h-200px w-100 object-fit-contain" alt={`image-${index}`} />
-                      </div>
-                      <div className="card-body pt-2">
-                        <div className="d-flex justify-content-between align-items-center">
-                          <h5 className="card-title pet-name">{image.nombre}</h5>
-                          <img src={iconSex} style={{ width: "23px" }} alt="Sexo" />
-                        </div>
-                        <div className="d-flex justify-content-start align-items-center">
-                          <i className="bi bi-geo-alt fs-6" style={{ color: "#99DBD6" }}></i>
-                          <p className="card-text ms-2">{image.ciudad}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <CardAllPet index={index} image={image} key={index} />
                 ))}
               </section>
             </div>

@@ -13,6 +13,7 @@ import { MyCarousel } from "../index";
 import Modal from "../Modal";
 import FormDeletePet from "../FormDeletePet";
 import { useSelector } from "react-redux";
+import Notiflix from "notiflix";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
@@ -47,7 +48,12 @@ const FormPetPage = () => {
   let action = localStorage.getItem("action");
   const [combos, setCombos] = useState({
     raza: [{ label: "Raza*", value: "raza" }],
-    tipoAnimal: [{ label: "Tipo*", value: "tipo" }],
+    tipoAnimal: [
+      { label: "Perro", value: "Perro" },
+      { label: "Gato", value: "Gato" },
+      { label: "Hamster", value: "Hamster" },
+      { label: "Conejo", value: "Conejo" },
+    ],
     tamano: [
       { label: "Pequeño", value: "Pequeño" },
       { label: "Mediano", value: "Mediano" },
@@ -83,12 +89,17 @@ const FormPetPage = () => {
     return errors;
   };
   const submitForm = async (values, setSubmitting) => {
+    let fecha = values.mesAnioNacimiento;
+    const obj = { mesAnioNacimiento: fecha };
+    let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
     try {
       setSubmitting(true);
-      let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
       values.edad = moment().diff(moment(values.mesAnioNacimiento), "years");
       for (const key in values) {
-        if (valuesMassage.includes(key)) values[key] = values[key].value;
+        if (valuesMassage.includes(key)) {
+          obj[key] = values[key];
+          values[key] = values[key].value;
+        }
         if (key === "mesAnioNacimiento") values[key] = moment.tz(values[key], "America/Argentina/Buenos_Aires").format("YYYY-MM");
         if (key === "fotos") values[key] = images;
       }
@@ -96,6 +107,10 @@ const FormPetPage = () => {
       setSubmitting(false);
       navigate("/success_submit_pet");
     } catch (error) {
+      for (const key in obj) {
+        if (valuesMassage.includes(key)) values[key] = obj[key];
+        if (key === "mesAnioNacimiento") values[key] = fecha;
+      }
       let errors = error.response.data;
       if (Array.isArray(errors)) setErrorsMessages(errors);
       else if (!errors) setErrorsMessages(["Hubo un error al ingresar su animal, intente mas tarde."]);
@@ -104,18 +119,26 @@ const FormPetPage = () => {
     }
   };
   const changePet = async (values) => {
+    let fecha = values.mesAnioNacimiento;
+    let obj = { mesAnioNacimiento: fecha };
+    let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
     try {
-      let valuesMassage = ["raza", "tipoAnimal", "tamano", "temperamentoConAnimales", "temperamentoConPersonas", "protectoraId"];
-      values.edad = moment().diff(moment(petData.mesAnioNacimiento), "years");
+      values.edad = moment().diff(moment(values.mesAnioNacimiento), "years");
       for (const key in values) {
-        if (valuesMassage.includes(key)) values[key] = values[key].value;
+        if (valuesMassage.includes(key)) {
+          obj[key] = values[key];
+          values[key] = values[key].value;
+        }
         if (key === "mesAnioNacimiento") values[key] = moment.tz(values[key], "America/Argentina/Buenos_Aires").format("YYYY-MM");
         if (key === "fotos") values[key] = images;
       }
       let response = await PutGeneral(`mascotas/${id}`, values);
       navigate("/home");
     } catch (error) {
-      console.log("ERROR", error);
+      for (const key in obj) {
+        if (valuesMassage.includes(key)) values[key] = obj[key];
+        if (key === "mesAnioNacimiento") values[key] = fecha;
+      }
       let errors = error?.response?.data;
       if (Array.isArray(errors)) setErrorsMessages(errors);
       else if (!errors) setErrorsMessages(["Hubo un error al ingresar su animal, intente mas tarde."]);
@@ -148,8 +171,15 @@ const FormPetPage = () => {
     setImages(deleteImg);
   };
   const onDeleteModal = async (id) => {
-    let response = await PostGeneral(`mascotas/${id}/baja`, { motivo: "porque pinto", idMascotero: user?.tipoRegistro.id });
-    console.log("ASD", response);
+    try {
+      let response = await PostGeneral(`mascotas/${id}/baja`, { motivo: "porque pinto", idMascotero: user?.tipoRegistro.id });
+      console.log("ASD", response);
+    } catch (error) {
+      let errors = error?.response?.data;
+      if (Array.isArray(errors)) setErrorsMessages(errors);
+      else if (!errors) setErrorsMessages(["Hubo un error al eliminar su animal, intente mas tarde."]);
+      else if (!Array.isArray(errors.errors)) setErrorsMessages(Object.values(errors.errors).map((error) => error[0]));
+    }
   };
   useEffect(() => {
     //Se manejara el llenado byid para la modificacion.
