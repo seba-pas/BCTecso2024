@@ -8,7 +8,7 @@ import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
-import CardPet from "../components/Cards/CardPet";
+import CardPetShelter from "../components/Cards/CardPetShelter";
 import CardProtective from "../components/Cards/CardProtective";
 
 
@@ -81,30 +81,19 @@ const Home = () => {
           ) : (
             <div>
               <div className="d-flex justify-content-between ms-4 me-4">
-                <p className="fw-semibold">Animales</p>
-                <a onClick={() => views("pets")} style={{ textDecoration: "none", color: "#017179" }}>
-                  Ver todos
-                </a>
+                <p className="fw-semibold" style={{fontSize:'22px',fontFamily:'"Poppins", sans-serif',color:'#5F5B5B'}}>Animales</p>
               </div>
-              <Slider {...settings}>
-                {petsImages.map((image, index) => (
-                  <CardPet image={image} key={index} goToEdit={goToEdit} />
-                ))}
-              </Slider>
+              <section className="d-flex flex-wrap">
+                  {petsImages.map((image, index) => (
+                      <CardPetShelter image={image} key={index} goToEdit={goToEdit} />
+                    ))}
+              </section>
             </div>
           )}
         </section>
-        <section>
-          <div>
-            <div className="d-flex justify-content-between ms-4 me-4">
-              <p className="fw-semibold">Protectoras</p>
-              <a onClick={() => views("shelters")} style={{ textDecoration: "none", color: "#017179" }}>
-                Ver todas
-              </a>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">{logosImages.length === 0 ? <p>No hay protectoras registradas actualmente</p> : logosImages.map((image, index) => <CardProtective key={index} image={image} index={index} />)}</div>
-        </section>
+        <div>
+          <i class="bi bi-plus-lg"></i>
+        </div>
       </main>
     </div>
   );

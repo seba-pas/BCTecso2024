@@ -10,5 +10,6 @@ export { default as SuccesScreen } from "./SuccesScreen";
 export { default as SuccessSubmitPet } from "./SuccessSubmitPet";
 export { default as UserSelect } from "./UserSelect";
 export { default as ValidationAccount } from "./ValidationAccount";
+export { default as HomeShelter } from "./HomeShelter";
 export { PetDetailForPetOwner } from "./PetDetailForPetOwner";
 export { PetDetailForShelter } from "./PetDetailForShelter";
