@@ -133,7 +133,7 @@ const FormPetPage = () => {
         if (key === "fotos") values[key] = images;
       }
       let response = await PutGeneral(`mascotas/${id}`, values);
-      navigate("/home");
+      navigate("/home_shelter");
     } catch (error) {
       for (const key in obj) {
         if (valuesMassage.includes(key)) values[key] = obj[key];
