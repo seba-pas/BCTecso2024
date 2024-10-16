@@ -64,10 +64,7 @@ const Home = () => {
       navigate("/all_shelters");
     }
   };
-  const goToEdit = (id, action) => {
-    localStorage.setItem("action", action);
-    navigate(`/form_pet/${id}`);
-  };
+
   return (
     <div>
       <Header />
@@ -88,7 +85,7 @@ const Home = () => {
               </div>
               <Slider {...settings}>
                 {petsImages.map((image, index) => (
-                  <CardPet image={image} key={index} goToEdit={goToEdit} />
+                  <CardPet image={image} key={index} />
                 ))}
               </Slider>
             </div>
