@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Form, Button, Row, Alert } from "react-bootstrap";
+import MySlider from "../MySlider";
 import { Formik } from "formik";
 import Select from "../elements/Select";
 import Input from "../elements/Input";
@@ -13,7 +14,6 @@ import { MyCarousel } from "../index";
 import Modal from "../Modal";
 import FormDeletePet from "../FormDeletePet";
 import { useSelector } from "react-redux";
-import Notiflix from "notiflix";
 
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
@@ -133,7 +133,7 @@ const FormPetPage = () => {
         if (key === "fotos") values[key] = images;
       }
       let response = await PutGeneral(`mascotas/${id}`, values);
-      navigate("/home");
+      navigate("/home_shelter");
     } catch (error) {
       for (const key in obj) {
         if (valuesMassage.includes(key)) values[key] = obj[key];
@@ -167,6 +167,7 @@ const FormPetPage = () => {
     }
   };
   const deleteImage = (key) => {
+    console.log("DELETE");
     let deleteImg = images.filter((value, k) => k !== key);
     setImages(deleteImg);
   };
@@ -250,7 +251,20 @@ const FormPetPage = () => {
               <Row>
                 <UploadFile images={images} setImages={setImages} setError={setAlert} />
                 <p className="text-danger m-0 p-0 fs-12 ms-2">{errors.fotos && touched.fotos && errors.fotos}</p>
-                <Row className="d-flex">{images?.length ? <MyCarousel images={images} deleteImage={deleteImage} /> : null}</Row>
+                <Row className="d-flex">
+                  {images?.length ? (
+                    <MySlider>
+                      {images.map((image, key) => (
+                        <div className="position-relative w-auto ms-1 me-1" key={key}>
+                          <i className="p-1 bg-light rounded text-danger bi bi-trash3 top-0 end-0 pointer position-absolute mt-1 me-1" onClick={() => deleteImage(key)}></i>
+                          <div className="h-200">
+                            <img className="max-h-200px object-fit-contain" src={image} alt={`image-${key}`} />
+                          </div>
+                        </div>
+                      ))}
+                    </MySlider>
+                  ) : null}
+                </Row>
               </Row>
               {errorsMessages?.map((error, key) => (
                 <Alert variant="danger" key={key}>
