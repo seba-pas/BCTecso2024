@@ -7,7 +7,7 @@ const CardPet = ({ image, key = 0, goToEdit = () => {} }) => {
     <div key={key} className="pb-5">
       <div className="card ms-3 card-pet">
         <i className="bi bi-heart fs-3 text-danger pets-wishList pointer" onClick={() => goToEdit(image.id, "m")}></i>
-        <img src={image.fotos[0]} className="card-img-top pet-img pointer" alt="..." /* onClick={() => goToEdit(image.id, "m")} */ />
+        <img src={image.fotos[0]} className="card-img-top pet-img pointer" alt={`image-${image.id}`} /* onClick={() => goToEdit(image.id, "m")} */ />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center">
             <h5 className="card-title">{image.nombre}</h5>
