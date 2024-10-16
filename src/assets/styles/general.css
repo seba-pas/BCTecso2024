@@ -77,7 +77,22 @@
 .h-200px {
   height: 200px !important;
 }
+.fs-18 {
+  font-size: 18px;
+}
 
 .fs-12 {
   font-size: 12px;
+}
+
+.card-protective {
+  width: 10rem;
+  box-shadow: -4px 14px 17px -3px rgba(0, 0, 0, 0.25);
+}
+
+.card-pet {
+  width: 18rem;
+  height: 22rem;
+  border: none;
+  box-shadow: -4px 14px 17px -3px rgba(0, 0, 0, 0.25);
 }

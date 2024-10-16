@@ -72,7 +72,6 @@ export const login = async (values) => {
     if (response.data && response.data.token) {
       const token = response.data.token;
       const user = response.data.usuario;
-      console.log(user);
       return { token, user };
     } else {
       throw new Error("No se recibio el token");
@@ -119,7 +118,6 @@ export const getUser = async (id, token) => {
     };
     const response = await instance.get(`Mascoteros/${id}`, config);
     const data = response.data;
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al buscar mascotero:", error);
@@ -138,7 +136,6 @@ export const getPets = async (token) => {
     };
     const response = await instance.get(`Mascotas`, config);
     const data = response.data;
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al buscar mascotas:", error);
@@ -155,7 +152,6 @@ export const getShelters = async (token) => {
     };
     const response = await instance.get(`Protectoras`, config);
     const data = response.data;
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al buscar mascotas:", error);
