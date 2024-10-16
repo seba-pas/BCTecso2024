@@ -14,7 +14,8 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState(""); 
   const [rememberMe, setRememberMe] = useState(false); 
-
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
   // Accedo al estado de autenticación y de carga de Redux
   const { loading, isAuthenticated, error } = useSelector((state) => state.auth);
 
@@ -33,10 +34,15 @@ function Login() {
 
   // Si está autenticado redirige al home.
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/home");
+    if (isAuthenticated && user) {
+      const tipoRegistro = Number(user.idTipoRegistro);
+      if (tipoRegistro === 2) {
+        navigate("/home");
+      } else if (tipoRegistro === 1) {
+        navigate("/home_shelter");
+      } 
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
