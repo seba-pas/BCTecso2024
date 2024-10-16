@@ -98,7 +98,7 @@ function App() {
       ),
     },
     {
-      path: "/home_shelters",
+      path: "/home_shelter",
       element: (
         <ProtectedRoute>
           <HomeShelter />
