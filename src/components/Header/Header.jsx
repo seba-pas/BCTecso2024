@@ -18,7 +18,6 @@ function Header() {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const [userData, setUserData] = useState(null);
-  console.log("USER", user);
   const logOut = () => {
     dispatch(logoutAction());
     navigate("/");

@@ -26,8 +26,6 @@ const Home = () => {
         if (token) {
           const petsData = await getPets(token);
           const shelterData = await getShelters(token);
-          console.log("Pets from API:", petsData);
-          console.log("Shelters from API:", shelterData);
           setPetsImages(petsData);
           setLogosImages(shelterData);
         }
@@ -72,7 +70,7 @@ const Home = () => {
     navigate(`/form_pet/${id}`);
   };
   return (
-    <Container as="div">
+    <div>
       <Header />
       <main className="vh-100">
         <Filters />
@@ -106,10 +104,10 @@ const Home = () => {
               </a>
             </div>
           </div>
-          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">{logosImages.length === 0 ? <p>No hay protectoras registradas actualmente</p> : logosImages.map((image, index) => <CardProtective image={image} key={index} />)}</div>
+          <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">{logosImages.length === 0 ? <p>No hay protectoras registradas actualmente</p> : logosImages.map((image, index) => <CardProtective key={index} image={image} index={index} />)}</div>
         </section>
       </main>
-    </Container>
+    </div>
   );
 };
 
