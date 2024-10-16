@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/home.css";
 import Header from "../components/Header/Header";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Filters from "../components/Filters/Filters";
@@ -9,13 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { getPets, getShelters } from "../api/setupAxios";
 import { useSelector } from "react-redux";
 import CardPetShelter from "../components/Cards/CardPetShelter";
-import CardProtective from "../components/Cards/CardProtective";
 
 
 const Home = () => {
   const navigate = useNavigate();
   const [petsImages, setPetsImages] = useState([]);
-  const [logosImages, setLogosImages] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
   // Cargar las imágenes dinámicamente desde las carpetas
@@ -57,17 +54,14 @@ const Home = () => {
     ],
   };
 
-  const views = (value) => {
-    if (value === "pets") {
-      navigate("/all_pets");
-    } else if (value === "shelters") {
-      navigate("/all_shelters");
-    }
+  const views = () => {
+    navigate('/form_pet')
   };
   const goToEdit = (id, action) => {
     localStorage.setItem("action", action);
     navigate(`/form_pet/${id}`);
   };
+  
   return (
     <div>
       <Header />
@@ -91,9 +85,9 @@ const Home = () => {
             </div>
           )}
         </section>
-        <div>
-          <i class="bi bi-plus-lg"></i>
-        </div>
+        <a className="d-flex justify-content-center align-items-center" onClick={views} style={{borderRadius:'50%',backgroundColor:'#F08318',width:'50px',height:'50px',position:'fixed',bottom:'1rem',right:'1rem'}}>
+          <i class="bi bi-plus-lg fs-3" style={{color:'white'}}></i>
+        </a>
       </main>
     </div>
   );

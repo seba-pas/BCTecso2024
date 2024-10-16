@@ -2,6 +2,9 @@ import React from "react";
 import { Row, Col, Container, Image } from "react-bootstrap";
 import FormPetPage from "../components/FormPetPage/FormPetPage";
 import ArrowBack from "../components/elements/ArrowBack";
+import { HeaderButton } from "../components";
+import arrow from "../assets/images/arrow-left.jpg";
+
 
 const PetPage = () => {
   let action = localStorage.getItem("action");
@@ -13,11 +16,14 @@ const PetPage = () => {
         return "Agregar animal";
     }
   };
+
   return (
     <Container>
       <Row className="d-flex justify-content-center">
         <Col sm={8} md={6}>
-          <ArrowBack className="mb-4" path="/home" />
+          <HeaderButton to={-1}>
+            <img src={arrow} alt="back-button" />
+          </HeaderButton>
           <h5 className="mt-2 mb-2">{returnTitle()}</h5>
           <FormPetPage action={action} />
         </Col>
