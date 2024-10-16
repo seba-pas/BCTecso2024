@@ -23,7 +23,7 @@ export const DetailMain = ({ nombre, estado, descripcion, ciudad, contacto, edad
       </div>
       <div className="d-flex justify-content-center flex-wrap gap-3">{tags && tags.map(({ type, value }) => <Tag key={type} type={type} value={value} />)}</div>
       {contacto && <ShelterDetail {...contacto} />}
-      <p className="scroll-animated" style={{ marginBottom: "80px", color: "var(--brand-neutro-01)", fontWeight: "400", fontSize: "14px" }}>
+      <p className="scroll-animated" style={{ marginBottom: "80px", color: "var(--brand-neutro-01)", fontWeight: "400", fontSize: "14px",whiteSpace:'normal' ,overflowWrap:'break-word'}}>
         {descripcion}
       </p>
       <div className="w-100 mb-3 start-0 px-3 bottom-0 position-fixed d-flex justify-content-center ">
