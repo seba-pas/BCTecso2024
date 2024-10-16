@@ -1,12 +1,14 @@
 import React from "react";
 import iconSex from "../../assets/images/icons/sexo.png";
+import { useNavigate } from "react-router-dom";
 
 const CardPetShelter = ({ image, key = 0, goToEdit = () => {} }) => {
+  const navigate = useNavigate();
   return (
     <div key={key} className="pb-5">
       <div className="card ms-3 card-pet" style={{ width: "12rem", height: "16rem" }}>
         <i className="bi bi-pencil-square fs-3 text-danger pets-wishList pointer" onClick={() => goToEdit(image.id, "m")}></i>
-        <img src={image.fotos[0]} className="card-img-top pet-img pointer pet-size-image" alt={`image-${image.id}`} />
+        <img src={image.fotos[0]} className="card-img-top pet-img pointer pet-size-image" alt={`image-${image.id}`} onClick={() => navigate(`/pet_details_shelter/${image.id}`)} />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center">
             <h5 className="card-title">{image.nombre}</h5>
