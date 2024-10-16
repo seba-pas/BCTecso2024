@@ -15,15 +15,16 @@ function Login() {
   const [email, setEmail] = useState(""); 
   const [rememberMe, setRememberMe] = useState(false); 
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  
   // Accedo al estado de autenticación y de carga de Redux
   const { loading, isAuthenticated, error } = useSelector((state) => state.auth);
 
+  // Mostrar/ocultar contraseña
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // Si existe el mail lo cargo ene el localStorage
+  // Recuperar email guardado en localStorage
   useEffect(() => {
     const savedEmail = localStorage.getItem("savedEmail");
     if (savedEmail) {
@@ -32,15 +33,20 @@ function Login() {
     }
   }, []); 
 
-  // Si está autenticado redirige al home.
+  // Redirigir según el tipo de usuario después de la autenticación
   useEffect(() => {
     if (isAuthenticated && user) {
       const tipoRegistro = Number(user.idTipoRegistro);
+      console.log("Tipo de usuario:", tipoRegistro);
+      
+      // Redireccionar según el tipo de usuario
       if (tipoRegistro === 2) {
-        navigate("/home");
+        navigate("/home");  // Ruta para usuarios de tipo 2
       } else if (tipoRegistro === 1) {
-        navigate("/home_shelter");
-      } 
+        navigate("/home_shelter");  // Ruta para usuarios de tipo 1
+      } else {
+        navigate("/default");  // Ruta por defecto si no hay coincidencias
+      }
     }
   }, [isAuthenticated, user, navigate]);
 
@@ -59,7 +65,7 @@ function Login() {
             if (!values.email) {
               errors.email = "Required";
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-              errors.email = "El email no es valido";
+              errors.email = "El email no es válido";
             }
             if (!values.password) {
               errors.password = "Ingrese una contraseña";
@@ -80,6 +86,7 @@ function Login() {
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               {error && <Alert variant="danger">{error}</Alert>}
+              
               <div className="form-group mb-3">
                 <input
                   type="email"
