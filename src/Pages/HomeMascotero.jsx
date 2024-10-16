@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/home.css";
+import MySlider from "../components/MySlider";
 import Header from "../components/Header/Header";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Filters from "../components/Filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { getPets, getShelters } from "../api/setupAxios";
@@ -39,25 +37,6 @@ const Home = () => {
     }
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 200,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    swipeToSlide: false,
-    variableWidth: true,
-    cssEase: "linear",
-    arrows: false,
-    draggable: true,
-    centerMode: false,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 700, settings: { slidesToShow: 5 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
-    ],
-  };
-
   const views = (value) => {
     if (value === "pets") {
       navigate("/all_pets");
@@ -87,11 +66,11 @@ const Home = () => {
                   Ver todos
                 </a>
               </div>
-              <Slider {...settings}>
+              <MySlider>
                 {petsImages.map((image, index) => (
                   <CardPet image={image} key={index} goToEdit={goToEdit} />
                 ))}
-              </Slider>
+              </MySlider>
             </div>
           )}
         </section>
