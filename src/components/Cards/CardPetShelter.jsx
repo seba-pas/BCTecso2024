@@ -1,18 +1,11 @@
 import React from "react";
-import { useState } from "react";
 import iconSex from "../../assets/images/icons/sexo.png";
-import { MyCarousel } from "../index";
 
-const CardPet = ({ image, key = 0, goToEdit = () => {} }) => {
-  const [isWishlisted,setIsWishlisted] = useState(false);
-  const handleWishlistClick = () => {
-    setIsWishlisted(!isWishlisted);
-  };
-
+const CardPetShelter = ({ image, key = 0, goToEdit = () => {} }) => {
   return (
     <div key={key} className="pb-5">
-      <div className="card ms-3 card-pet">
-      <i className={`bi ${isWishlisted ? 'bi-heart-fill' : 'bi-heart'} fs-3 text-danger pets-wishList pointer`} onClick={handleWishlistClick}></i>
+      <div className="card ms-3 card-pet" style={{width:'12rem',height:'16rem'}}>
+        <i className="bi bi-pencil-square fs-3 text-danger pets-wishList pointer" onClick={() => goToEdit(image.id, "m")}></i>
         <img src={image.fotos[0]} className="card-img-top pet-img pointer" alt={`image-${image.id}`} />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center">
@@ -29,4 +22,4 @@ const CardPet = ({ image, key = 0, goToEdit = () => {} }) => {
   );
 };
 
-export default CardPet;
+export default CardPetShelter;
