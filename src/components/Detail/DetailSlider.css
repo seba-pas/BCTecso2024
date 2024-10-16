@@ -14,3 +14,11 @@
 .detail-slider .slick-dots li.slick-active {
   background-color: var(--brand-primary-01); /* Color para el dot activo */
 }
+
+.h-400px {
+  height: 400px !important;
+}
+
+.max-h-400px {
+  max-height: 400px !important;
+}

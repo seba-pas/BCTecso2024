@@ -77,6 +77,11 @@
 .h-200px {
   height: 200px !important;
 }
+
+.max-h-200px {
+  max-height: 200px !important;
+}
+
 .fs-18 {
   font-size: 18px;
 }

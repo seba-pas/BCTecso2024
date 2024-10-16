@@ -24,8 +24,8 @@ export const DetailSlider = ({ pet }) => {
       <Slider {...settings}>
         {pet.fotos &&
           pet.fotos.map((image, index) => (
-            <div key={index}>
-              <img src={image} alt={`pet-image-${index}`} className="w-100 object-fit-cover " height="400px" style={{ objectPosition: "top" }} />
+            <div key={index} className="h-400px">
+              <img src={image} alt={`pet-image-${index}`} className="object-fit-contain w-100 max-h-400px" style={{ objectPosition: "top" }} />
             </div>
           ))}
       </Slider>
