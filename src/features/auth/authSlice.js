@@ -54,7 +54,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Error de autenticación';  
+        state.error = action.payload?.message || 'Error de autenticación';  
       });
   },
 });
