@@ -12,7 +12,7 @@ const SuccessSubmitPet = () => {
         <div>
           <p className="p-muma">Agregaste una nueva mascota con éxito. Entre todos podemos encontrarles un hogar.</p>
           <div className="w-100 d-flex justify-content-center">
-            <Button className="background-button-muma w-75 mt-4" onClick={() => navigate("/home")}>
+            <Button className="background-button-muma w-75 mt-4" onClick={() => navigate("/home_shelter")}>
               Ir al Home
             </Button>
           </div>
