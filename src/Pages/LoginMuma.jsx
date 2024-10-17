@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import { login } from "../features/auth/authSlice"; 
+import { login } from "../features/auth/authSlice";
 import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState(""); 
-  const [rememberMe, setRememberMe] = useState(false); 
+  const [email, setEmail] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const user = useSelector((state) => state.auth.user);
-  
+
   // Accedo al estado de autenticación y de carga de Redux
   const { loading, isAuthenticated, error } = useSelector((state) => state.auth);
 
@@ -31,21 +31,20 @@ function Login() {
       setEmail(savedEmail);
       setRememberMe(true);
     }
-  }, []); 
+  }, []);
 
   // Redirigir según el tipo de usuario después de la autenticación
   useEffect(() => {
     if (isAuthenticated && user) {
       const tipoRegistro = Number(user.idTipoRegistro);
       console.log("Tipo de usuario:", tipoRegistro);
-      
       // Redireccionar según el tipo de usuario
       if (tipoRegistro === 2) {
-        navigate("/home");  // Ruta para usuarios de tipo 2
+        navigate("/home"); // Ruta para usuarios de tipo 2
       } else if (tipoRegistro === 1) {
-        navigate("/home_shelter");  // Ruta para usuarios de tipo 1
+        navigate("/home_shelter"); // Ruta para usuarios de tipo 1
       } else {
-        navigate("/default");  // Ruta por defecto si no hay coincidencias
+        navigate("/default"); // Ruta por defecto si no hay coincidencias
       }
     }
   }, [isAuthenticated, user, navigate]);
@@ -58,8 +57,8 @@ function Login() {
         </div>
 
         <Formik
-          initialValues={{ email: email, password: "" }} 
-          enableReinitialize 
+          initialValues={{ email: email, password: "" }}
+          enableReinitialize
           validate={(values) => {
             const errors = {};
             if (!values.email) {
@@ -73,10 +72,10 @@ function Login() {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, setFieldError }) => {
-            dispatch(login(values));  
+            dispatch(login(values));
 
             if (rememberMe) {
-              localStorage.setItem("savedEmail", values.email);  
+              localStorage.setItem("savedEmail", values.email);
             } else {
               localStorage.removeItem("savedEmail");
             }
@@ -86,30 +85,14 @@ function Login() {
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               {error && <Alert variant="danger">{error}</Alert>}
-              
+
               <div className="form-group mb-3">
-                <input
-                  type="email"
-                  name="email"
-                  className={`form-control ${errors.email && touched.email ? "is-invalid" : ""}`}
-                  placeholder="Email*"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                />
+                <input type="email" name="email" className={`form-control ${errors.email && touched.email ? "is-invalid" : ""}`} placeholder="Email*" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                 {errors.email && touched.email && <div className="invalid-feedback">{errors.email}</div>}
               </div>
 
               <div className="form-group mb-4 position-relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
-                  placeholder="Contraseña*"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                />
+                <input type={showPassword ? "text" : "password"} name="password" className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`} placeholder="Contraseña*" onChange={handleChange} onBlur={handleBlur} value={values.password} />
                 {values.password && values.password.length > 0 && (
                   <span className="position-absolute top-50 end-0 translate-middle-y me-3" style={{ cursor: "pointer" }} onClick={togglePasswordVisibility}>
                     {showPassword ? "🙈" : <i className="bi bi-eye"></i>}
@@ -120,13 +103,7 @@ function Login() {
 
               <div className="d-flex justify-content-between mb-5">
                 <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="rememberMe"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                  />
+                  <input className="form-check-input" type="checkbox" name="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                   <label className="form-check-label">Recordarme</label>
                 </div>
                 <a href="" className="text-decoration-none">
