@@ -1,0 +1,28 @@
+.custom-file-input {
+  position: absolute;
+  left: -9999px;
+}
+
+.custom-file-label {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Cambiar el color cuando el usuario interactúe */
+.custom-file-label:hover {
+  background-color: #dddddd;
+}
+
+.ubicar-icon {
+  position: absolute;
+  top: 0;
+  right: 0px;
+}

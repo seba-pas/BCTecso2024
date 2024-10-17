@@ -1,0 +1,24 @@
+.detail-slider .slick-dots {
+  bottom: 36px; /* Ajusta la posición vertical de los dots */
+}
+
+.detail-slider .slick-dots li {
+  width: 15px;
+  height: 5px;
+  border-radius: 16px;
+  background-color: var(--background-lightmode-primary);
+  margin: 0 1px;
+  transition: background-color 0.3s;
+}
+
+.detail-slider .slick-dots li.slick-active {
+  background-color: var(--brand-primary-01); /* Color para el dot activo */
+}
+
+.h-400px {
+  height: 400px !important;
+}
+
+.max-h-400px {
+  max-height: 400px !important;
+}

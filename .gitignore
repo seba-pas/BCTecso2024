@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
+ngrok.exe
 
 # Editor directories and files
 .vscode/*
