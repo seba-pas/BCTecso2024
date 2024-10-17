@@ -2,22 +2,19 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/allPets.css";
 import Header from "../components/Header/Header";
 import Filters from "../components/Filters/Filters";
-import { useSelector } from "react-redux";
-import { getPets } from "../api/setupAxios";
 import CardAllPet from "../components/Cards/CardAllPet";
+import { getDataHome } from "../features/home/homeData";
+import { useSelector, useDispatch } from "react-redux";
 
 const AllPets = () => {
-  const [petsImages, setPetsImages] = useState([]);
+  const dispatch = useDispatch();
+  const pets = useSelector((state) => state.home.pets);
   const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     const loadPetsFromAPI = async () => {
       try {
-        if (token) {
-          const petsData = await getPets(token);
-          console.log("Pets from API:", petsData);
-          setPetsImages(petsData);
-        }
+        if (token) dispatch(getDataHome(token));
       } catch (error) {
         console.error("Error al cargar las mascotas desde el backend:", error);
       }
@@ -31,7 +28,7 @@ const AllPets = () => {
       <main className="vh-100">
         <Filters />
         <section>
-          {petsImages.length === 0 ? (
+          {pets.length === 0 ? (
             <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
               <p>No hay animales registrados actualmente</p>
             </div>
@@ -41,7 +38,7 @@ const AllPets = () => {
                 <p>Animales</p>
               </div>
               <section className="d-flex flex-wrap justify-content-center">
-                {petsImages.map((image, index) => (
+                {pets.map((image, index) => (
                   <CardAllPet index={index} image={image} key={index} />
                 ))}
               </section>
