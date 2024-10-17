@@ -22,7 +22,7 @@ const CardAllPet = ({ index, image }) => {
   return (
     <div key={index} className="pb-5" >
       <div className="card ms-3" style={{ width: "10rem", height: "16rem", border: "none", boxShadow: "-4px 14px 17px -3px rgba(0,0,0,0.25)" }}>
-        <i className={`bi ${isInWishlist ? "bi-heart-fill" : "bi-heart"} bi-heart fs-6 text-danger pets-wishList`} onClick={handleWishlistClick}></i>
+        <i className={`bi ${isInWishlist ? "bi-heart-fill" : "bi-heart"} fs-6 text-danger pets-wishList`} onClick={handleWishlistClick}></i>
         <img src={image.fotos[0]} className="card-img-top pet-img pet-size-image pointer" alt={`image-${index}`} onClick={() => navigate(`/pet_details/${image.id}`)}/>
         <div className="card-body pt-2">
           <div className="d-flex justify-content-between align-items-center">
