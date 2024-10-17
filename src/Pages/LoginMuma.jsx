@@ -37,17 +37,20 @@ function Login() {
   useEffect(() => {
     if (isAuthenticated && user) {
       const tipoRegistro = Number(user.idTipoRegistro);
-      console.log("Tipo de usuario:", tipoRegistro);
       // Redireccionar según el tipo de usuario
       if (tipoRegistro === 2) {
         navigate("/home"); // Ruta para usuarios de tipo 2
       } else if (tipoRegistro === 1) {
         navigate("/home_shelter"); // Ruta para usuarios de tipo 1
       } else {
-        navigate("/default"); // Ruta por defecto si no hay coincidencias
+        navigate("/"); // Ruta por defecto si no hay coincidencias
       }
     }
   }, [isAuthenticated, user, navigate]);
+
+  const forgetPass = () => {
+    navigate("/forget_password");
+  }
 
   return (
     <div className="container vh-100 d-flex justify-content-center align-items-center">
@@ -106,7 +109,7 @@ function Login() {
                   <input className="form-check-input" type="checkbox" name="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                   <label className="form-check-label">Recordarme</label>
                 </div>
-                <a href="" className="text-decoration-none">
+                <a href="" onClick={forgetPass} className="text-decoration-none">
                   ¿Olvidaste tu contraseña?
                 </a>
               </div>
