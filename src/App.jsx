@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { PetDetailForPetOwner, PetDetailForShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, AllPets, AllShelter ,HomeShelter } from "./Pages";
+import { PetDetailForPetOwner, PetDetailForShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, AllPets, AllShelter ,HomeShelter, ForgetPassword } from "./Pages";
 
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import ProtectedRoute from "./components/ProtectedRoutes";
@@ -22,6 +22,7 @@ function App() {
     { path: "/register_pet_owner", element: <PetRegistration /> },
     { path: "/validation_email", element: <ValidationAccount /> },
     { path: "/register_shelter", element: <RegisterShelter /> },
+    { path: "/forget_password" , element: <ForgetPassword /> },
     {
       path: "/pet_details_shelter/:id",
       element: (

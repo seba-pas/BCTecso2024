@@ -11,5 +11,6 @@ export { default as SuccessSubmitPet } from "./SuccessSubmitPet";
 export { default as UserSelect } from "./UserSelect";
 export { default as ValidationAccount } from "./ValidationAccount";
 export { default as HomeShelter } from "./HomeShelter";
+export { default as ForgetPassword } from "./ForgetPassword";
 export { PetDetailForPetOwner } from "./PetDetailForPetOwner";
 export { PetDetailForShelter } from "./PetDetailForShelter";
