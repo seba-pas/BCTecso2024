@@ -18,7 +18,6 @@ import { useSelector } from "react-redux";
 //QUEDA PREGUNTAR PARA REALIZAR EL TEMA FOTOS.
 
 const FormPetPage = () => {
-  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const [modalShow, setmodalShow] = useState({ show: false, accion: "s" });
