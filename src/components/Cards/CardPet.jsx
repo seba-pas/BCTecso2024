@@ -1,21 +1,29 @@
 import React from "react";
-import { useState } from "react";
 import iconSex from "../../assets/images/icons/sexo.png";
-import { MyCarousel } from "../index";
 import { useNavigate } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import { addToWishlist,removeFromWishlist } from "../../features/wishlist/whishlistSlice";
 
-const CardPet = ({ image, key = 0, goToEdit = () => {} }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+const CardPet = ({ image, key = 0}) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const wishList = useSelector((state) => state.whishlist);
+  const isInWishlist = wishList.includes(image.id);
 
   const handleWishlistClick = () => {
-    setIsWishlisted(!isWishlisted);
+    if(isInWishlist){
+      dispatch(removeFromWishlist(image.id));
+    }else{
+      dispatch(addToWishlist(image.id));
+    }
   };
+
+  
 
   return (
     <div key={key} className="pb-5">
       <div className="card ms-3 card-pet">
-        <i className={`bi ${isWishlisted ? "bi-heart-fill" : "bi-heart"} fs-3 text-danger pets-wishList pointer`} onClick={handleWishlistClick}></i>
+        <i className={`bi ${isInWishlist ? "bi-heart-fill" : "bi-heart"} fs-3 text-danger pets-wishList pointer`} onClick={handleWishlistClick}></i>
         <img src={image.fotos[0]} className="card-img-top pet-img pointer" alt={`image-${image.id}`} onClick={() => navigate(`/pet_details/${image.id}`)} />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center">
