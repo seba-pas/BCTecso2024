@@ -23,7 +23,8 @@ function Header() {
     navigate("/");
   };
   const goHome = () => {
-    navigate("/home");
+    let url = user.tipoRegistro.id === 1 ? "/home_shelter" : "/home"
+    navigate(url);
   };
 
   return (

@@ -10,7 +10,7 @@ import moment from "moment-timezone";
 import { useParams, useNavigate } from "react-router-dom";
 import { GetGeneral, PostGeneral, PutGeneral } from "../../api/setupAxios";
 import UploadFile from "../elements/UploadFile";
-import { MyCarousel } from "../index";
+import FormModalPet from "../FormModalPet";
 import Modal from "../Modal";
 import FormDeletePet from "../FormDeletePet";
 import { useSelector } from "react-redux";
@@ -21,9 +21,10 @@ const FormPetPage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
-  const [modalShow, setmodalShow] = useState(false);
+  const [modalShow, setmodalShow] = useState({ show: false, accion: "s" });
+  const [datosPet, setdatosPet] = useState({ id: 0, nombre: "" });
   const closeModal = () => setmodalShow(false);
-  const openModal = () => setmodalShow(true);
+  const openModal = (accion) => manejo_acciones(accion);
   const [checked, setchecked] = useState({ 0: false, 1: false });
   const [images, setImages] = useState([]);
   const [errorsMessages, setErrorsMessages] = useState([]);
@@ -103,9 +104,10 @@ const FormPetPage = () => {
         if (key === "mesAnioNacimiento") values[key] = moment.tz(values[key], "America/Argentina/Buenos_Aires").format("YYYY-MM");
         if (key === "fotos") values[key] = images;
       }
-      await PostGeneral("Mascotas/registro", values);
+      let response = await PostGeneral("Mascotas/registro", values);
+      setdatosPet(response);
       setSubmitting(false);
-      navigate("/success_submit_pet");
+      openModal("c");
     } catch (error) {
       for (const key in obj) {
         if (valuesMassage.includes(key)) values[key] = obj[key];
@@ -133,7 +135,8 @@ const FormPetPage = () => {
         if (key === "fotos") values[key] = images;
       }
       let response = await PutGeneral(`mascotas/${id}`, values);
-      navigate("/home_shelter");
+      setdatosPet(response);
+      openModal("s");
     } catch (error) {
       for (const key in obj) {
         if (valuesMassage.includes(key)) values[key] = obj[key];
@@ -153,7 +156,7 @@ const FormPetPage = () => {
             <Button className="background-button-muma w-100" onClick={() => changePet(values)} disabled={isSubmitting}>
               Guardar Cambios
             </Button>
-            <Button variant="outline-danger" className="w-100 mt-2 mb-2" onClick={openModal} disabled={isSubmitting}>
+            <Button variant="outline-danger" className="w-100 mt-2 mb-2" onClick={() => openModal("b")} disabled={isSubmitting}>
               Dar de baja
             </Button>
           </div>
@@ -167,19 +170,35 @@ const FormPetPage = () => {
     }
   };
   const deleteImage = (key) => {
-    console.log("DELETE");
     let deleteImg = images.filter((value, k) => k !== key);
     setImages(deleteImg);
   };
   const onDeleteModal = async (id) => {
     try {
       let response = await PostGeneral(`mascotas/${id}/baja`, { motivo: "porque pinto", idMascotero: user?.tipoRegistro.id });
-      console.log("ASD", response);
     } catch (error) {
       let errors = error?.response?.data;
       if (Array.isArray(errors)) setErrorsMessages(errors);
       else if (!errors) setErrorsMessages(["Hubo un error al eliminar su animal, intente mas tarde."]);
       else if (!Array.isArray(errors.errors)) setErrorsMessages(Object.values(errors.errors).map((error) => error[0]));
+    }
+  };
+  const manejo_acciones = (accion) => {
+    switch (accion) {
+      case "b": {
+        setmodalShow({ show: true, accion });
+        break;
+      }
+      case "s": {
+        setmodalShow({ show: true, accion });
+        break;
+      }
+      case "c": {
+        setmodalShow({ show: true, accion });
+        break;
+      }
+      default:
+        break;
     }
   };
   useEffect(() => {
@@ -214,8 +233,8 @@ const FormPetPage = () => {
   }, [id]);
   return (
     <div>
-      <Modal show={modalShow} onHide={closeModal}>
-        <FormDeletePet id={id} title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} onDelete={onDeleteModal} />
+      <Modal show={modalShow.show} onHide={closeModal}>
+        {modalShow.accion === "b" ? <FormDeletePet id={id} title="Dar de baja" onClose={closeModal} description={`¿Estás seguro de que querés dar de baja a ${petData.nombre}?`} onDelete={onDeleteModal} /> : <FormModalPet accion={modalShow.accion} datosPet={datosPet} />}
       </Modal>
       <Formik enableReinitialize={true} initialValues={petData} validate={(values) => valueManagement(values)} onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
         {({ handleSubmit, isSubmitting, errors, touched, setFieldValue, values }) => {

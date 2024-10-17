@@ -8,9 +8,14 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 
-import { element } from "prop-types";
+import {useSelector} from "react-redux"
 
 function App() {
+  const user = useSelector((state) => state.auth.user);
+  const returnTextHome = () =>{
+    let id = user?.tipoRegistro?.id||0;
+    return id === 1 ? "/home_shelter" : "/home"
+  }
   let routes = [
     { path: "/", element: <LoginMuma /> },
     { path: "/user_select", element: <UserSelect /> },
@@ -105,7 +110,7 @@ function App() {
         </ProtectedRoute>
       ),
     },
-    { path: "/*", element: <Navigate to="/home" replace /> },
+    { path: "/*", element: <Navigate to={returnTextHome()} replace /> },
   ];
   return (
     <RouteChangeLoader>

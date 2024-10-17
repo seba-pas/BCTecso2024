@@ -5,14 +5,9 @@ import { filterPets, searchPets } from "../../features/home/homeData";
 function Filters() {
   const dispatch = useDispatch();
 
-  const petsFilter = (e) => {
-    dispatch(filterPets(e.target.name));
-  };
+  const petsFilter = (e) => dispatch(filterPets(e.target.name));
 
-  const petsSearch = (e) => {
-    console.log(e.target.value);
-    dispatch(searchPets(e.target.value));
-  };
+  const petsSearch = (e) => dispatch(searchPets(e.target.value));
 
   return (
     <>
@@ -20,11 +15,10 @@ function Filters() {
         <div className="col-12 col-md-8 col-lg-6 d-flex">
           <Form.Control onChange={petsSearch} type="search" placeholder="Nombre, estado, protectora y sexo" className="input-bar-search flex-grow-1" aria-label="Search" />
         </div>
-        <Button className="button-bar-search">
+        <Button variant="none" className="button-bar-search text-light">
           <i className="bi bi-search"></i>
         </Button>
       </Form>
-
       <section className="mb-5">
         <h4 className="home-categorias mb-3 text-start text-lg-center">Categorías</h4>
         <div className="home-group-button d-flex justify-content-start justify-content-lg-center">

@@ -20,7 +20,7 @@ const PetPage = () => {
     <Container>
       <Row className="d-flex justify-content-center">
         <Col sm={8} md={6}>
-          <HeaderButton to="/home_shelters">
+          <HeaderButton to="/home_shelter">
             <Image src={arrow} alt="back-button" />
           </HeaderButton>
           <h5 className="mt-2 mb-2">{returnTitle()}</h5>

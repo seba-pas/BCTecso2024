@@ -8,12 +8,18 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import CardPetShelter from "../components/Cards/CardPetShelter";
 import { getDataHome } from "../features/home/homeData";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const dataHome = useSelector((state) => state.home);
+  const renderTooltip = (props) => (
+    <Tooltip id="tooltip-add-pet" {...props}>
+      Agregar un animal
+    </Tooltip>
+  );
   // Cargar las imágenes dinámicamente desde las carpetas
   const loadPetsFromAPI = useCallback(() => {
     try {
@@ -81,7 +87,9 @@ const Home = () => {
           )}
         </section>
         <a className="d-flex justify-content-center align-items-center" onClick={views} style={{ borderRadius: "50%", backgroundColor: "#F08318", width: "50px", height: "50px", position: "fixed", bottom: "1rem", right: "1rem" }}>
-          <i className="bi bi-plus-lg fs-3" style={{ color: "white" }}></i>
+          <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+            <i className="bi bi-plus-lg fs-3 pointer" style={{ color: "white" }}></i>
+          </OverlayTrigger>
         </a>
       </main>
     </div>

@@ -7,7 +7,7 @@ const CardPetShelter = ({ image, index = 0, goToEdit = () => {} }) => {
   return (
     <div key={index} className="pb-5">
       <div className="card ms-3 card-pet" style={{ width: "12rem", height: "16rem" }}>
-        <i className="bi bi-pencil-square fs-3 text-danger pets-wishList pointer" onClick={() => goToEdit(image.id, "m")}></i>
+        <i className="bi bi-pencil-square fs-3 text-danger pets-wishList pointer color-muma-icon" onClick={() => goToEdit(image.id, "m")}></i>
         <img src={image.fotos[0]} className="card-img-top pet-img pointer pet-size-image" alt={`image-${image.id}`} onClick={() => navigate(`/pet_details_shelter/${image.id}`)} />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center">
