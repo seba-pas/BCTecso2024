@@ -37,7 +37,8 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="d-flex justify-content-center">
+    <div className="home-container">
       <Header />
       <main className="vh-100">
         <Filters />
@@ -74,6 +75,7 @@ const Home = () => {
           <div className="d-flex justify-content-center align-items-center flex-wrap gap-4">{dataHome.shelters.length === 0 ? <p>No hay protectoras registradas actualmente</p> : dataHome.shelters.map((image, index) => <CardProtective key={index} image={image} index={index} />)}</div>
         </section>
       </main>
+    </div>
     </div>
   );
 };

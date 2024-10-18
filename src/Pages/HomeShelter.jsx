@@ -62,36 +62,38 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <main className="vh-100">
-        <Filters />
-        <section>
-          {dataHome.pets.length === 0 ? (
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
-              <p>No hay animales registrados actualmente</p>
-            </div>
-          ) : (
-            <div>
-              <div className="d-flex justify-content-between ms-4 me-4">
-                <p className="fw-semibold" style={{ fontSize: "22px", fontFamily: '"Poppins", sans-serif', color: "#5F5B5B" }}>
-                  Animales
-                </p>
+    <div className="d-flex justify-content-center">
+       <div className="home-container">
+        <Header />
+        <main className="vh-100">
+          <Filters />
+          <section>
+            {dataHome.pets.length === 0 ? (
+              <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
+                <p>No hay animales registrados actualmente</p>
               </div>
-              <section className="d-flex flex-wrap">
-                {dataHome.pets.map((image, index) => (
-                  <CardPetShelter image={image} key={index} index={index} goToEdit={goToEdit} />
-                ))}
-              </section>
-            </div>
-          )}
-        </section>
-        <a className="d-flex justify-content-center align-items-center" onClick={views} style={{ borderRadius: "50%", backgroundColor: "#F08318", width: "50px", height: "50px", position: "fixed", bottom: "1rem", right: "1rem" }}>
-          <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-            <i className="bi bi-plus-lg fs-3 pointer" style={{ color: "white" }}></i>
-          </OverlayTrigger>
-        </a>
-      </main>
+            ) : (
+              <div>
+                <div className="d-flex justify-content-between ms-4 me-4">
+                  <p className="fw-semibold" style={{ fontSize: "22px", fontFamily: '"Poppins", sans-serif', color: "#5F5B5B" }}>
+                    Animales
+                  </p>
+                </div>
+                <section className="d-flex flex-wrap">
+                  {dataHome.pets.map((image, index) => (
+                    <CardPetShelter image={image} key={index} index={index} goToEdit={goToEdit} />
+                  ))}
+                </section>
+              </div>
+            )}
+          </section>
+          <a className="d-flex justify-content-center align-items-center" onClick={views} style={{ borderRadius: "50%", backgroundColor: "#F08318", width: "50px", height: "50px",position: "-webkit-sticky", position: "sticky", bottom: "1rem", left: "85rem" }}>
+            <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+              <i className="bi bi-plus-lg fs-3 pointer" style={{ color: "white" }}></i>
+            </OverlayTrigger>
+          </a>
+        </main>
+      </div>
     </div>
   );
 };

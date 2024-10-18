@@ -59,3 +59,13 @@
   right: 10px;
 
 }
+
+.home-container{
+  width: 75%;
+}
+
+@media(max-width:767px){
+  .home-container{
+    width: 100%;
+  }
+}

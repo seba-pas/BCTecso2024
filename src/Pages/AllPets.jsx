@@ -23,29 +23,31 @@ const AllPets = () => {
   }, [token]);
 
   return (
-    <div>
-      <Header />
-      <main className="vh-100">
-        <Filters />
-        <section>
-          {pets.length === 0 ? (
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
-              <p>No hay animales registrados actualmente</p>
-            </div>
-          ) : (
-            <div>
-              <div className="d-flex justify-content-between ms-4 me-4 ">
-                <p>Animales</p>
+    <div className="d-flex justify-content-center">
+      <div className="home-container">
+        <Header />
+        <main className="vh-100">
+          <Filters />
+          <section>
+            {pets.length === 0 ? (
+              <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
+                <p>No hay animales registrados actualmente</p>
               </div>
-              <section className="d-flex flex-wrap justify-content-center">
-                {pets.map((image, index) => (
-                  <CardAllPet index={index} image={image} key={index} />
-                ))}
-              </section>
-            </div>
-          )}
-        </section>
-      </main>
+            ) : (
+              <div>
+                <div className="d-flex justify-content-between ms-4 me-4 ">
+                  <p>Animales</p>
+                </div>
+                <section className="d-flex flex-wrap justify-content-center gap-4">
+                  {pets.map((image, index) => (
+                    <CardAllPet index={index} image={image} key={index} />
+                  ))}
+                </section>
+              </div>
+            )}
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
