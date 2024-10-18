@@ -41,18 +41,18 @@ export const inputs1 = [
 ];
 
 export const inputs2 = [
-  {
-    name: "calle",
-    placeholder: "Calle*",
-  },
-  {
-    name: "numero",
-    placeholder: "Número*",
-  },
-  {
-    name: "piso",
-    placeholder: "Piso",
-  },
+  // {
+  //   name: "calle",
+  //   placeholder: "Calle*",
+  // },
+  // {
+  //   name: "numero",
+  //   placeholder: "Número*",
+  // },
+  // {
+  //   name: "piso",
+  //   placeholder: "Piso",
+  // },
   {
     name: "departamento",
     placeholder: "Departamento",

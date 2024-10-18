@@ -71,7 +71,7 @@ const Input = (props) => {
       );
     } else {
       return (
-        <div className={` ${errorClassname}`}>
+        <div className={` ${errorClassname}`} style={{ flex: "1" }}>
           {props.type === "textarea" ? (
             <textarea
               className={`p-3 w-100 ${style.registerShelterTextarea}`}
