@@ -11,14 +11,18 @@ export const RegisterShelterForm = () => {
   const navigate = useNavigate();
 
   const { provinces, cities, setSelectedProvinces } = useFetchAddress();
-  const provinceOptions = provinces.map(({ id, nombre }) => ({
-    value: JSON.stringify({ id, nombre }),
-    label: nombre,
-  }));
-  const cityOptions = cities.map(({ id, nombre, idProvincia }) => ({
-    value: JSON.stringify({ id, nombre, idProvincia }),
-    label: nombre,
-  }));
+  const provinceOptions =
+    provinces &&
+    provinces.map(({ id, nombre }) => ({
+      value: JSON.stringify({ id, nombre }),
+      label: nombre,
+    }));
+  const cityOptions =
+    cities &&
+    cities.map(({ id, nombre, idProvincia }) => ({
+      value: JSON.stringify({ id, nombre, idProvincia }),
+      label: nombre,
+    }));
   return (
     <Formik
       initialValues={initialValues}
@@ -70,6 +74,13 @@ export const RegisterShelterForm = () => {
                   }
                 }}
               />
+
+              <Input name="calle" placeholder="Calle*" />
+              <div className="d-flex w-100" style={{ gap: "8px" }}>
+                <Input name="numero" placeholder="Número*" />
+                <Input name="piso" placeholder="Piso" />
+              </div>
+
               {inputs2.map((props) => (
                 <Input key={props.name} {...props} />
               ))}

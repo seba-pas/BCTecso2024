@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { PetDetailForPetOwner, PetDetailForShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, AllPets, AllShelter ,HomeShelter, ForgetPassword } from "./Pages";
+import { PetDetailForPetOwner, PetDetailForShelter, EmailRegistered, HomeMascotero, LoginMuma, PetPage, PetRegistration, RegisterShelter, SuccesScreen, SuccessSubmitPet, UserSelect, ValidationAccount, AllPets, AllShelter, HomeShelter, ForgetPassword, StartedScreen } from "./Pages";
 
 import RouteChangeLoader from "./components/SplashLoader/Routechange";
 import ProtectedRoute from "./components/ProtectedRoutes";
@@ -8,21 +8,22 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles/general.css";
 
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
-  const returnTextHome = () =>{
-    let id = user?.tipoRegistro?.id||0;
-    return id === 1 ? "/home_shelter" : "/home"
-  }
+  const returnTextHome = () => {
+    let id = user?.tipoRegistro?.id || 0;
+    return id === 1 ? "/home_shelter" : "/home";
+  };
   let routes = [
-    { path: "/", element: <LoginMuma /> },
+    { path: "/", element: localStorage.getItem("started") !== "true" ? <StartedScreen /> : <Navigate to="/login" replace={true} /> },
+    { path: "/login", element: <LoginMuma /> },
     { path: "/user_select", element: <UserSelect /> },
     { path: "/register_pet_owner", element: <PetRegistration /> },
     { path: "/validation_email", element: <ValidationAccount /> },
     { path: "/register_shelter", element: <RegisterShelter /> },
-    { path: "/forget_password" , element: <ForgetPassword /> },
+    { path: "/forget_password", element: <ForgetPassword /> },
     {
       path: "/pet_details_shelter/:id",
       element: (
