@@ -1,0 +1,18 @@
+.btn-large {
+    font-size: 14px;
+    padding-top: 13.5px !important;
+    padding-bottom: 13.5px !important;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    &:hover {
+        background-color: $primary-01;
+    }
+    &:active {
+        background-color: $primary-02 !important;
+    }
+    &:focus-visible {
+        background-color: $primary-02;
+        box-shadow: 0 0 0 0.25rem$primary-01;
+    }
+}

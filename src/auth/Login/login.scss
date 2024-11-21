@@ -1,0 +1,128 @@
+@use "../../sass/utils/variables" as var; 
+@import "node_modules/bootstrap/scss/bootstrap";
+
+  
+  .container-login {
+    width: 50% !important;
+    padding: 2rem;
+    text-align: center;
+   
+  }
+  
+  .logo-login {
+    width: 106.67px;
+    height: 99px;
+    margin-top: 153px;
+    margin-bottom: 100px;
+   
+}
+  
+.login-btn {
+  background-color: var.$primary-01 !important;
+}
+.btn-create {
+  background-color: var.$primary-04 !important;
+  color: var.$primary-01 !important;
+  border-color: var.$primary-01 !important;
+}
+  .form-control-password{
+      width: 100%;
+      padding-right: 80px;
+      background-color: var.$neutral-04 !important;
+      border: none !important;
+  }
+
+
+  
+
+   .container-pass {
+     position: relative;
+     width: 100%;
+   }
+
+
+  .toggle-visibility {
+    position: absolute;
+    top: 50%; 
+    right: 10px; 
+    transform: translateY(-50%); 
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+  
+  .forgot-password {
+    color: var.$secondary-01;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-left: auto;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  .img-eye {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none; 
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 100px;
+  }
+  
+  .container-recordarme {
+    display: flex;
+    font-size: 0.9rem;
+    accent-color: var.$secondary-01;
+    margin-bottom: 50px;
+  }
+  
+  .remember {
+    margin-right: 0.5rem;
+  }
+  
+  .bnt-container {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    position: relative;
+
+  }
+  
+
+ 
+  .container-icons{
+    display: flex;
+    flex-direction: column;
+  }
+
+   @media (max-width:800px){
+    .container-login {
+      width: 100% !important;
+      padding: 2rem;
+      text-align: center;
+    }
+
+
+   .remember-label, .forgot-password {
+     font-size: 14px ;
+   }
+
+    .img-eye{
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+
+    }
+
+  }
+     

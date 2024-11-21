@@ -1,0 +1,85 @@
+@use "../../sass/utils/variables" as var; 
+
+.container-pet{
+    display:flex;
+    flex-direction: column;
+    width: 50% !important;
+    border:none;
+    font-size: 14px;
+    font-family: "Montserrat Regular";
+    padding: 60px;
+   
+    
+}
+.title-pet{
+    margin-bottom: 20px;
+    color: var.$neutral-01;
+    line-height: 24px;
+}
+.btn-register {
+    justify-content: center; 
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 60px;
+    
+}
+
+.form-pet { 
+    background-color: var.$neutral-04 !important;
+    width: 100% !important;
+    height: 50px;
+    border:none !important;
+    top: 321px;
+    left: 16px;
+    gap: 0px;
+    border-radius: 10px 0px 0px 0px;
+    opacity: 0px;
+
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px; 
+}
+
+@media (max-width:800px) {
+    .container-pet{
+        width: 80% !important;
+    }
+}
+
+.position-relative {
+    position: relative;
+  }
+  
+  .with-icon {
+    padding-left: 45px !important; 
+    height: 40px;
+    font-size: 16px;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none !important; 
+  }
+
+  .form-pet.is-invalid {
+    padding-right: 60px;
+  }
+
+  .select-icon {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    width: 12px;
+    pointer-events: none; 
+  }

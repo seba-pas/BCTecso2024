@@ -1,0 +1,63 @@
+@use "../../sass/utils/variables" as var; 
+
+.img-size {
+    width: 250px;
+    height: auto;
+}
+
+.slick-dots {
+    bottom: -10px !important;
+    li {
+       margin: 0 !important;
+    }
+}
+
+.custom-dots li img {
+    content: url('../../assets/started-screen/dots/dot02.png');
+}
+  
+.custom-dots li.slick-active img {
+    content: url('../../assets/started-screen/dots/dot01.png');
+}
+
+.slider-container {
+    overflow: hidden;
+}
+
+.slide {
+    font-family: 'Montserrat-Regular';
+    .slide-title {
+        font-size: 22px;
+        line-height: 24px;
+        color: var.$neutral-01;
+        font-weight: bold;
+    }
+    .slide-text {
+        color: var.$text-slider;
+        font-size: 14px;
+    }
+}
+
+.area-button {
+    font-family: 'Montserrat-Regular';
+    .link {
+        font-size: 14px;
+        color: var.$secondary-01;
+        text-decoration: none;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
+    opacity: 0; // Comienza invisible
+    animation-fill-mode: forwards; // Mantiene la animación en el último estado
+}

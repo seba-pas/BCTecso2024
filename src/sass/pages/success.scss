@@ -1,0 +1,134 @@
+@use "../../sass/utils/variables" as var; 
+@use "../base/fonts" as font;
+
+.container-box {
+    width: 350px; 
+}
+
+.box {
+    font-family: 'Montserrat-Regular';
+    .box-image {
+        .img-dog {
+            z-index: 2;
+        }
+        .img-blur {
+            z-index: 1;
+            bottom: -100px;
+        }
+    }
+    .box-title {
+        font-size: 22px;
+        line-height: 24px;
+        color: var.$neutral-01;
+        font-weight: bold;
+        height: 48px;
+        align-content: center;
+    }
+    .box-text {
+        color: var.$text-slider;
+        font-size: 14px;
+    }
+}
+
+
+
+// .container-success{
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+//     padding: 4rem;
+ 
+// }
+
+// .container-text {
+//     width: 50%;
+//     display: flex;
+//     flex-direction: column;
+//     gap:10px;
+//     margin-bottom: 40px;
+//     text-align: center;
+   
+   
+  
+// }
+
+
+// .img-success {
+//     width: 300.56px;
+//     height: 414.83px;
+//     top:107px;
+//     left:56px;
+//     border-top-left-radius: 140.86px;
+//     border-top-right-radius: 140.86px;
+//     border-bottom-left-radius: 14.09px;
+//     border-bottom-right-radius: 14.09px;
+
+
+// }
+
+// .img-account{
+//     width: 250px;
+//     height: 393px;
+//     left: 55px;
+//     border-top-left-radius: 200px;
+//     border-top-right-radius: 200px;
+//     border-bottom-left-radius: 20px;
+//     border-bottom-right-radius: 20px;
+//     margin-bottom: 60px;
+    
+    
+// }
+
+// .title-main {
+//     width: 700;
+//     font-size: 22px;
+//     font-family: 'Montserrat-Regular';
+//     color: var.$neutral-01;
+//     line-height: 24px;
+//     font-weight: bold;
+//     text-align: center;
+  
+    
+// }
+
+// .paragraph-main{
+//     font-family: "Montserrat-Regular";
+//     color: var.$text-slider;
+//     font-size: 17px;
+  
+   
+// }
+
+// .btn-login {
+//     width: 198px;
+//     height: 50px;
+//     font-size: 14px;
+//     padding-top: 13.5px !important;
+//     padding-bottom: 13.5px !important;
+//     width: 198px;
+//     border-radius: 8px;
+//     background-color: var.$primary-01 !important;
+//     border: none;
+// }
+
+
+// @media (max-width:768px){
+
+//     .container-text{
+//         width: 100%;
+//     }
+
+//     .title-main {
+//     font-size: 5vw;
+//     text-align: left;
+
+//     }
+//     .paragraph-main{
+//       font-size: 4vw;
+//       text-align: left;
+
+//     }
+
+// }

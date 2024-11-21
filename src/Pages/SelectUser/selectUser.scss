@@ -1,0 +1,72 @@
+
+@use "../../sass/utils/variables" as var; 
+
+
+.container-rol {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: column;
+  
+}
+  
+.container-arriba, .container-abajo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .container-abajo{
+    left: 50px;
+    top: 35px;
+  }
+
+  .container-arriba {
+    left: -50px;
+    top: -35px;
+  }
+  
+  .btn-mascotero, .btn-protectora {
+    width: 153px;
+    height: 153px;
+    border-radius: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    position: relative;
+    padding: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .btn-mascotero {
+    background-color: var.$primary-03;
+  }
+  
+  .btn-protectora {
+    background-color: var.$primary-01;
+  }
+  
+  .title {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+ 
+  .puntos-arriba {
+    position: absolute;
+    top: -80px;
+    left: 100%;
+    transform: translateX(-70%) rotate(-5deg);
+  }
+  
+  .puntos-abajo {
+    position: absolute;
+    top: 70px; 
+    left: 50%;
+    transform: translateX(-50%) rotate(-15deg); 
+  }
+  

@@ -1,0 +1,72 @@
+@use "../../sass/utils/variables" as var; 
+
+.container-register{
+    display:flex;
+    flex-direction: column;
+    width: 50% !important;
+    border:none;
+    font-size: 16px;
+    font-family: "Montserrat Regular";
+    
+
+    
+}
+
+.img-register{
+    width: 106.67px;
+    height: 99px;
+    margin-inline: auto;
+    margin-top: 120px;
+    margin-bottom: 50px;
+}
+
+.btn-register {
+    justify-content: center; 
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 60px;
+    
+}
+
+.form-register { 
+    background-color: var.$neutral-04 !important;
+    width: 100% !important;
+    height: 50px;
+    border:none !important;
+    top: 321px;
+    left: 16px;
+    gap: 0px;
+    border-radius: 10px 0px 0px 0px;
+    opacity: 0px;
+
+}
+
+
+@media (max-width:800px) {
+    .container-register{
+        width: 80% !important;
+    }
+}
+
+
+.container-pass {
+   display: relative; 
+   
+}
+  
+  .toggle-visibility {
+    position: absolute;
+    right: 0;
+    top: 60%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+
+    color: var.$secondary-01;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-left: auto;
+  }
+  
